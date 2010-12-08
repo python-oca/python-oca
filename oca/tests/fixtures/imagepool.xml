@@ -1,0 +1,60 @@
+<IMAGE_POOL>
+    <IMAGE>
+        <ID>1</ID>
+        <UID>0</UID>
+        <USERNAME>oneadmin</USERNAME>
+        <NAME>MATLAB install CD</NAME>
+        <TYPE>1</TYPE>
+        <PUBLIC>0</PUBLIC>
+        <PERSISTENT>0</PERSISTENT>
+        <REGTIME>1287503867</REGTIME>
+        <SOURCE>/home/cmartin/trabajo/one.git/one/install/var//images/21df7c80e4357f20dc737e3f60dd7048ddc6a510</SOURCE>
+        <STATE>3</STATE>
+        <RUNNING_VMS>0</RUNNING_VMS>
+        <TEMPLATE>
+            <DESCRIPTION><![CDATA[Contains the MATLAB installation files. Mount it to install MATLAB on new OS images.]]></DESCRIPTION>
+            <DEV_PREFIX><![CDATA[hd]]></DEV_PREFIX>
+            <NAME><![CDATA[MATLAB install CD]]></NAME>
+            <PATH><![CDATA[/home/non_existent/images/matlab.iso]]></PATH>
+            <TYPE><![CDATA[CDROM]]></TYPE>
+        </TEMPLATE>
+    </IMAGE>
+    <IMAGE>
+        <ID>4</ID>
+        <UID>0</UID>
+        <USERNAME>oneadmin</USERNAME>
+        <NAME>A</NAME>
+        <TYPE>0</TYPE>
+        <PUBLIC>0</PUBLIC>
+        <PERSISTENT>0</PERSISTENT>
+        <REGTIME>1287503968</REGTIME>
+        <SOURCE>/home/cmartin/trabajo/one.git/one/install/var//images/259456c9ae128117780f6866e8df8d1010f13f76</SOURCE>
+        <STATE>3</STATE>
+        <RUNNING_VMS>0</RUNNING_VMS>
+        <TEMPLATE>
+            <DEV_PREFIX><![CDATA[hd]]></DEV_PREFIX>
+            <NAME><![CDATA[A]]></NAME>
+            <PATH><![CDATA[/home/carlos/trabajo/ttylinux/ttylinux.img]]></PATH>
+        </TEMPLATE>
+    </IMAGE>
+    <IMAGE>
+        <ID>5</ID>
+        <UID>0</UID>
+        <USERNAME>oneadmin</USERNAME>
+        <NAME>test_07</NAME>
+        <TYPE>2</TYPE>
+        <PUBLIC>0</PUBLIC>
+        <PERSISTENT>0</PERSISTENT>
+        <REGTIME>1287503984</REGTIME>
+        <SOURCE>/home/cmartin/trabajo/one.git/one/install/var//images/12db97fabdd3eed843eca5edb1f5845650e52af6</SOURCE>
+        <STATE>1</STATE>
+        <RUNNING_VMS>0</RUNNING_VMS>
+        <TEMPLATE>
+            <DEV_PREFIX><![CDATA[hd]]></DEV_PREFIX>
+            <FSTYPE><![CDATA[ext3]]></FSTYPE>
+            <NAME><![CDATA[test_07]]></NAME>
+            <SIZE><![CDATA[40]]></SIZE>
+            <TYPE><![CDATA[DATABLOCK]]></TYPE>
+        </TEMPLATE>
+    </IMAGE>
+</IMAGE_POOL>

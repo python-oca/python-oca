@@ -1,0 +1,10 @@
+setup.cfg
+setup.py
+oca/__init__.py
+oca/cluster.py
+oca/host.py
+oca/image.py
+oca/pool.py
+oca/user.py
+oca/virtualmachine.py
+oca/virtualnetwork.py
