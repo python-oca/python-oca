@@ -32,10 +32,6 @@ class XMLElement(object):
         except IndexError:
             raise AttributeError(name)
 
-    @property
-    def text(self):
-        return self.xml.text
-
     def convert_types(self):
         for name, fun in self.XML_TYPES.items():
             setattr(self, name, fun(self[name]))
@@ -63,7 +59,6 @@ class Pool(XMLPool):
     def info(self, *args):
         data = self.client.call(self.METHODS['info'], *args)
         self.initialize_xml(data, self.pool_name)
-        self.convert_types()
 
 
 class PoolElement(XMLElement):
@@ -74,7 +69,6 @@ class PoolElement(XMLElement):
     def info(self, *args):
         data = self.client.call(self.METHODS['info'], self.id)
         self.initialize_xml(data, self.element_name)
-        self.convert_types()
 
     def delete(self, *args):
         self.client.call(self.METHODS['delete'], self.id)

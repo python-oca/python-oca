@@ -60,9 +60,6 @@ class Client(object):
 
         self.server = xmlrpclib.ServerProxy(self.one_address)
 
-    def __getattr__(self, name):
-        return getattr(self.server.one, name)
-
     def call(self, method, *args):
         try:
             func = getattr(self.server.one, method)
