@@ -35,6 +35,23 @@ class Host(PoolElement):
 
     @staticmethod
     def allocate(client, hostname, im, vmm, tm):
+        '''
+        Adds a host to the host list
+
+        Arguments
+
+        ``hostname``
+           Hostname machine to add
+
+        ``im``
+           Information manager'
+
+        ``vmm``
+           Virtual machine manager.
+
+        ``tm``
+           Transfer manager
+        '''
         host_id = client.call(Host.METHODS['allocate'], hostname, im, vmm, tm)
         return host_id
 
@@ -44,17 +61,29 @@ class Host(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def enable(self):
+        '''
+        Enable this host
+        '''
         self.client.call(self.METHODS['enable'], self.id, True)
 
     def disable(self):
+        '''
+        Disable this host.
+        '''
         self.client.call(self.METHODS['enable'], self.id, False)
 
     @property
     def str_state(self):
+        '''
+        String representation of host state. One of 'INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED'
+        '''
         return self.HOST_STATES[int(self.state)]
 
     @property
     def short_state(self):
+        '''
+        Short string representation of host state. One of 'on', 'off', 'err'
+        '''
         return self.SHORT_HOST_STATES[self.str_state]
 
     def __repr__(self):

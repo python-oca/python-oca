@@ -57,6 +57,9 @@ class Pool(XMLPool):
         self.client = client
 
     def info(self, *args):
+        '''
+        Retrives/Refreshes pool information
+        '''
         data = self.client.call(self.METHODS['info'], *args)
         self.initialize_xml(data, self.pool_name)
 
@@ -70,6 +73,9 @@ class PoolElement(XMLElement):
         data = self.client.call(self.METHODS['info'], self.id)
         self.initialize_xml(data, self.element_name)
 
-    def delete(self, *args):
+    def delete(self):
+        '''
+        Deletes current object from the pool
+        '''
         self.client.call(self.METHODS['delete'], self.id)
 

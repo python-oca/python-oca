@@ -19,6 +19,17 @@ class User(PoolElement):
 
     @staticmethod
     def allocate(client, user, password):
+        '''
+        allocates a new user in OpenNebula
+
+        Arguments
+
+        ``user``
+           username for the new user
+
+        ``password``
+           password for the new user
+        '''
         user_id = client.call(User.METHODS['allocate'], user, password)
         return user_id
 
@@ -28,6 +39,14 @@ class User(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def change_passwd(self, new_password):
+        '''
+        Changes the password for the given user.
+
+        Arguments
+
+        ``new_password``
+           The new password
+        '''
         self.client.call(User.METHODS['passwd'], self.id, new_password)
 
     def __repr__(self):

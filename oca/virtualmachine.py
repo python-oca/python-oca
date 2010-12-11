@@ -80,6 +80,14 @@ class VirtualMachine(PoolElement):
 
     @staticmethod
     def allocate(client, template):
+        '''
+        allocates a virtual machine description from the given template string
+
+        Arguments
+
+        ```template```
+           a string containing the template of the vm
+        '''
         vm_id = client.call(VirtualMachine.METHODS['allocate'], template)
         return vm_id
 
@@ -89,51 +97,103 @@ class VirtualMachine(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def deploy(self, host_id):
+        '''
+        initiates the instance of the given vmid on the target host
+
+        Arguments
+
+        ```host_id```
+           the host id (hid) of the target host where the VM will be instantiated.
+        '''
         self.client.call(self.METHODS['deploy'], self.id, host_id)
 
     def migrate(self, dest_host):
+        '''
+        migrates virtual machine to the target host
+
+        Arguments
+
+        ```dest_host```
+           the target host id
+        '''
         self.client.call(self.METHODS['migrate'], self.id, dest_host, False)
 
     def live_migrate(self, dest_host):
+        '''
+        live migrates virtual machine to the target host
+
+        Arguments
+
+        ```dest_host```
+           the target host id
+        '''
         self.client.call(self.METHODS['migrate'], self.id, dest_host, True)
 
     def save_disk(self, disk_id, dest_disk):
+        '''
+        Sets the disk to be saved in the given image
+
+        Arguments
+
+        ```disk_id```
+           disk id of the disk we want to save
+        ``dest_disk``
+           image id where the disk will be saved.
+        '''
         self.client.call(self.METHODS['savedisk'], self.id, disk_id, dest_disk)
 
     def shutdown(self):
-        # Shutdowns an already deployed VM
+        '''
+        Shutdowns an already deployed VM
+        '''
         self._action('shutdown')
 
     def cancel(self):
-        # Cancels a running VM
+        '''
+        Cancels a running VM
+        '''
         self._action('cancel')
 
     def hold(self):
-        # Sets a VM to hold state, scheduler will not deploy it
+        '''
+        Sets a VM to hold state, scheduler will not deploy it
+        '''
         self._action('hold')
 
     def release(self):
-        # Releases a VM from hold state
+        '''
+        Releases a VM from hold state
+        '''
         self._action('release')
 
     def stop(self):
-        # Stops a running VM
+        '''
+        Stops a running VM
+        '''
         self._action('stop')
 
     def suspend(self):
-        # Saves a running VM
+        '''
+        Saves a running VM
+        '''
         self._action('suspend')
 
     def resume(self):
-        # Resumes the execution of a saved VM
+        '''
+        Resumes the execution of a saved VM
+        '''
         self._action('resume')
 
     def finalize(self):
-        # Deletes a VM from the pool and DB
+        '''
+        Deletes a VM from the pool and DB
+        '''
         self._action('finalize')
 
     def restart(self):
-        # Resubmits the VM after failure
+        '''
+        Resubmits the VM after failure
+        '''
         self._action('restart')
 
     def _action(self, action):
@@ -144,18 +204,37 @@ class VirtualMachine(PoolElement):
 
     @property
     def str_state(self):
+        '''
+        String representation of virtual machine state.
+        One of 'INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED', 'SUSPENDED', 'DONE', 'FAILED'
+        '''
         return self.VM_STATE[int(self.state)]
 
     @property
     def short_state(self):
+        '''
+        Short string representation of virtual machine state.
+        One of 'init', 'pend', 'hold', 'actv', 'stop', 'susp', 'done', 'fail'
+        '''
         return self.SHORT_VM_STATES[self.str_state]
 
     @property
     def str_lcm_state(self):
+        '''
+        String representation of virtual machine LCM state.
+        One of 'LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE', 'SAVE_STOP', 'SAVE_SUSPEND',
+               'SAVE_MIGRATE', 'PROLOG_MIGRATE', 'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG',
+               'SHUTDOWN', 'CANCEL', 'FAILURE', 'DELETE', 'UNKNOWN'
+        '''
         return self.LCM_STATE[int(self.lcm_state)]
 
     @property
     def short_lcm_state(self):
+        '''
+        Short string representation of virtual machine LCM state.
+        One of 'init', 'prol', 'boot', 'runn', 'migr', 'save', 'save', 'save', 'migr', 'prol',
+               'epil', 'epil', 'shut', 'shut', 'fail', 'dele', 'unkn'
+        '''
         return self.SHORT_LCM_STATES[self.str_lcm_state]
 
 

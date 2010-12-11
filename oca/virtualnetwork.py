@@ -23,6 +23,14 @@ class VirtualNetwork(PoolElement):
 
     @staticmethod
     def allocate(client, template):
+        '''
+        allocates a new virtual network in OpenNebula
+
+        Arguments
+
+        ``template``
+           a string containing the template of the virtual network
+        '''
         vn_id = client.call(VirtualNetwork.METHODS['allocate'], template)
         return vn_id
 
@@ -32,9 +40,15 @@ class VirtualNetwork(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def publish(self):
+        '''
+        Publishes a virtual network.
+        '''
         self.client.call(self.METHODS['publish'], True)
 
     def unpublish(self):
+        '''
+        Unpublishes a virtual network.
+        '''
         self.client.call(self.METHODS['publish'], False)
 
     def __repr__(self):

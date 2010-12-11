@@ -46,6 +46,17 @@ class Image(PoolElement):
 
     @staticmethod
     def allocate(client, template):
+        '''
+        Allocates a new image in OpenNebula
+
+        Arguments
+
+        ``client``
+           oca.Client object
+
+        ``template``
+           a string containing the template of the image
+        '''
         image_id = client.call(Image.METHODS['allocate'], template)
         return image_id
 
@@ -55,37 +66,84 @@ class Image(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def update(self, attr, value):
+        '''
+        Modifies an image attribute
+
+        Arguments
+
+        ``attr``
+           the name of the attribute to update
+
+        ``value``
+           the new value for the attribute
+        '''
         self.client.call(self.METHODS['update'], self.id, attr, value)
 
     def rmattr(self, attr):
+        '''
+        Removes an image attribute
+
+        Arguments
+
+        ``attr``
+           the name of the attribute to remove
+        '''
         self.client.call(self.METHODS['rmattr'], self.id, attr)
 
     def enable(self):
+        '''
+        Enables an image
+        '''
         data = self.client.call(self.METHODS['enable'], self.id, True)
 
     def disable(self):
+        '''
+        Disables an image
+        '''
         data = self.client.call(self.METHODS['enable'], self.id, False)
 
     def publish(self):
+        '''
+        Publishes an image
+        '''
         data = self.client.call(self.METHODS['publish'], self.id, True)
 
     def unpublish(self):
+        '''
+        Unpublishes an image
+        '''
         data = self.client.call(self.METHODS['publish'], self.id, False)
 
     @property
     def str_state(self):
+        '''
+        String representation of image state.
+        One of 'INIT', 'READY', 'USED', 'DISABLED'
+        '''
         return self.IMAGE_STATES[int(self.state)]
 
     @property
     def short_state(self):
+        '''
+        Short string representation of image state.
+        One of 'init', 'rdy', 'used', 'disa'
+        '''
         return self.SHORT_IMAGE_STATES[self.str_state]
 
     @property
     def str_type(self):
+        '''
+        String representation of image type.
+        One of 'OS', 'CDROM', 'DATABLOCK'
+        '''
         return self.IMAGE_TYPES[int(self.type)]
 
     @property
     def short_type(self):
+        '''
+        Short string representation of image type.
+        One of 'OS', 'CD', 'DB'
+        '''
         return self.SHORT_IMAGE_TYPES[self.str_type]
 
     def __repr__(self):
