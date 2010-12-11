@@ -21,6 +21,10 @@ class OpenNebulaException(Exception):
 
 
 class Client(object):
+    '''
+    The client class, represents the connection with the core and handles the
+    xml-rpc calls(see http://www.opennebula.org/documentation:rel2.0:api)
+    '''
     DEFAULT_ONE_AUTH = "~/.one/one_auth"
     ONE_AUTH_RE = re.compile('^(.+?):(.+)$')
     DEFAULT_ONE_ADDRESS = "http://localhost:2633/RPC2"
@@ -60,9 +64,21 @@ class Client(object):
 
         self.server = xmlrpclib.ServerProxy(self.one_address)
 
-    def call(self, method, *args):
+    def call(self, function, *args):
+        '''
+        Calls rpc function.
+
+        Arguments
+
+        ``function``
+           OpenNebula xmlrpc funtcion name (without preceding 'one.')
+
+        ``args``
+           function arguments
+
+        '''
         try:
-            func = getattr(self.server.one, method)
+            func = getattr(self.server.one, function)
             ret = func(self.one_auth, *args)
             try:
                 return_code, data = ret
