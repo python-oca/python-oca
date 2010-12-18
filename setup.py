@@ -3,7 +3,8 @@ __version__ = '0.1.1'
 
 import os
 
-from distutils.core import setup
+#from distutils.core import setup
+from setuptools import setup
 
 #borrowed from Pylons project
 here = os.path.abspath(os.path.dirname(__file__))
