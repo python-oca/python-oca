@@ -45,7 +45,10 @@ class XMLPool(XMLElement):
         pass
 
     def __iter__(self):
-        return [self.factory(i) for i in self.xml].__iter__()
+        if self.xml:
+            return [self.factory(i) for i in self.xml].__iter__()
+        else:
+            return [].__iter__()
 
 
 class Pool(XMLPool):
