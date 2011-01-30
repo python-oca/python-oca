@@ -2,6 +2,37 @@
 import xml.etree.ElementTree as ET
 
 
+class Template(object):
+    def __init__(self, xml_element):
+        self.MULTI_TAGS = {
+                'DISK' : self.parse_disks,
+                'NIC' : self.parse_nics
+                }
+        self.xml = ET.tostring(xml_element)
+        self.xml_element = xml_element
+        self.parse()
+
+    def parse(self):
+        for element in self.xml_element:
+            tag = element.tag
+            if tag in self.MULTI_TAGS.keys():
+                self.MULTI_TAGS[tag](element)
+            else:
+                setattr(self, tag.lower(), element.text)
+
+    def parse_disks(self, element):
+        self.disks = getattr(self, 'disks', [])
+        class Disk(Template):
+            pass
+        self.disks.append(Disk(element))
+
+    def parse_nics(self, element):
+        self.nics = getattr(self, 'nics', [])
+        class Nic(Template):
+            pass
+        self.nics.append(Nic(element))
+
+
 class XMLElement(object):
     XML_TYPES = {}
 
@@ -35,6 +66,9 @@ class XMLElement(object):
     def convert_types(self):
         for name, fun in self.XML_TYPES.items():
             setattr(self, name, fun(self[name]))
+        template = self.xml.find('TEMPLATE')
+        if template is not None:
+            self.template = Template(template)
 
 
 class XMLPool(XMLElement):
