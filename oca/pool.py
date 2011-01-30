@@ -1,6 +1,16 @@
 # -*- coding: UTF-8 -*-
 import xml.etree.ElementTree as ET
 
+from exceptions import OpenNebulaException
+
+
+class WrongNameError(OpenNebulaException):
+    pass
+
+
+class WrongIdError(OpenNebulaException):
+    pass
+
 
 class Template(object):
     def __init__(self, xml_element):
@@ -99,6 +109,18 @@ class Pool(XMLPool):
         '''
         data = self.client.call(self.METHODS['info'], *args)
         self.initialize_xml(data, self.pool_name)
+
+    def get_by_id(self, id):
+        for i in self:
+            if i.id == id:
+                return i
+        raise WrongIdError()
+
+    def get_by_name(self, name):
+        for i in self:
+            if i.name == name:
+                return i
+        raise WrongNameError()
 
 
 class PoolElement(XMLElement):

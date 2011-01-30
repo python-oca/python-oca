@@ -11,14 +11,11 @@ from cluster import Cluster, ClusterPool
 from user import User, UserPool
 from image import Image, ImagePool
 from virtualnetwork import VirtualNetwork, VirtualNetworkPool
+from exceptions import OpenNebulaException
 
 
 ALL = -2
 CONNECTED = -1
-
-
-class OpenNebulaException(Exception):
-    pass
 
 
 class Client(object):
