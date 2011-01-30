@@ -24,7 +24,6 @@ class Image(PoolElement):
             'source'      : str,
             'state'       : int,
             'running_vms' : int,
-            'template'    : ET.tostring,
     }
 
     IMAGE_STATES = ['INIT', 'READY', 'USED', 'DISABLED']

@@ -75,7 +75,6 @@ class VirtualMachine(PoolElement):
         'net_tx'       : int,
         'net_rx'       : int,
         'last_seq'     : int,
-        'template'     : ET.tostring,
     }
 
     @staticmethod

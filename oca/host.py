@@ -30,7 +30,6 @@ class Host(PoolElement):
         'last_mon_time' : int,
         'cluster'       : str,
         'host_share'    : ET.tostring,
-        'template'      : ET.tostring,
     }
 
     @staticmethod

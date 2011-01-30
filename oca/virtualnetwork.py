@@ -17,7 +17,6 @@ class VirtualNetwork(PoolElement):
             'type'     : int,
             'bridge'   : str,
             'public'   : bool,
-            'template' : ET.tostring,
             'leases'   : ET.tostring,
     }
 
