@@ -1,3 +1,12 @@
+0.2 (2011-02-15)
+================
+
+Features
+--------
+
+- Each Pool class has now get_by_id and get_by_name methods 
+- Templates are now stored in Template class and are  available by `template` varialbe
+
 0.1 (2010-12-08)
 ================
 
