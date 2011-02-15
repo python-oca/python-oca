@@ -3,6 +3,7 @@ from mock import Mock
 from nose.tools import raises
 
 from oca import Client, VirtualMachine
+from oca.pool import Template
 
 
 class TestUser:
@@ -46,8 +47,6 @@ class TestUser:
         vm['wrong_name']
 
     def test_convert_types(self):
-        self.xml = self.xml.replace('\n', '')
-        self.xml = self.xml.replace(' ', '')
         vm = VirtualMachine(self.xml, self.client)
         vm.convert_types()
         assert vm.name == 'vm-example'
@@ -62,7 +61,7 @@ class TestUser:
         assert vm.cpu == 1
         assert vm.net_tx == 12345
         assert vm.net_rx == 0
-        assert isinstance(vm.template, str)
+        assert isinstance(vm.template, Template)
 
     def test_allocate(self):
         self.client.call = Mock(return_value=3)

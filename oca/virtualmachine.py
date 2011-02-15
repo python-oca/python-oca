@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, ET
+from pool import Pool, PoolElement, Template
 
 
 class VirtualMachine(PoolElement):
@@ -75,6 +75,7 @@ class VirtualMachine(PoolElement):
         'net_tx'       : int,
         'net_rx'       : int,
         'last_seq'     : int,
+        'template'     : ['TEMPLATE', Template],
     }
 
     @staticmethod

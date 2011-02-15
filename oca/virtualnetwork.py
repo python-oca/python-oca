@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, ET
+from pool import Pool, PoolElement
 
 
 class VirtualNetwork(PoolElement):
@@ -17,7 +17,6 @@ class VirtualNetwork(PoolElement):
             'type'     : int,
             'bridge'   : str,
             'public'   : bool,
-            'leases'   : ET.tostring,
     }
 
     @staticmethod

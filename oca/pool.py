@@ -75,10 +75,12 @@ class XMLElement(object):
 
     def convert_types(self):
         for name, fun in self.XML_TYPES.items():
-            setattr(self, name, fun(self[name]))
-        template = self.xml.find('TEMPLATE')
-        if template is not None:
-            self.template = Template(template)
+            if isinstance(fun, list):
+                tag, cls = fun
+                xml = self.xml.find(tag)
+                setattr(self, name, cls(xml))
+            else:
+                setattr(self, name, fun(self[name]))
 
 
 class XMLPool(XMLElement):

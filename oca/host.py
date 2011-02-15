@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, ET
+from pool import Pool, PoolElement, Template
 
 
 class Host(PoolElement):
@@ -29,7 +29,8 @@ class Host(PoolElement):
         'tm_mad'        : str,
         'last_mon_time' : int,
         'cluster'       : str,
-        'host_share'    : ET.tostring,
+        'template'      : ['TEMPLATE', Template],
+        'host_share'    : ['HOST_SHARE', Template],
     }
 
     @staticmethod
