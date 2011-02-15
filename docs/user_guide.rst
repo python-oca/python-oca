@@ -10,10 +10,7 @@ Allocating new host::
    new_host_id = oca.Host.allocate(client, 'host_name', 'im_xen', 'vmm_xen', 'tm_nfs')
    hostpool = oca.HostPool(client)
    hostpool.info()
-   for i in hostpool:
-       if i.id == new_host_id:
-           vm = i
-           break
+   vm = hostpool.get_by_id(new_host_id)
    print vm.name, vm.str_state
 
 
