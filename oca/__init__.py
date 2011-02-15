@@ -6,11 +6,11 @@ import re
 import socket
 
 from host import Host, HostPool
-from virtualmachine import VirtualMachine, VirtualMachinePool
+from vm import VirtualMachine, VirtualMachinePool
 from cluster import Cluster, ClusterPool
 from user import User, UserPool
 from image import Image, ImagePool
-from virtualnetwork import VirtualNetwork, VirtualNetworkPool
+from vn import VirtualNetwork, VirtualNetworkPool
 from exceptions import OpenNebulaException
 
 
