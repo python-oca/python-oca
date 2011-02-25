@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, ET
+from pool import Pool, PoolElement, Template
 
 
 class Image(PoolElement):
@@ -24,6 +24,7 @@ class Image(PoolElement):
             'source'      : str,
             'state'       : int,
             'running_vms' : int,
+            'template'     : ['TEMPLATE', Template],
     }
 
     IMAGE_STATES = ['INIT', 'READY', 'USED', 'DISABLED']

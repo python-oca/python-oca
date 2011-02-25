@@ -2,6 +2,7 @@
 from mock import Mock
 
 from oca import Client, Image
+from oca.pool import Template
 
 
 IMAGE_TEMPLATE = '''NAME          = "Ubuntu Desktop"
@@ -64,4 +65,10 @@ class TestImage:
             h = Image('<IMAGE><ID>2</ID><TYPE>%s</TYPE></IMAGE>' % i, self.client)
             assert h.str_type == Image.IMAGE_TYPES[i]
             assert h.short_type == Image.SHORT_IMAGE_TYPES[Image.IMAGE_TYPES[i]]
+
+    def test_template(self):
+        i = Image(self.xml, self.client)
+        i.convert_types()
+        assert isinstance(i.template, Template)
+
 
