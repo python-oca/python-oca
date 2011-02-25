@@ -1,3 +1,11 @@
+0.2.1 (2011-02-25)
+================
+
+Fixes
+--------
+
+- For Image objects variable template has now correct value.
+
 0.2 (2011-02-15)
 ================
 
