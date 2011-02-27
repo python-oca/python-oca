@@ -18,6 +18,7 @@ setup(name = 'oca',
     version=__version__,
     description='Bindings for XMLRPC OpenNebula Cloud API',
     long_description=README + '\n\n' + CHANGES,
+    test_suite = 'nose.collector',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: Apache Software License',
