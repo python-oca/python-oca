@@ -13,7 +13,8 @@ class VirtualMachine(PoolElement):
         'delete'   : 'vm.delete',
     }
 
-    VM_STATE = ['INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED', 'SUSPENDED', 'DONE', 'FAILED']
+    VM_STATE = ['INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED',
+                'SUSPENDED', 'DONE', 'FAILED']
 
     SHORT_VM_STATES = {
         'INIT'      : 'init',
@@ -26,9 +27,10 @@ class VirtualMachine(PoolElement):
         'FAILED'    : 'fail'
     }
 
-    LCM_STATE = ['LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE', 'SAVE_STOP', 'SAVE_SUSPEND',
-                 'SAVE_MIGRATE', 'PROLOG_MIGRATE', 'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG',
-                 'SHUTDOWN', 'CANCEL', 'FAILURE', 'DELETE', 'UNKNOWN',]
+    LCM_STATE = ['LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE',
+                 'SAVE_STOP', 'SAVE_SUSPEND', 'SAVE_MIGRATE',
+                 'PROLOG_MIGRATE', 'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG',
+                 'SHUTDOWN', 'CANCEL', 'FAILURE', 'DELETE', 'UNKNOWN']
 
     SHORT_LCM_STATES = {
         'LCM_INIT'      : 'init',
@@ -103,7 +105,8 @@ class VirtualMachine(PoolElement):
         Arguments
 
         ```host_id```
-           the host id (hid) of the target host where the VM will be instantiated.
+           the host id (hid) of the target host where the VM will be
+           instantiated.
         '''
         self.client.call(self.METHODS['deploy'], self.id, host_id)
 
@@ -206,7 +209,8 @@ class VirtualMachine(PoolElement):
     def str_state(self):
         '''
         String representation of virtual machine state.
-        One of 'INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED', 'SUSPENDED', 'DONE', 'FAILED'
+        One of 'INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED', 'SUSPENDED',
+        'DONE', 'FAILED'
         '''
         return self.VM_STATE[int(self.state)]
 
@@ -222,9 +226,10 @@ class VirtualMachine(PoolElement):
     def str_lcm_state(self):
         '''
         String representation of virtual machine LCM state.
-        One of 'LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE', 'SAVE_STOP', 'SAVE_SUSPEND',
-               'SAVE_MIGRATE', 'PROLOG_MIGRATE', 'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG',
-               'SHUTDOWN', 'CANCEL', 'FAILURE', 'DELETE', 'UNKNOWN'
+        One of 'LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE',
+        'SAVE_STOP', 'SAVE_SUSPEND', 'SAVE_MIGRATE', 'PROLOG_MIGRATE',
+        'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG', 'SHUTDOWN', 'CANCEL',
+        'FAILURE', 'DELETE', 'UNKNOWN'
         '''
         return self.LCM_STATE[int(self.lcm_state)]
 
@@ -232,8 +237,9 @@ class VirtualMachine(PoolElement):
     def short_lcm_state(self):
         '''
         Short string representation of virtual machine LCM state.
-        One of 'init', 'prol', 'boot', 'runn', 'migr', 'save', 'save', 'save', 'migr', 'prol',
-               'epil', 'epil', 'shut', 'shut', 'fail', 'dele', 'unkn'
+        One of 'init', 'prol', 'boot', 'runn', 'migr', 'save', 'save',
+        'save', 'migr', 'prol', 'epil', 'epil', 'shut', 'shut', 'fail',
+        'dele', 'unkn'
         '''
         return self.SHORT_LCM_STATES[self.str_lcm_state]
 

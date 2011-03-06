@@ -32,14 +32,18 @@ class Template(object):
 
     def parse_disks(self, element):
         self.disks = getattr(self, 'disks', [])
+
         class Disk(Template):
             pass
+
         self.disks.append(Disk(element))
 
     def parse_nics(self, element):
         self.nics = getattr(self, 'nics', [])
+
         class Nic(Template):
             pass
+
         self.nics.append(Nic(element))
 
 

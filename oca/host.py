@@ -75,7 +75,8 @@ class Host(PoolElement):
     @property
     def str_state(self):
         '''
-        String representation of host state. One of 'INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED'
+        String representation of host state.
+        One of 'INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED'
         '''
         return self.HOST_STATES[int(self.state)]
 

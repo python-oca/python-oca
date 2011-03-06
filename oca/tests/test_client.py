@@ -14,7 +14,8 @@ class TestClient:
         os.environ["ONE_AUTH"] = 'fixtures/one_auth'
         try:
             c = Client()
-            assert c.one_auth == 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+            secret = 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+            assert c.one_auth == secret
         finally:
             os.environ["ONE_AUTH"] = ''
 

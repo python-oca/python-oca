@@ -94,25 +94,25 @@ class Image(PoolElement):
         '''
         Enables an image
         '''
-        data = self.client.call(self.METHODS['enable'], self.id, True)
+        self.client.call(self.METHODS['enable'], self.id, True)
 
     def disable(self):
         '''
         Disables an image
         '''
-        data = self.client.call(self.METHODS['enable'], self.id, False)
+        self.client.call(self.METHODS['enable'], self.id, False)
 
     def publish(self):
         '''
         Publishes an image
         '''
-        data = self.client.call(self.METHODS['publish'], self.id, True)
+        self.client.call(self.METHODS['publish'], self.id, True)
 
     def unpublish(self):
         '''
         Unpublishes an image
         '''
-        data = self.client.call(self.METHODS['publish'], self.id, False)
+        self.client.call(self.METHODS['publish'], self.id, False)
 
     @property
     def str_state(self):

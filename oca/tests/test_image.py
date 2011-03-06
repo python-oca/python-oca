@@ -52,9 +52,11 @@ class TestImage:
 
     def test_states(self):
         for i in range(len(Image.IMAGE_STATES)):
-            h = Image('<IMAGE><ID>2</ID><STATE>%s</STATE></IMAGE>' % i, self.client)
+            h = Image('<IMAGE><ID>2</ID><STATE>%s</STATE></IMAGE>' % i,
+                      self.client)
             assert h.str_state == Image.IMAGE_STATES[i]
-            assert h.short_state == Image.SHORT_IMAGE_STATES[Image.IMAGE_STATES[i]]
+            short_image_state = Image.SHORT_IMAGE_STATES[Image.IMAGE_STATES[i]]
+            assert h.short_state == short_image_state
 
     def test_repr(self):
         h = Image(self.xml, self.client)
@@ -62,9 +64,11 @@ class TestImage:
 
     def test_types(self):
         for i in range(len(Image.IMAGE_TYPES)):
-            h = Image('<IMAGE><ID>2</ID><TYPE>%s</TYPE></IMAGE>' % i, self.client)
+            h = Image('<IMAGE><ID>2</ID><TYPE>%s</TYPE></IMAGE>' % i,
+                    self.client)
             assert h.str_type == Image.IMAGE_TYPES[i]
-            assert h.short_type == Image.SHORT_IMAGE_TYPES[Image.IMAGE_TYPES[i]]
+            short_image_type = Image.SHORT_IMAGE_TYPES[Image.IMAGE_TYPES[i]]
+            assert h.short_type == short_image_type
 
     def test_template(self):
         i = Image(self.xml, self.client)

@@ -30,7 +30,7 @@ class Client(object):
     def __init__(self, secret=None, address=None):
         if secret:
             one_secret = secret
-        elif os.environ.has_key("ONE_AUTH") and os.environ["ONE_AUTH"]:
+        elif "ONE_AUTH" in os.environ and os.environ["ONE_AUTH"]:
             one_auth = os.path.expanduser(os.environ["ONE_AUTH"])
             try:
                 f = open(one_auth)
@@ -61,7 +61,7 @@ class Client(object):
 
         if address:
             self.one_address = address
-        elif os.environ.has_key("ONE_XMLRPC") and os.environ["ONE_XMLRPC"]:
+        elif "ONE_XMLRPC" in os.environ and os.environ["ONE_XMLRPC"]:
             self.one_address = os.environ["ONE_XMLRPC"]
         else:
             self.one_address = self.DEFAULT_ONE_ADDRESS

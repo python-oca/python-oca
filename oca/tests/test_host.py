@@ -11,7 +11,9 @@ class TestHost:
 
     def test_allocate(self):
         self.client.call = Mock(return_value=7)
-        assert Host.allocate(self.client, 'host', 'im_xen', 'vmm_xen', 'tm_nfs') == 7
+        host_id = Host.allocate(self.client, 'host', 'im_xen',
+                               'vmm_xen', 'tm_nfs')
+        assert host_id == 7
 
     def test_enable(self):
         self.client.call = Mock(return_value='')
@@ -25,7 +27,8 @@ class TestHost:
 
     def test_states(self):
         for i in range(len(Host.HOST_STATES)):
-            h = Host('<HOST><ID>2</ID><STATE>%s</STATE></HOST>' % i, self.client)
+            h = Host('<HOST><ID>2</ID><STATE>%s</STATE></HOST>' % i,
+                     self.client)
             assert h.str_state == Host.HOST_STATES[i]
             assert h.short_state == Host.SHORT_HOST_STATES[Host.HOST_STATES[i]]
 

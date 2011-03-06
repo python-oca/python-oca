@@ -85,7 +85,7 @@ class TestUser:
     def test_save_disk(self):
         self.client.call = Mock(return_value='')
         vm = VirtualMachine(self.xml, self.client)
-        assert vm.save_disk(1,2) is None
+        assert vm.save_disk(1, 2) is None
 
     def test_actions(self):
         client = Client('test:test')
@@ -101,13 +101,17 @@ class TestUser:
 
     def test_states(self):
         for i in range(len(VirtualMachine.VM_STATE)):
-            vm = VirtualMachine('<VM><ID>2</ID><STATE>%s</STATE></VM>' % i, self.client)
+            vm = VirtualMachine('<VM><ID>2</ID><STATE>%s</STATE></VM>' % i,
+                                self.client)
             assert vm.str_state == VirtualMachine.VM_STATE[i]
-            assert vm.short_state == VirtualMachine.SHORT_VM_STATES[VirtualMachine.VM_STATE[i]]
+            state = VirtualMachine.SHORT_VM_STATES[VirtualMachine.VM_STATE[i]]
+            assert vm.short_state == state
 
     def test_lcm_states(self):
         for i in range(len(VirtualMachine.LCM_STATE)):
-            vm = VirtualMachine('<VM><ID>2</ID><LCM_STATE>%s</LCM_STATE></VM>' % i, self.client)
+            xml = '<VM><ID>2</ID><LCM_STATE>%s</LCM_STATE></VM>' % i
+            vm = VirtualMachine(xml, self.client)
             assert vm.str_lcm_state == VirtualMachine.LCM_STATE[i]
-            assert vm.short_lcm_state == VirtualMachine.SHORT_LCM_STATES[VirtualMachine.LCM_STATE[i]]
+            lcm = VirtualMachine.SHORT_LCM_STATES[VirtualMachine.LCM_STATE[i]]
+            assert vm.short_lcm_state == lcm
 
