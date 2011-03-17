@@ -6,7 +6,7 @@ from oca import Client, VirtualMachine
 from oca.pool import Template
 
 
-class TestUser:
+class TestVirtualMachine:
     def setUp(self):
         self.client = Client('test:test')
         self.xml = open('fixtures/vm.xml').read()
