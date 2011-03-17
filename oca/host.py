@@ -33,6 +33,8 @@ class Host(PoolElement):
         'host_share'    : ['HOST_SHARE', Template],
     }
 
+    ELEMENT_NAME = 'HOST'
+
     @staticmethod
     def allocate(client, hostname, im, vmm, tm):
         '''
@@ -57,7 +59,6 @@ class Host(PoolElement):
 
     def __init__(self, xml, client):
         super(Host, self).__init__(xml, client)
-        self.element_name = 'HOST'
         self.id = self['ID'] if self['ID'] else None
 
     def enable(self):

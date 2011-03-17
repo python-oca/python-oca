@@ -17,6 +17,8 @@ class User(PoolElement):
             'enabled'  : bool,
     }
 
+    ELEMENT_NAME = 'USER'
+
     @staticmethod
     def allocate(client, user, password):
         '''
@@ -35,7 +37,6 @@ class User(PoolElement):
 
     def __init__(self, xml, client):
         super(User, self).__init__(xml, client)
-        self.element_name = 'USER'
         self.id = self['ID'] if self['ID'] else None
 
     def change_passwd(self, new_password):

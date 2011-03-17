@@ -134,9 +134,27 @@ class PoolElement(XMLElement):
         super(PoolElement, self).__init__(xml)
         self.client = client
 
+    @classmethod
+    def new_with_id(cls, client, element_id):
+        '''
+        Retrives object which id equals ```id```.
+
+        Arguments
+
+        ```client```
+           oca.Client object.
+        ```element_id``
+           object id.
+        '''
+        element = cls.ELEMENT_NAME
+        xml = '<{0}><ID>{1}</ID></{0}>'.format(element, element_id)
+        obj = cls(xml, client)
+        obj.id = int(obj.id)
+        return obj
+
     def info(self, *args):
         data = self.client.call(self.METHODS['info'], self.id)
-        self.initialize_xml(data, self.element_name)
+        self.initialize_xml(data, self.ELEMENT_NAME)
 
     def delete(self):
         '''

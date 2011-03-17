@@ -19,6 +19,8 @@ class VirtualNetwork(PoolElement):
             'public'   : bool,
     }
 
+    ELEMENT_NAME = 'VNET'
+
     @staticmethod
     def allocate(client, template):
         '''
@@ -34,7 +36,6 @@ class VirtualNetwork(PoolElement):
 
     def __init__(self, xml, client):
         super(VirtualNetwork, self).__init__(xml, client)
-        self.element_name = 'VNET'
         self.id = self['ID'] if self['ID'] else None
 
     def publish(self):

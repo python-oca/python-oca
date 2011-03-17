@@ -16,6 +16,8 @@ class Cluster(PoolElement):
             'name'     : str,
     }
 
+    ELEMENT_NAME = 'CLUSTER'
+
     @staticmethod
     def allocate(client, name):
         '''
@@ -34,7 +36,6 @@ class Cluster(PoolElement):
 
     def __init__(self, xml, client):
         super(Cluster, self).__init__(xml, client)
-        self.element_name = 'CLUSTER'
         self.id = self['ID'] if self['ID'] else None
 
     def add(self, host_id):

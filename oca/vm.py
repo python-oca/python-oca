@@ -80,6 +80,8 @@ class VirtualMachine(PoolElement):
         'template'     : ['TEMPLATE', Template],
     }
 
+    ELEMENT_NAME = 'VM'
+
     @staticmethod
     def allocate(client, template):
         '''
@@ -95,7 +97,6 @@ class VirtualMachine(PoolElement):
 
     def __init__(self, xml, client):
         super(VirtualMachine, self).__init__(xml, client)
-        self.element_name = 'VM'
         self.id = self['ID'] if self['ID'] else None
 
     def deploy(self, host_id):

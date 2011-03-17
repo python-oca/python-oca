@@ -44,6 +44,8 @@ class Image(PoolElement):
             "DATABLOCK"  : "DB"
     }
 
+    ELEMENT_NAME = 'IMAGE'
+
     @staticmethod
     def allocate(client, template):
         '''
@@ -62,7 +64,6 @@ class Image(PoolElement):
 
     def __init__(self, xml, client):
         super(Image, self).__init__(xml, client)
-        self.element_name = 'IMAGE'
         self.id = self['ID'] if self['ID'] else None
 
     def update(self, attr, value):

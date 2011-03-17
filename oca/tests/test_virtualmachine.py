@@ -11,6 +11,10 @@ class TestVirtualMachine:
         self.client = Client('test:test')
         self.xml = open('fixtures/vm.xml').read()
 
+    def test_new_with_id(self):
+        vm = VirtualMachine.new_with_id(self.client, 1)
+        assert vm.id == 1
+
     def test_acces_items_using_brackets(self):
         vm = VirtualMachine(self.xml, self.client)
         assert vm['name'] == 'vm-example'
