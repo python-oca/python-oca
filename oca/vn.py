@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement
+from pool import Pool, PoolElement, Template
 
 
 class VirtualNetwork(PoolElement):
@@ -17,6 +17,7 @@ class VirtualNetwork(PoolElement):
             'type'     : int,
             'bridge'   : str,
             'public'   : bool,
+            'template' : ['TEMPLATE', Template],
     }
 
     ELEMENT_NAME = 'VNET'
