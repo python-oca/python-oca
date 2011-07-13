@@ -50,6 +50,20 @@ class TestImage:
         h = Image(self.xml, self.client)
         assert h.unpublish() is None
 
+    def test_set_persistent(self):
+        self.client.call = Mock(return_value='')
+        h = Image(self.xml, self.client)
+        h.set_persistent()
+        self.client.call.assert_called_once_with('image.persistent',
+                                                '1', True)
+
+    def test_set_nonpersistent(self):
+        self.client.call = Mock(return_value='')
+        h = Image(self.xml, self.client)
+        h.set_nonpersistent()
+        self.client.call.assert_called_once_with('image.persistent',
+                                                '1', False)
+
     def test_states(self):
         for i in range(len(Image.IMAGE_STATES)):
             h = Image('<IMAGE><ID>2</ID><STATE>%s</STATE></IMAGE>' % i,

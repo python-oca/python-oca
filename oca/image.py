@@ -11,6 +11,7 @@ class Image(PoolElement):
         'rmattr'   : 'image.rmattr',
         'enable'   : 'image.enable',
         'publish'  : 'image.publish',
+        'persistent'  : 'image.persistent',
     }
 
     XML_TYPES = {
@@ -114,6 +115,18 @@ class Image(PoolElement):
         Unpublishes an image
         '''
         self.client.call(self.METHODS['publish'], self.id, False)
+
+    def set_persistent(self):
+        '''
+        Set Image as persistent
+        '''
+        self.client.call(self.METHODS['persistent'], self.id, True)
+
+    def set_nonpersistent(self):
+        '''
+        Set Image as non persistent
+        '''
+        self.client.call(self.METHODS['persistent'], self.id, False)
 
     @property
     def str_state(self):
