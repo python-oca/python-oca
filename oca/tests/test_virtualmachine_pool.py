@@ -17,10 +17,6 @@ class TestVirtualMachinePool:
         pool.info()
         assert len(list(pool)) == 3
 
-    def test_repr(self):
-        pool = VirtualMachinePool(self.client)
-        assert pool.__repr__() == '<oca.VirtualMachinePool()>'
-
     def test_iterate_before_info(self):
         pool = VirtualMachinePool(self.client)
         assert list(pool) == []

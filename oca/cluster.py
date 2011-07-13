@@ -77,6 +77,3 @@ class ClusterPool(Pool):
         c.convert_types()
         return c
 
-    def __repr__(self):
-        return '<oca.ClusterPool()>'
-

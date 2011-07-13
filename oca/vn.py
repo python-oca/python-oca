@@ -68,6 +68,3 @@ class VirtualNetworkPool(Pool):
         v.convert_types()
         return v
 
-    def __repr__(self):
-        return '<oca.VirtualNetworkPool()>'
-

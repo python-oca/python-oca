@@ -164,6 +164,3 @@ class ImagePool(Pool):
         i.convert_types()
         return i
 
-    def __repr__(self):
-        return '<oca.ImagePool()>'
-

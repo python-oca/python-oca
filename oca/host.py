@@ -105,6 +105,3 @@ class HostPool(Pool):
         h.convert_types()
         return h
 
-    def __repr__(self):
-        return '<oca.HostPool()>'
-

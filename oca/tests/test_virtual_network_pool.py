@@ -15,7 +15,3 @@ class TestVirtualNetworkPool:
         pool.info()
         assert len(list(pool)) == 2
 
-    def test_repr(self):
-        pool = VirtualNetworkPool(self.client)
-        assert pool.__repr__() == '<oca.VirtualNetworkPool()>'
-

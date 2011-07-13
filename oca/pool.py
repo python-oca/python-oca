@@ -50,7 +50,7 @@ class Template(object):
 class XMLElement(object):
     XML_TYPES = {}
 
-    def __init__(self, xml):
+    def __init__(self, xml=None):
         if xml and not ET.iselement(xml):
             xml = ET.fromstring(xml)
         self.xml = xml
@@ -87,23 +87,9 @@ class XMLElement(object):
                 setattr(self, name, fun(self[name]))
 
 
-class XMLPool(XMLElement):
-    def __init__(self, xml):
-        super(XMLPool, self).__init__(xml)
-
-    def factory(self):
-        pass
-
-    def __iter__(self):
-        if self.xml:
-            return [self.factory(i) for i in self.xml].__iter__()
-        else:
-            return [].__iter__()
-
-
-class Pool(XMLPool):
+class Pool(list, XMLElement):
     def __init__(self, pool, element, client):
-        super(Pool, self).__init__(None)
+        super(Pool, self).__init__()
 
         self.pool_name = pool
         self.element_name = element
@@ -113,8 +99,14 @@ class Pool(XMLPool):
         '''
         Retrives/Refreshes pool information
         '''
+        self[:] = []
         data = self.client.call(self.METHODS['info'], *args)
         self.initialize_xml(data, self.pool_name)
+        for element in self.xml:
+            self.append(self.factory(element))
+
+    def factory(self):
+        pass
 
     def get_by_id(self, id):
         for i in self:

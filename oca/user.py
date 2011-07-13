@@ -67,6 +67,3 @@ class UserPool(Pool):
         u.convert_types()
         return u
 
-    def __repr__(self):
-        return '<oca.UserPool()>'
-

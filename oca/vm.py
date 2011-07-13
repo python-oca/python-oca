@@ -258,6 +258,3 @@ class VirtualMachinePool(Pool):
         vm.convert_types()
         return vm
 
-    def __repr__(self):
-        return '<oca.VirtualMachinePool()>'
-

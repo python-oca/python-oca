@@ -17,7 +17,3 @@ class TestImagePool:
         pool.info()
         assert len(list(pool)) == 3
 
-    def test_repr(self):
-        pool = ImagePool(self.client)
-        assert pool.__repr__() == '<oca.ImagePool()>'
-

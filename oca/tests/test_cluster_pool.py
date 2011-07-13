@@ -15,7 +15,3 @@ class TestClusterPool:
         pool.info()
         assert len(list(pool)) == 3
 
-    def test_repr(self):
-        pool = ClusterPool(self.client)
-        assert pool.__repr__() == '<oca.ClusterPool()>'
-

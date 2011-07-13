@@ -15,7 +15,3 @@ class TestHostPool:
         pool.info()
         assert len(list(pool)) == 2
 
-    def test_repr(self):
-        pool = HostPool(self.client)
-        assert pool.__repr__() == '<oca.HostPool()>'
-
