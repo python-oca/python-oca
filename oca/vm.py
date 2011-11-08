@@ -65,7 +65,11 @@ class VirtualMachine(PoolElement):
     XML_TYPES = {
         'id'           : int,
         'uid'          : int,
+        'gid'          : int,
+        'uname'        : str,
+        'gname'        : str,
         'name'         : str,
+        'deploy_id'    : str,
         'last_poll'    : int,
         'state'        : int,
         'lcm_state'    : int,
@@ -76,7 +80,6 @@ class VirtualMachine(PoolElement):
         'cpu'          : int,
         'net_tx'       : int,
         'net_rx'       : int,
-        'last_seq'     : int,
         'template'     : ['TEMPLATE', Template],
     }
 
