@@ -85,14 +85,14 @@ class Client(object):
             func = getattr(self.server.one, function)
             ret = func(self.one_auth, *args)
             try:
-                return_code, data = ret
+                is_success, data, return_code = ret
             except ValueError:
                 data = ''
-                return_code = ret[0]
+                is_success = False
         except socket.error, e:
             #connection error
             raise e
-        if not return_code:
+        if not is_success:
             raise OpenNebulaException(data)
         return data
 
