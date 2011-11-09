@@ -28,7 +28,6 @@ class Host(PoolElement):
         'vm_mad'        : str,
         'tm_mad'        : str,
         'last_mon_time' : int,
-        'cluster'       : str,
         'template'      : ['TEMPLATE', Template],
         'host_share'    : ['HOST_SHARE', Template],
     }
