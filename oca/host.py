@@ -10,6 +10,11 @@ class Host(PoolElement):
         'enable'   : 'host.enable'
     }
 
+    INIT = 0
+    MONITORING = 1
+    MONITORED = 2
+    ERROR = 3
+    DISABLED = 4
     HOST_STATES = ['INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED']
 
     SHORT_HOST_STATES = {
