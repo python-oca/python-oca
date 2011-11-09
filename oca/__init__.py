@@ -7,7 +7,6 @@ import socket
 
 from host import Host, HostPool
 from vm import VirtualMachine, VirtualMachinePool
-from cluster import Cluster, ClusterPool
 from user import User, UserPool
 from image import Image, ImagePool
 from vn import VirtualNetwork, VirtualNetworkPool
@@ -92,7 +91,7 @@ class Client(object):
         return data
 
 __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
-        VirtualMachinePool, Cluster, ClusterPool, User, UserPool,
+        VirtualMachinePool, User, UserPool,
         Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
         Group, GroupPool, ALL, CONNECTED]
 
