@@ -33,17 +33,11 @@ class Client(object):
             one_secret = secret
         elif "ONE_AUTH" in os.environ and os.environ["ONE_AUTH"]:
             one_auth = os.path.expanduser(os.environ["ONE_AUTH"])
-            try:
-                f = open(one_auth)
+            with open(one_auth) as f:
                 one_secret = f.read().strip()
-            finally:
-                f.close()
         elif os.path.exists(os.path.expanduser(self.DEFAULT_ONE_AUTH)):
-            try:
-                f = open(os.path.expanduser(self.DEFAULT_ONE_AUTH))
+            with open(os.path.expanduser(self.DEFAULT_ONE_AUTH)) as f:
                 one_secret = f.read().strip()
-            finally:
-                f.close()
         else:
             raise OpenNebulaException('ONE_AUTH file not present')
 
