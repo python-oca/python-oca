@@ -1,11 +1,6 @@
 # -*- coding: UTF-8 -*-
 from pool import Pool, PoolElement
-from user import User
 
-
-def x(x):
-    import ipdb; ipdb.set_trace()
-    return [User(i) for i in x]
 
 class Group(PoolElement):
     METHODS = {
@@ -17,7 +12,7 @@ class Group(PoolElement):
     XML_TYPES = {
             'id'          : int,
             'name'        : str,
-            'users'       : lambda users: [int(i.text) for i in users],
+            'users'       : ['USERS', lambda users: [int(i.text) for i in users]]
     }
 
     ELEMENT_NAME = 'GROUP'

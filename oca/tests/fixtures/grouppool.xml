@@ -1,0 +1,19 @@
+<GROUP_POOL>
+    <GROUP>
+      <ID>1</ID>
+      <NAME>users</NAME>
+      <USERS>
+        <ID>1</ID>
+        <ID>2</ID>
+      </USERS>
+    </GROUP>
+    <GROUP>
+      <ID>2</ID>
+      <NAME>admins</NAME>
+      <USERS>
+        <ID>3</ID>
+        <ID>4</ID>
+      </USERS>
+    </GROUP>
+</GROUP_POOL>
+
