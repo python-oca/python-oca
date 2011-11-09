@@ -11,8 +11,17 @@ class VirtualMachine(PoolElement):
         'deploy'   : 'vm.deploy',
         'savedisk' : 'vm.savedisk',
         'delete'   : 'vm.delete',
+        'chown'    : 'vm.chown'
     }
 
+    INIT = 0
+    PENDING = 1
+    HOLD = 2
+    ACTIVE = 3
+    STOPPED = 4
+    SUSPENDED = 5
+    DONE = 6
+    FAILED = 7
     VM_STATE = ['INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED',
                 'SUSPENDED', 'DONE', 'FAILED']
 
@@ -202,6 +211,12 @@ class VirtualMachine(PoolElement):
         Resubmits the VM after failure
         '''
         self._action('restart')
+
+    def resubmit(self):
+        '''
+        Redeploy the VM.
+        '''
+        self._action('resubmit')
 
     def _action(self, action):
         self.client.call(self.METHODS['action'], action, self.id)

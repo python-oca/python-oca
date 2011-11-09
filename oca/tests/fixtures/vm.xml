@@ -1,6 +1,9 @@
 <VM>
     <ID>6</ID>
     <UID>0</UID>
+    <GID>0</GID>
+    <UNAME>oneadmin</UNAME>
+    <GNAME>oneadmin</GNAME>
     <NAME>vm-example</NAME>
     <LAST_POLL>1277729095</LAST_POLL>
     <STATE>3</STATE>
@@ -12,7 +15,6 @@
     <CPU>1</CPU>
     <NET_TX>12345</NET_TX>
     <NET_RX>0</NET_RX>
-    <LAST_SEQ>2</LAST_SEQ>
     <TEMPLATE>
         <CONTEXT>
             <DNS>192.169.1.4</DNS>
@@ -43,18 +45,20 @@
         <REQUIREMENTS>MAC="50:20:20:20:20:20"</REQUIREMENTS>
         <VMID>6</VMID>
     </TEMPLATE>
-    <HISTORY>
-        <SEQ>0</SEQ>
-        <HOSTNAME>dummyhost</HOSTNAME>
-        <HID>0</HID>
-        <STIME>1277375186</STIME>
-        <ETIME>0</ETIME>
-        <PSTIME>1277375186</PSTIME>
-        <PETIME>1277375186</PETIME>
-        <RSTIME>1277375186</RSTIME>
-        <RETIME>0</RETIME>
-        <ESTIME>0</ESTIME>
-        <EETIME>0</EETIME>
-        <REASON>0</REASON>
-    </HISTORY>
+    <HISTORY_RECORDS>
+        <HISTORY>
+            <SEQ>0</SEQ>
+            <HOSTNAME>dummyhost</HOSTNAME>
+            <HID>0</HID>
+            <STIME>1277375186</STIME>
+            <ETIME>0</ETIME>
+            <PSTIME>1277375186</PSTIME>
+            <PETIME>1277375186</PETIME>
+            <RSTIME>1277375186</RSTIME>
+            <RETIME>0</RETIME>
+            <ESTIME>0</ESTIME>
+            <EETIME>0</EETIME>
+            <REASON>0</REASON>
+        </HISTORY>
+    </HISTORY_RECORDS>
 </VM>
