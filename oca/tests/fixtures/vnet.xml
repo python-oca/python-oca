@@ -1,10 +1,14 @@
 <VNET>
     <ID>3</ID>
     <UID>0</UID>
+    <GID>0</GID>
+    <UNAME>oneadmin</UNAME>
+    <GNAME>oneadmin</GNAME>
     <NAME>Red LAN</NAME>
     <TYPE>0</TYPE>
     <BRIDGE>vbr0</BRIDGE>
     <PUBLIC>0</PUBLIC>
+    <TOTAL_LEASES>2</TOTAL_LEASES>
     <TEMPLATE>
         <BRIDGE>vbr0</BRIDGE>
         <DNS>192.169.1.4</DNS>

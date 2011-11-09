@@ -1,6 +1,9 @@
 <VNET_POOL>
   <VNET>
     <ID>4</ID>
+    <GID>0</GID>
+    <UNAME>oneadmin</UNAME>
+    <GNAME>oneadmin</GNAME>
     <UID>0</UID>
     <USERNAME>oneadmin</USERNAME>
     <NAME>Red LAN</NAME>
@@ -14,6 +17,9 @@
   <VNET>
     <ID>5</ID>
     <UID>0</UID>
+    <GID>0</GID>
+    <UNAME>oneadmin</UNAME>
+    <GNAME>oneadmin</GNAME>
     <USERNAME>oneadmin</USERNAME>
     <NAME>Public</NAME>
     <TYPE>0</TYPE>

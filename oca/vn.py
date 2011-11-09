@@ -8,15 +8,22 @@ class VirtualNetwork(PoolElement):
         'allocate' : 'vn.allocate',
         'delete'   : 'vn.delete',
         'publish'  : 'vn.publish',
+        'chown'    : 'vn.chown',
+        'addleases': 'vn.addleases',
+        'rmleases' : 'vn.rmleases'
     }
 
     XML_TYPES = {
             'id'       : int,
             'uid'      : int,
+            'gid'      : int,
+            'uname'    : str,
+            'gname'    : str,
             'name'     : str,
             'type'     : int,
             'bridge'   : str,
             'public'   : bool,
+            'total_leases' : int,
             'template' : ['TEMPLATE', Template],
     }
 
@@ -43,13 +50,26 @@ class VirtualNetwork(PoolElement):
         '''
         Publishes a virtual network.
         '''
-        self.client.call(self.METHODS['publish'], True)
+        self.client.call(self.METHODS['publish'], self.id, True)
 
     def unpublish(self):
         '''
         Unpublishes a virtual network.
         '''
-        self.client.call(self.METHODS['publish'], False)
+        self.client.call(self.METHODS['publish'], self.id, False)
+
+    def chown(self, uid, gid):
+        '''
+        Changes the owner/group
+
+        Arguments
+
+        ``uid``
+        New owner id. Set to -1 to leave current value
+        ``gid``
+        New group id. Set to -1 to leave current value
+        '''
+        self.client.call(self.METHODS['chown'], self.id, uid, gid)
 
     def __repr__(self):
         return '<oca.VirtualNetwork("%s")>' % self.name

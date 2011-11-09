@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
+import os
+
 from mock import Mock
 
-from oca import Client, VirtualNetwork
+import oca
 
 
 VN_TEMPLATE = '''NAME = "Red LAN"
@@ -14,24 +16,32 @@ NETWORK_ADDRESS = 192.168.0.0'''
 
 class TestVirtualNetwork:
     def setUp(self):
-        self.client = Client('test:test')
-        self.xml = open('fixtures/vnet.xml').read()
+        self.client = oca.Client('test:test')
+        self.xml = open(os.path.join(os.path.dirname(oca.__file__),
+                                     'tests/fixtures/vnet.xml')).read()
 
     def test_allocate(self):
         self.client.call = Mock(return_value=2)
-        assert VirtualNetwork.allocate(self.client, VN_TEMPLATE) == 2
+        assert oca.VirtualNetwork.allocate(self.client, VN_TEMPLATE) == 2
 
     def test_publish(self):
         self.client.call = Mock(return_value='')
-        h = VirtualNetwork(self.xml, self.client)
-        assert h.publish() is None
+        h = oca.VirtualNetwork(self.xml, self.client)
+        h.publish()
+        self.client.call.assert_called_once_with('vn.publish', '3', True)
 
     def test_unpublish(self):
         self.client.call = Mock(return_value='')
-        h = VirtualNetwork(self.xml, self.client)
-        assert h.unpublish() is None
+        h = oca.VirtualNetwork(self.xml, self.client)
+        h.unpublish()
+        self.client.call.assert_called_once_with('vn.publish', '3', False)
 
     def test_repr(self):
-        h = VirtualNetwork(self.xml, self.client)
+        h = oca.VirtualNetwork(self.xml, self.client)
         assert h.__repr__() == '<oca.VirtualNetwork("Red LAN")>'
 
+    def test_chown(self):
+        self.client.call = Mock(return_value='')
+        h = oca.VirtualNetwork(self.xml, self.client)
+        h.chown(2, 2)
+        self.client.call.assert_called_once_with('vn.chown', '3', 2, 2)
