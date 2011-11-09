@@ -1,17 +1,20 @@
 # -*- coding: UTF-8 -*-
+import os
+
 from mock import Mock
 
-from oca import Client, UserPool
+import oca
 
 
 class TestUserPool:
     def setUp(self):
-        self.client = Client('test:test')
-        self.xml = open('fixtures/userpool.xml').read()
+        self.client = oca.Client('test:test')
+        self.xml = open(os.path.join(os.path.dirname(oca.__file__),
+                                     'tests/fixtures/userpool.xml')).read()
 
     def test_info(self):
         self.client.call = Mock(return_value=self.xml)
-        pool = UserPool(self.client)
+        pool = oca.UserPool(self.client)
         pool.info()
-        assert len(list(pool)) == 2
+        assert len(pool) == 2
 

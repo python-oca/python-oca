@@ -8,11 +8,14 @@ class User(PoolElement):
         'allocate' : 'user.allocate',
         'delete'   : 'user.delete',
         'passwd'   : 'user.passwd',
+        'chgrp'    : 'user.chgrp'
     }
 
     XML_TYPES = {
             'id'       : int,
+            'gid'      : int,
             'name'     : str,
+            'gname'    : str,
             'password' : str,
             'enabled'  : bool,
     }
@@ -23,8 +26,6 @@ class User(PoolElement):
     def allocate(client, user, password):
         '''
         allocates a new user in OpenNebula
-
-        Arguments
 
         ``user``
            username for the new user
@@ -43,12 +44,19 @@ class User(PoolElement):
         '''
         Changes the password for the given user.
 
-        Arguments
-
         ``new_password``
            The new password
         '''
         self.client.call(User.METHODS['passwd'], self.id, new_password)
+
+    def chgrp(self, gid):
+        '''
+        Changes the main group
+
+        ``gid``
+            New group id. Set to -1 to leave the current one
+        '''
+        self.client.call(User.METHODS['chgrp'], self.id, gid)
 
     def __repr__(self):
         return '<oca.User("%s")>' % self.name
