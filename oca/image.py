@@ -8,15 +8,18 @@ class Image(PoolElement):
         'allocate' : 'image.allocate',
         'delete'   : 'image.delete',
         'update'   : 'image.update',
-        'rmattr'   : 'image.rmattr',
         'enable'   : 'image.enable',
         'publish'  : 'image.publish',
+        'chown'    : 'image.chown',
         'persistent'  : 'image.persistent',
     }
 
     XML_TYPES = {
             'id'          : int,
             'uid'         : int,
+            'gid'         : int,
+            'uname'       : str,
+            'gname'       : str,
             'name'        : str,
             'type'        : int,
             'public'      : int,
@@ -25,9 +28,13 @@ class Image(PoolElement):
             'source'      : str,
             'state'       : int,
             'running_vms' : int,
-            'template'     : ['TEMPLATE', Template],
+            'template'    : ['TEMPLATE', Template],
     }
 
+    INIT = 0
+    READY = 1
+    USED = 2
+    DISABLED = 3
     IMAGE_STATES = ['INIT', 'READY', 'USED', 'DISABLED']
 
     SHORT_IMAGE_STATES = {
@@ -67,30 +74,16 @@ class Image(PoolElement):
         super(Image, self).__init__(xml, client)
         self.id = self['ID'] if self['ID'] else None
 
-    def update(self, attr, value):
+    def update(self, template):
         '''
-        Modifies an image attribute
+        Replaces the template contents
 
         Arguments
 
-        ``attr``
-           the name of the attribute to update
-
-        ``value``
-           the new value for the attribute
+        ``template``
+            New template contents
         '''
-        self.client.call(self.METHODS['update'], self.id, attr, value)
-
-    def rmattr(self, attr):
-        '''
-        Removes an image attribute
-
-        Arguments
-
-        ``attr``
-           the name of the attribute to remove
-        '''
-        self.client.call(self.METHODS['rmattr'], self.id, attr)
+        self.client.call(self.METHODS['update'], self.id, template)
 
     def enable(self):
         '''
@@ -127,6 +120,19 @@ class Image(PoolElement):
         Set Image as non persistent
         '''
         self.client.call(self.METHODS['persistent'], self.id, False)
+
+    def chown(self, uid, gid):
+        '''
+        Changes the owner/group
+
+        Arguments
+
+        ``uid``
+            New owner id. Set to -1 to leave current value
+        ``gid``
+            New group id. Set to -1 to leave current value
+        '''
+        self.client.call(self.METHODS['chown'], self.id, uid, gid)
 
     @property
     def str_state(self):

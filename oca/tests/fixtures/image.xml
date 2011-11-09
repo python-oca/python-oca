@@ -1,6 +1,9 @@
 <IMAGE>
     <ID>1</ID>
     <UID>0</UID>
+    <GID>0</GID>
+    <UNAME>oneadmin</UNAME>
+    <GNAME>oneadmin</GNAME>
     <NAME>MATLAB install CD</NAME>
     <TYPE>1</TYPE>
     <PUBLIC>0</PUBLIC>
