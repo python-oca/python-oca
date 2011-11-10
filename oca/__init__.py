@@ -15,8 +15,9 @@ from template import VmTemplate, VmTemplatePool
 from exceptions import OpenNebulaException
 
 
+CONNECTED = -3
 ALL = -2
-CONNECTED = -1
+CONNECTED_ADN_GROUP = -1
 
 
 class Client(object):
