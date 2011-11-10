@@ -95,7 +95,8 @@ class VirtualMachine(PoolElement):
         'net_tx'       : int,
         'net_rx'       : int,
         'template'     : ['TEMPLATE', Template, ['NIC', 'DISK']],
-        'history_records' : lambda x: [History(i) for i in x],
+        'history_records' : ['HISTORY_RECORDS', lambda x: [History(i)
+                                                                for i in x]],
     }
 
     ELEMENT_NAME = 'VM'
