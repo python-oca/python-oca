@@ -11,6 +11,7 @@ from user import User, UserPool
 from image import Image, ImagePool
 from vn import VirtualNetwork, VirtualNetworkPool
 from group import Group, GroupPool
+from template import VmTemplate, VmTemplatePool
 from exceptions import OpenNebulaException
 
 
@@ -93,5 +94,5 @@ class Client(object):
 __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
         VirtualMachinePool, User, UserPool,
         Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
-        Group, GroupPool, ALL, CONNECTED]
+        Group, GroupPool, VmTemplate, VmTemplatePool, ALL, CONNECTED]
 
