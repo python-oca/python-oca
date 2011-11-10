@@ -86,12 +86,22 @@ class Pool(list, XMLElement):
         self.element_name = element
         self.client = client
 
-    def info(self, *args):
+    def info(self, filter=-3, range_start=-1, range_end=-1, *args):
         '''
-        Retrives/Refreshes pool information
+        Retrives/Refreshes resource pool information
+
+        ``filter``
+            Filter flag. By defaults retrives only connected user reources.
+
+        ``range_start``
+            Range start ID. -1 for all
+
+        ``range_end``
+            Range end ID. -1 for all
         '''
         self[:] = []
-        data = self.client.call(self.METHODS['info'], *args)
+        data = self.client.call(self.METHODS['info'], filter,
+                                        range_start, range_end, *args)
         self.initialize_xml(data, self.pool_name)
         for element in self.xml:
             self.append(self.factory(element))

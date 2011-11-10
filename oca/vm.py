@@ -282,3 +282,31 @@ class VirtualMachinePool(Pool):
         vm.convert_types()
         return vm
 
+    def info(self, filter=-3, range_start=-1, range_end=-1, vm_state=-1):
+        '''
+        Retrives/Refreshes virtual machine pool information
+
+        ``filter``
+            Filter flag. By defaults retrives only connected user reources.
+
+        ``range_start``
+            Range start ID. -1 for all
+
+        ``range_end``
+            Range end ID. -1 for all
+
+        ``vm_state``
+            VM state to filter by.
+            -2	 Any state, including DONE
+            -1	 Any state, except DONE (Defualt)
+             0	 INIT
+             1	 PENDING
+             2	 HOLD
+             3	 ACTIVE
+             4	 STOPPED
+             5	 SUSPENDED
+             6	 DONE
+             7	 FAILED
+        '''
+        super(VirtualMachinePool, self).info(filter, range_start,
+                                             range_end, vm_state)
