@@ -2,6 +2,11 @@
 from pool import Pool, PoolElement, Template
 
 
+class HostShare(Template):
+    def __repr__(self):
+        return '<oca.vm.HostShare()>'
+
+
 class Host(PoolElement):
     METHODS = {
         'info'     : 'host.info',
@@ -34,7 +39,7 @@ class Host(PoolElement):
         'tm_mad'        : str,
         'last_mon_time' : int,
         'template'      : ['TEMPLATE', Template],
-        'host_share'    : ['HOST_SHARE', Template],
+        'host_share'    : ['HOST_SHARE', HostShare],
     }
 
     ELEMENT_NAME = 'HOST'

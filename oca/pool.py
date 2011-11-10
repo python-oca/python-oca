@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import xml.etree.ElementTree as ET
+import new
 
 from exceptions import OpenNebulaException
 
@@ -13,38 +14,28 @@ class WrongIdError(OpenNebulaException):
 
 
 class Template(object):
-    def __init__(self, xml_element):
-        self.MULTI_TAGS = {
-                'DISK' : self.parse_disks,
-                'NIC' : self.parse_nics
-                }
+    def __init__(self, xml_element, multiple=[]):
         self.xml = ET.tostring(xml_element)
         self.xml_element = xml_element
+        self.multiple = multiple
         self.parse()
 
     def parse(self):
         for element in self.xml_element:
             tag = element.tag
-            if tag in self.MULTI_TAGS.keys():
-                self.MULTI_TAGS[tag](element)
+            if tag in self.multiple:
+                self.parse_multiple(tag, element)
             else:
                 setattr(self, tag.lower(), element.text)
 
-    def parse_disks(self, element):
-        self.disks = getattr(self, 'disks', [])
+    def parse_multiple(self, tag, element):
+        attr = tag.lower() + 's'
+        attr_list = getattr(self, attr, [])
 
-        class Disk(Template):
-            pass
+        class_obj = new.classobj(tag.capitalize(), (Template,), {})
 
-        self.disks.append(Disk(element))
-
-    def parse_nics(self, element):
-        self.nics = getattr(self, 'nics', [])
-
-        class Nic(Template):
-            pass
-
-        self.nics.append(Nic(element))
+        attr_list.append(class_obj(element))
+        setattr(self, attr, attr_list)
 
 
 class XMLElement(object):
@@ -74,15 +65,15 @@ class XMLElement(object):
     def __getattr__(self, name):
         try:
             return self[name]
-        except IndexError:
+        except (IndexError, TypeError):
             raise AttributeError(name)
 
     def convert_types(self):
         for name, fun in self.XML_TYPES.items():
             if isinstance(fun, list):
-                tag, cls = fun
+                tag, cls = fun[0], fun[1]
                 xml = self.xml.find(tag)
-                setattr(self, name, cls(xml))
+                setattr(self, name, cls(xml, *fun[2:]))
             else:
                 setattr(self, name, fun(self[name]))
 

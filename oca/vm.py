@@ -2,6 +2,11 @@
 from pool import Pool, PoolElement, Template
 
 
+class History(Template):
+    def __repr__(self):
+        return '<oca.vm.History("seq={0}")>'.format(self.seq)
+
+
 class VirtualMachine(PoolElement):
     METHODS = {
         'info'     : 'vm.info',
@@ -89,7 +94,8 @@ class VirtualMachine(PoolElement):
         'cpu'          : int,
         'net_tx'       : int,
         'net_rx'       : int,
-        'template'     : ['TEMPLATE', Template],
+        'template'     : ['TEMPLATE', Template, ['NIC', 'DISK']],
+        'history_records' : lambda x: [History(i) for i in x],
     }
 
     ELEMENT_NAME = 'VM'
