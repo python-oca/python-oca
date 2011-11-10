@@ -133,3 +133,8 @@ class TestVirtualMachine:
         vm.resubmit()
         self.client.call.assert_called_once_with('vm.action', 'resubmit', '6')
 
+    def test_History_repr(self):
+        vm = oca.VirtualMachine(self.xml, self.client)
+        vm.convert_types()
+        history = vm.history_records[0]
+        assert repr(history) == '<oca.vm.History("seq=0")>'
