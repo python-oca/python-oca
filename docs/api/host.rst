@@ -5,4 +5,6 @@
 
 .. autoclass:: oca.Host
 .. autoclass:: oca.HostPool
+    :members: info
+    :no-inherited-members:
 

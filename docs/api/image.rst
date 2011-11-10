@@ -5,4 +5,6 @@
 
 .. autoclass:: oca.Image
 .. autoclass:: oca.ImagePool
+    :members: info
+    :no-inherited-members:
 

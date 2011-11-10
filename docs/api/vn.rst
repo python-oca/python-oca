@@ -4,5 +4,8 @@
 --------------------------------
 
 .. autoclass:: oca.VirtualNetwork
-.. autoclass:: oca.VirtualNetworkPool
+    :members:
 
+.. autoclass:: oca.VirtualNetworkPool
+    :members: info
+    :no-inherited-members:

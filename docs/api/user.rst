@@ -5,4 +5,6 @@
 
 .. autoclass:: oca.User
 .. autoclass:: oca.UserPool
+    :members: info
+    :no-inherited-members:
 

@@ -1,7 +1,7 @@
 API Documentation
 =================
 
-See http://www.opennebula.org/documentation:rel2.0:api
+See http://www.opennebula.org/documentation:rel3.0:api
 
 .. toctree::
    :maxdepth: 2
@@ -10,7 +10,8 @@ See http://www.opennebula.org/documentation:rel2.0:api
    api/host
    api/image
    api/vn
-   api/vm
-   api/cluster
    api/user
+   api/group
+   api/template
+   api/vm
 

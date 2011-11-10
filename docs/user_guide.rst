@@ -6,6 +6,7 @@ Examples
 
 Allocating new host::
 
+   import oca
    client = oca.Client('user:password', 'http:12.12.12.12:2633/RPC2')
    new_host_id = oca.Host.allocate(client, 'host_name', 'im_xen', 'vmm_xen', 'tm_nfs')
    hostpool = oca.HostPool(client)

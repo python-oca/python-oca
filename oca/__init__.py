@@ -23,7 +23,7 @@ CONNECTED_ADN_GROUP = -1
 class Client(object):
     '''
     The client class, represents the connection with the core and handles the
-    xml-rpc calls(see http://www.opennebula.org/documentation:rel2.0:api)
+    xml-rpc calls(see http://www.opennebula.org/documentation:rel3.0:api)
     '''
     DEFAULT_ONE_AUTH = "~/.one/one_auth"
     ONE_AUTH_RE = re.compile('^(.+?):(.+)$')
