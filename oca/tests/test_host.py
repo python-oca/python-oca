@@ -43,6 +43,6 @@ class TestHost:
 
     def test_host_share_repr(self):
         h = oca.Host(self.xml, self.client)
-        h.convert_types()
+        h._convert_types()
         share = h.host_share
         assert repr(share) == '<oca.vm.HostShare()>'

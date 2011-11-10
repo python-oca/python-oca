@@ -49,8 +49,8 @@ class GroupPool(Pool):
     def __init__(self, client):
         super(GroupPool, self).__init__('GROUP_POOL', 'POOL', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         i = Group(xml, self.client)
-        i.convert_types()
+        i._convert_types()
         return i
 

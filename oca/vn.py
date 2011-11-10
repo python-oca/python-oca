@@ -83,8 +83,8 @@ class VirtualNetworkPool(Pool):
     def __init__(self, client):
         super(VirtualNetworkPool, self).__init__('VNET_POOL', 'VNET', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         v = VirtualNetwork(xml, self.client)
-        v.convert_types()
+        v._convert_types()
         return v
 

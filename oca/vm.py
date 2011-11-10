@@ -108,7 +108,7 @@ class VirtualMachine(PoolElement):
 
         Arguments
 
-        ```template```
+        ``template``
            a string containing the template of the vm
         '''
         vm_id = client.call(VirtualMachine.METHODS['allocate'], template)
@@ -124,7 +124,7 @@ class VirtualMachine(PoolElement):
 
         Arguments
 
-        ```host_id```
+        ``host_id``
            the host id (hid) of the target host where the VM will be
            instantiated.
         '''
@@ -136,7 +136,7 @@ class VirtualMachine(PoolElement):
 
         Arguments
 
-        ```dest_host```
+        ``dest_host``
            the target host id
         '''
         self.client.call(self.METHODS['migrate'], self.id, dest_host, False)
@@ -147,7 +147,7 @@ class VirtualMachine(PoolElement):
 
         Arguments
 
-        ```dest_host```
+        ``dest_host``
            the target host id
         '''
         self.client.call(self.METHODS['migrate'], self.id, dest_host, True)
@@ -158,7 +158,7 @@ class VirtualMachine(PoolElement):
 
         Arguments
 
-        ```disk_id```
+        ``disk_id``
            disk id of the disk we want to save
         ``dest_disk``
            image id where the disk will be saved.
@@ -235,8 +235,8 @@ class VirtualMachine(PoolElement):
     def str_state(self):
         '''
         String representation of virtual machine state.
-        One of 'INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED', 'SUSPENDED',
-        'DONE', 'FAILED'
+        One of: INIT, PENDING, HOLD, ACTIVE, STOPPED, SUSPENDED,
+        DONE, FAILED
         '''
         return self.VM_STATE[int(self.state)]
 
@@ -244,7 +244,7 @@ class VirtualMachine(PoolElement):
     def short_state(self):
         '''
         Short string representation of virtual machine state.
-        One of 'init', 'pend', 'hold', 'actv', 'stop', 'susp', 'done', 'fail'
+        One of: init, pend, hold, actv, stop, susp, done, fail
         '''
         return self.SHORT_VM_STATES[self.str_state]
 
@@ -252,10 +252,10 @@ class VirtualMachine(PoolElement):
     def str_lcm_state(self):
         '''
         String representation of virtual machine LCM state.
-        One of 'LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE',
-        'SAVE_STOP', 'SAVE_SUSPEND', 'SAVE_MIGRATE', 'PROLOG_MIGRATE',
-        'PROLOG_RESUME', 'EPILOG_STOP', 'EPILOG', 'SHUTDOWN', 'CANCEL',
-        'FAILURE', 'DELETE', 'UNKNOWN'
+        One of: LCM_INIT, PROLOG, BOOT, RUNNING, MIGRATE,
+        SAVE_STOP, SAVE_SUSPEND, SAVE_MIGRATE, PROLOG_MIGRATE,
+        PROLOG_RESUME, EPILOG_STOP, EPILOG, SHUTDOWN, CANCEL,
+        FAILURE, DELETE, UNKNOWN
         '''
         return self.LCM_STATE[int(self.lcm_state)]
 
@@ -263,9 +263,9 @@ class VirtualMachine(PoolElement):
     def short_lcm_state(self):
         '''
         Short string representation of virtual machine LCM state.
-        One of 'init', 'prol', 'boot', 'runn', 'migr', 'save', 'save',
-        'save', 'migr', 'prol', 'epil', 'epil', 'shut', 'shut', 'fail',
-        'dele', 'unkn'
+        One of: init, prol, boot, runn, migr, save, save,
+        save, migr, prol, epil, shut, shut, fail,
+        dele, unkn
         '''
         return self.SHORT_LCM_STATES[self.str_lcm_state]
 
@@ -278,9 +278,9 @@ class VirtualMachinePool(Pool):
     def __init__(self, client):
         super(VirtualMachinePool, self).__init__('VM_POOL', 'VM', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         vm = VirtualMachine(xml, self.client)
-        vm.convert_types()
+        vm._convert_types()
         return vm
 
     def info(self, filter=-3, range_start=-1, range_end=-1, vm_state=-1):
@@ -297,17 +297,20 @@ class VirtualMachinePool(Pool):
             Range end ID. -1 for all
 
         ``vm_state``
+
             VM state to filter by.
-            -2	 Any state, including DONE
-            -1	 Any state, except DONE (Defualt)
-             0	 INIT
-             1	 PENDING
-             2	 HOLD
-             3	 ACTIVE
-             4	 STOPPED
-             5	 SUSPENDED
-             6	 DONE
-             7	 FAILED
+
+            * \-2	 Any state, including DONE
+            * \-1	 Any state, except DONE (Defualt)
+            * 0	 INIT
+            * 1	 PENDING
+            * 2	 HOLD
+            * 3	 ACTIVE
+            * 4	 STOPPED
+            * 5	 SUSPENDED
+            * 6	 DONE
+            * 7	 FAILED
+
         '''
         super(VirtualMachinePool, self).info(filter, range_start,
                                              range_end, vm_state)

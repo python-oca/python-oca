@@ -55,7 +55,7 @@ class TestVirtualMachine:
 
     def test_convert_types(self):
         vm = oca.VirtualMachine(self.xml, self.client)
-        vm.convert_types()
+        vm._convert_types()
         assert vm.name == 'vm-example'
         assert vm.id == 6
         assert vm.last_poll == 1277729095
@@ -135,6 +135,6 @@ class TestVirtualMachine:
 
     def test_History_repr(self):
         vm = oca.VirtualMachine(self.xml, self.client)
-        vm.convert_types()
+        vm._convert_types()
         history = vm.history_records[0]
         assert repr(history) == '<oca.vm.History("seq=0")>'

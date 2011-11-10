@@ -178,8 +178,8 @@ class ImagePool(Pool):
     def __init__(self, client):
         super(ImagePool, self).__init__('IMAGE_POOL', 'POOL', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         i = Image(xml, self.client)
-        i.convert_types()
+        i._convert_types()
         return i
 

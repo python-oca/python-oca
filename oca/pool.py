@@ -46,11 +46,11 @@ class XMLElement(object):
             xml = ET.fromstring(xml)
         self.xml = xml
 
-    def initialize_xml(self, xml, root_element):
+    def _initialize_xml(self, xml, root_element):
         self.xml = ET.fromstring(xml)
         if self.xml.tag != root_element.upper():
             self.xml = None
-        self.convert_types()
+        self._convert_types()
 
     def __getitem__(self, key):
         value = self.xml.find(key.upper())
@@ -68,7 +68,7 @@ class XMLElement(object):
         except (IndexError, TypeError):
             raise AttributeError(name)
 
-    def convert_types(self):
+    def _convert_types(self):
         for name, fun in self.XML_TYPES.items():
             if isinstance(fun, list):
                 tag, cls = fun[0], fun[1]
@@ -102,11 +102,11 @@ class Pool(list, XMLElement):
         self[:] = []
         data = self.client.call(self.METHODS['info'], filter,
                                         range_start, range_end, *args)
-        self.initialize_xml(data, self.pool_name)
+        self._initialize_xml(data, self.pool_name)
         for element in self.xml:
-            self.append(self.factory(element))
+            self.append(self._factory(element))
 
-    def factory(self):
+    def _factory(self):
         pass
 
     def get_by_id(self, id):
@@ -147,7 +147,7 @@ class PoolElement(XMLElement):
 
     def info(self, *args):
         data = self.client.call(self.METHODS['info'], self.id)
-        self.initialize_xml(data, self.ELEMENT_NAME)
+        self._initialize_xml(data, self.ELEMENT_NAME)
 
     def delete(self):
         '''

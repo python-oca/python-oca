@@ -109,8 +109,8 @@ class HostPool(Pool):
     def __init__(self, client):
         super(HostPool, self).__init__('HOST_POOL', 'HOST', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         h = Host(xml, self.client)
-        h.convert_types()
+        h._convert_types()
         return h
 

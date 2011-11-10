@@ -100,7 +100,7 @@ class VmTemplatePool(Pool):
 
     #def info(self, 
 
-    def factory(self, xml):
+    def _factory(self, xml):
         i = VmTemplate(xml, self.client)
-        i.convert_types()
+        i._convert_types()
         return i

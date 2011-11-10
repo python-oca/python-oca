@@ -70,8 +70,8 @@ class UserPool(Pool):
     def __init__(self, client):
         super(UserPool, self).__init__('USER_POOL', 'POOL', client)
 
-    def factory(self, xml):
+    def _factory(self, xml):
         u = User(xml, self.client)
-        u.convert_types()
+        u._convert_types()
         return u
 

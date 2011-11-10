@@ -89,7 +89,7 @@ class TestImage:
 
     def test_template(self):
         i = oca.Image(self.xml, self.client)
-        i.convert_types()
+        i._convert_types()
         assert isinstance(i.template, oca.pool.Template)
 
     def test_chown(self):
