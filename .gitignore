@@ -2,4 +2,4 @@
 *.swp
 *.coverage
 oca.egg*
-
+.tox
