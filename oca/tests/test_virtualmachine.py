@@ -138,3 +138,9 @@ class TestVirtualMachine:
         vm._convert_types()
         history = vm.history_records[0]
         assert repr(history) == '<oca.vm.History("seq=0")>'
+
+    def test_no_history_records_element(self):
+        vm = oca.VirtualMachine(self.xml, self.client)
+        vm.xml.remove(vm.xml.find('HISTORY_RECORDS'))
+        vm._convert_types()
+        assert vm.history_records == []
