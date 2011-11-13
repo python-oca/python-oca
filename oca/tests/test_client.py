@@ -9,6 +9,12 @@ import oca
 
 
 class TestClient:
+    def setUp(self):
+        try:
+            del os.environ["ONE_AUTH"]
+        except KeyError:
+            pass
+
     def test_secret(self):
         c = oca.Client('test:test')
         assert c.one_auth == 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
@@ -36,6 +42,8 @@ class TestClient:
 
     @raises(oca.OpenNebulaException)
     def test_invalid_secret(self):
+        os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
+                                             'tests/fixtures/one_auth')
         c = oca.Client('testtest')
 
     def test_with_plain(self):
@@ -47,6 +55,8 @@ class TestClient:
         assert c.one_address == "http://8.8.8.8:2633/RPC2"
 
     def test_one_xml_rpc(self):
+        os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
+                                             'tests/fixtures/one_auth')
         os.environ["ONE_XMLRPC"] = "http://8.8.8.8:2633/RPC2"
         try:
             c = oca.Client()
