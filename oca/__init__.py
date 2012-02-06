@@ -4,6 +4,7 @@ import os
 import hashlib
 import re
 import socket
+import httplib
 
 from host import Host, HostPool
 from vm import VirtualMachine, VirtualMachinePool
@@ -19,6 +20,17 @@ CONNECTED = -3
 ALL = -2
 CONNECTED_AND_GROUP = -1
 
+class ProxiedTransport(xmlrpclib.Transport):
+    def set_proxy(self, proxy):
+        self.proxy = proxy
+    def make_connection(self, host):
+        self.realhost = host
+        h = httplib.HTTP(self.proxy)
+        return h
+    def send_request(self, connection, handler, request_body):
+        connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
+    def send_host(self, connection, host):
+        connection.putheader('Host', self.realhost)
 
 class Client(object):
     '''
@@ -29,7 +41,7 @@ class Client(object):
     ONE_AUTH_RE = re.compile('^(.+?):(.+)$')
     DEFAULT_ONE_ADDRESS = "http://localhost:2633/RPC2"
 
-    def __init__(self, secret=None, address=None):
+    def __init__(self, secret=None, address=None, proxy=None):
         if secret:
             one_secret = secret
         elif "ONE_AUTH" in os.environ and os.environ["ONE_AUTH"]:
@@ -62,7 +74,13 @@ class Client(object):
         else:
             self.one_address = self.DEFAULT_ONE_ADDRESS
 
-        self.server = xmlrpclib.ServerProxy(self.one_address)
+        if proxy:
+            p = ProxiedTransport()
+            p.set_proxy(proxy)
+            self.server = xmlrpclib.ServerProxy(self.one_address, transport=p)
+        else:
+            self.server = xmlrpclib.ServerProxy(self.one_address)
+        
 
     def call(self, function, *args):
         '''
