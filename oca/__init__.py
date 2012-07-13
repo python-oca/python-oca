@@ -20,12 +20,26 @@ CONNECTED = -3
 ALL = -2
 CONNECTED_AND_GROUP = -1
 
+class TimeoutHTTPConnection(httplib.HTTPConnection):
+    def connect(self):
+        httplib.HTTPConnection.connect(self)
+        self.sock.settimeout(self.timeout)
+
+class TimeoutHTTP(httplib.HTTP):
+    _connection_class = TimeoutHTTPConnection
+
+    def set_timeout(self, timeout):
+        self._conn.timeout = timeout
+
 class ProxiedTransport(xmlrpclib.Transport):
+    def __init__(self, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, *args, **kwargs):
+        xmlrpclib.Transport.__init__(self, *args, **kwargs)
+        self.timeout = timeout
     def set_proxy(self, proxy):
         self.proxy = proxy
     def make_connection(self, host):
         self.realhost = host
-        h = httplib.HTTP(self.proxy)
+        h = httplib.HTTPConnection(self.proxy)
         return h
     def send_request(self, connection, handler, request_body):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
@@ -75,7 +89,7 @@ class Client(object):
             self.one_address = self.DEFAULT_ONE_ADDRESS
 
         if proxy:
-            p = ProxiedTransport()
+            p = ProxiedTransport(timeout=100)
             p.set_proxy(proxy)
             self.server = xmlrpclib.ServerProxy(self.one_address, transport=p)
         else:
