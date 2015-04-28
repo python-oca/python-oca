@@ -36,8 +36,8 @@ class Host(PoolElement):
         'state'         : int,
         'im_mad'        : str,
         'vm_mad'        : str,
-        'tm_mad'        : str,
         'last_mon_time' : int,
+        'vm_ids'        : ['VMS', lambda vms: map(lambda vmid: int(vmid.text), vms)],
         'template'      : ['TEMPLATE', Template],
         'host_share'    : ['HOST_SHARE', HostShare],
     }
