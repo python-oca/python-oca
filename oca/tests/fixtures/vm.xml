@@ -45,6 +45,9 @@
         <REQUIREMENTS>MAC="50:20:20:20:20:20"</REQUIREMENTS>
         <VMID>6</VMID>
     </TEMPLATE>
+    <USER_TEMPLATE>
+      <GREETING><![CDATA[Hello World]]></GREETING>
+    </USER_TEMPLATE>
     <HISTORY_RECORDS>
         <HISTORY>
             <SEQ>0</SEQ>

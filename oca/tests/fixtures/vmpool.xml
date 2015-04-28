@@ -18,6 +18,7 @@
     <NET_TX>12345</NET_TX>
     <NET_RX>0</NET_RX>
     <TEMPLATE></TEMPLATE>
+    <USER_TEMPLATE/>
     <HISTORY_RECORDS>
         <HISTORY>
           <SEQ>0</SEQ>
@@ -54,6 +55,7 @@
     <NET_TX>12345</NET_TX>
     <NET_RX>0</NET_RX>
     <TEMPLATE></TEMPLATE>
+    <USER_TEMPLATE/>
     <HISTORY_RECORDS>
         <HISTORY>
           <SEQ>0</SEQ>
@@ -90,6 +92,7 @@
     <NET_TX>12345</NET_TX>
     <NET_RX>0</NET_RX>
     <TEMPLATE></TEMPLATE>
+    <USER_TEMPLATE/>
     <HISTORY_RECORDS>
         <HISTORY>
           <SEQ>0</SEQ>

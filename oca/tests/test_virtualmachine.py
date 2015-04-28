@@ -144,3 +144,9 @@ class TestVirtualMachine:
         vm.xml.remove(vm.xml.find('HISTORY_RECORDS'))
         vm._convert_types()
         assert vm.history_records == []
+
+    def test_user_template_variables(self):
+        vm = oca.VirtualMachine(self.xml, self.client)
+        vm._convert_types()
+        greeting = vm.user_template.greeting
+        assert greeting == "Hello World"

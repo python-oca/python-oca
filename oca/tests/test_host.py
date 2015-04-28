@@ -46,3 +46,9 @@ class TestHost:
         h._convert_types()
         share = h.host_share
         assert repr(share) == '<oca.vm.HostShare()>'
+
+    def test_host_vm_ids(self):
+        h = oca.Host(self.xml, self.client)
+        h._convert_types()
+        vm_ids = h.vm_ids
+        assert vm_ids == [82,84,85,95,96]

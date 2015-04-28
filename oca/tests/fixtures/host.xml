@@ -22,6 +22,13 @@
     <USED_CPU>0</USED_CPU>
     <RUNNING_VMS>3</RUNNING_VMS>
   </HOST_SHARE>
+  <VMS>
+    <ID>82</ID>
+    <ID>84</ID>
+    <ID>85</ID>
+    <ID>95</ID>
+    <ID>96</ID>
+  </VMS>
   <TEMPLATE>
     <CPUSPEED>2.2GHz</CPUSPEED>
     <FREECPU>800</FREECPU>

@@ -24,6 +24,7 @@
       <USED_CPU>0</USED_CPU>
       <RUNNING_VMS>3</RUNNING_VMS>
     </HOST_SHARE>
+    <VMS/>
     <TEMPLATE></TEMPLATE>
   </HOST>
   <HOST>
@@ -51,6 +52,7 @@
       <USED_CPU>0</USED_CPU>
       <RUNNING_VMS>0</RUNNING_VMS>
     </HOST_SHARE>
+    <VMS/>
     <TEMPLATE></TEMPLATE>
   </HOST>
 </HOST_POOL>

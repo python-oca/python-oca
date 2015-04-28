@@ -17,14 +17,14 @@ class TestClient:
 
     def test_secret(self):
         c = oca.Client('test:test')
-        assert c.one_auth == 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+        assert c.one_auth == 'test:test'
 
     def test_one_auth(self):
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
                                              'tests/fixtures/one_auth')
         try:
             c = oca.Client()
-            secret = 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+            secret = 'test:test'
             assert c.one_auth == secret
         finally:
             os.environ["ONE_AUTH"] = ''
@@ -33,7 +33,7 @@ class TestClient:
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
                                              'tests/fixtures/one_auth')
         c = oca.Client()
-        assert c.one_auth == 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+        assert c.one_auth == 'test:test'
 
     @raises(oca.OpenNebulaException)
     def test_wrong_default_user_path(self):
@@ -45,10 +45,6 @@ class TestClient:
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
                                              'tests/fixtures/one_auth')
         c = oca.Client('testtest')
-
-    def test_with_plain(self):
-        c = oca.Client('test:plain:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3')
-        assert c.one_auth == 'test:a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 
     def test_addres(self):
         c = oca.Client('test:test',  "http://8.8.8.8:2633/RPC2")
