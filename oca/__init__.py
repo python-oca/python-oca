@@ -49,7 +49,7 @@ class ProxiedTransport(xmlrpclib.Transport):
 class Client(object):
     '''
     The client class, represents the connection with the core and handles the
-    xml-rpc calls(see http://www.opennebula.org/documentation:rel3.0:api)
+    xml-rpc calls(see http://www.opennebula.org/documentation:rel3.2:api)
     '''
     DEFAULT_ONE_AUTH = "~/.one/one_auth"
     ONE_AUTH_RE = re.compile('^(.+?):(.+)$')
@@ -75,10 +75,6 @@ class Client(object):
         else:
             raise OpenNebulaException("Authorization file malformed")
 
-        if password.startswith('plain:'):
-            password = password.split(':', 1)[1]
-        else:
-            password = hashlib.sha1(password).hexdigest()
         self.one_auth = '{0}:{1}'.format(user, password)
 
         if address:
