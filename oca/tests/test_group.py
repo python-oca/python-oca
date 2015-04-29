@@ -26,3 +26,12 @@ class TestGroup:
         self.client.call = Mock()
         group = oca.Group(self.xml, self.client)
         assert repr(group) == '<oca.Group("users")>'
+
+    def test_convert_types(self):
+        group = oca.Group(self.xml, None)
+        group._convert_types()
+        assert group.id == 1
+        assert group.name == "users"
+        assert group.template.hello == "world"
+        assert group.users == [1,2]
+

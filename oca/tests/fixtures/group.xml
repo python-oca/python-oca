@@ -1,6 +1,9 @@
 <GROUP>
   <ID>1</ID>
   <NAME>users</NAME>
+  <TEMPLATE>
+    <HELLO>world</HELLO>
+  </TEMPLATE>
   <USERS>
     <ID>1</ID>
     <ID>2</ID>

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement
+from pool import Pool, PoolElement, Template
 
 
 class Group(PoolElement):
@@ -12,7 +12,14 @@ class Group(PoolElement):
     XML_TYPES = {
             'id'          : int,
             'name'        : str,
-            'users'       : ['USERS', lambda users: [int(i.text) for i in users]]
+            'template'    : ['TEMPLATE', Template],
+            'users'       : ['USERS', lambda users: [int(i.text) for i in users]],
+            #'resource_providers': handled separately
+            #'datastore_quota': handled separately
+            #'network_quota': handled separately
+            #'vm_quota': handled separately
+            #'image_quota'
+            #'default_group_quotas'
     }
 
     ELEMENT_NAME = 'GROUP'
