@@ -42,7 +42,7 @@ class XMLElement(object):
     XML_TYPES = {}
 
     def __init__(self, xml=None):
-        if xml and not ET.iselement(xml):
+        if not (xml is None or ET.iselement(xml)):
             xml = ET.fromstring(xml)
         self.xml = xml
 
