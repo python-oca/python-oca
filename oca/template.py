@@ -20,7 +20,6 @@ class VmTemplate(PoolElement):
             'name'        : str,
             'uname'       : str,
             'gname'       : str,
-            'public'      : bool,
             'regtime'     : int,
             'template'    : ['TEMPLATE', Template]
     }
