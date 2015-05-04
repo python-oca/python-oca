@@ -12,7 +12,8 @@ class Host(PoolElement):
         'info'     : 'host.info',
         'allocate' : 'host.allocate',
         'delete'   : 'host.delete',
-        'enable'   : 'host.enable'
+        'enable'   : 'host.enable',
+        'update'   : 'host.update'
     }
 
     INIT = 0
@@ -81,6 +82,13 @@ class Host(PoolElement):
         Disable this host.
         '''
         self.client.call(self.METHODS['enable'], self.id, False)
+
+    def update(self, template, merge=False):
+        '''
+        Update the template of this host. If merge is false (default),
+        the existing template is replaced.
+        '''
+        self.client.call(self.METHODS['update'], self.id, template, 1 if merge else 0)
 
     @property
     def str_state(self):
