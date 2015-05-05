@@ -2,6 +2,7 @@
     <GROUP>
       <ID>1</ID>
       <NAME>users</NAME>
+      <TEMPLATE/>
       <USERS>
         <ID>1</ID>
         <ID>2</ID>
@@ -9,7 +10,8 @@
     </GROUP>
     <GROUP>
       <ID>2</ID>
-      <NAME>admins</NAME>
+git       <NAME>admins</NAME>
+      <TEMPLATE/>
       <USERS>
         <ID>3</ID>
         <ID>4</ID>
