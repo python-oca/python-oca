@@ -16,7 +16,8 @@ class VirtualMachine(PoolElement):
         'deploy'   : 'vm.deploy',
         'savedisk' : 'vm.savedisk',
         'delete'   : 'vm.delete',
-        'chown'    : 'vm.chown'
+        'chown'    : 'vm.chown',
+        'update'   : 'vm.update',
     }
 
     INIT = 0
@@ -269,6 +270,13 @@ class VirtualMachine(PoolElement):
         dele, unkn
         '''
         return self.SHORT_LCM_STATES[self.str_lcm_state]
+
+    def update(self, template, merge=False):
+        '''
+        Update the template of this host. If merge is false (default),
+        the existing template is replaced.
+        '''
+        self.client.call(self.METHODS['update'], self.id, template, 1 if merge else 0)
 
 
 class VirtualMachinePool(Pool):
