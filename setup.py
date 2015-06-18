@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-__version__ = '3.0.0-a1'
+__version__ = '4.10.0-a1'
 
 import os
 
@@ -16,7 +16,7 @@ except IOError:
 
 setup(name = 'oca',
     version=__version__,
-    description='Bindings for XMLRPC OpenNebula Cloud API',
+    description='Python Bindings for XMLRPC OpenNebula Cloud API',
     long_description=README + '\n\n' + CHANGES,
     test_suite = 'nose.collector',
     classifiers=[
@@ -26,9 +26,8 @@ setup(name = 'oca',
         'Operating System :: OS Independent',
         ],
     keywords='opennebula cloud xmlrpc',
-    author=u'Łukasz Oleś',
-    author_email='lukaszoles@gmail.com',
-    url='https://github.com/lukaszo/python-oca',
+    author=u'Łukasz Oleś, Matthias Schmitz, Michael Schmidt',
+    url='https://github.com/python-oca/python-oca',
     license='Apache License 2.0',
     packages=['oca'],
 )
