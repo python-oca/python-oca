@@ -1,28 +1,46 @@
 <VNET>
-    <ID>3</ID>
-    <UID>0</UID>
-    <GID>0</GID>
-    <UNAME>oneadmin</UNAME>
-    <GNAME>oneadmin</GNAME>
-    <NAME>Red LAN</NAME>
-    <TYPE>0</TYPE>
-    <BRIDGE>vbr0</BRIDGE>
-    <PUBLIC>0</PUBLIC>
-    <TOTAL_LEASES>2</TOTAL_LEASES>
-    <TEMPLATE>
-        <BRIDGE>vbr0</BRIDGE>
-        <DNS>192.169.1.4</DNS>
-        <NAME>Red LAN</NAME>
-        <NETWORK_ADDRESS>192.168.0.0</NETWORK_ADDRESS>
-        <NETWORK_SIZE>C</NETWORK_SIZE>
-        <TYPE>RANGED</TYPE>
-    </TEMPLATE>
-	<LEASES>
-		<LEASE>
-			<IP>192.168.0.1</IP>
-			<MAC>00:03:c0:a8:00:01</MAC>
-			<USED>1</USED>
-			<VID>18</VID>
-		</LEASE>
-	</LEASES>
+  <ID>3</ID>
+  <UID>0</UID>
+  <GID>0</GID>
+  <UNAME>oneadmin</UNAME>
+  <GNAME>oneadmin</GNAME>
+  <NAME>Red LAN</NAME>
+  <PERMISSIONS>
+    <OWNER_U>1</OWNER_U>
+    <OWNER_M>1</OWNER_M>
+    <OWNER_A>0</OWNER_A>
+    <GROUP_U>0</GROUP_U>
+    <GROUP_M>0</GROUP_M>
+    <GROUP_A>0</GROUP_A>
+    <OTHER_U>1</OTHER_U>
+    <OTHER_M>0</OTHER_M>
+    <OTHER_A>0</OTHER_A>
+  </PERMISSIONS>
+  <CLUSTER_ID>-1</CLUSTER_ID>
+  <CLUSTER/>
+  <BRIDGE>vbr0</BRIDGE>
+  <VLAN>1</VLAN>
+  <PARENT_NETWORK_ID/>
+  <PHYDEV><![CDATA[bond1]]></PHYDEV>
+  <VLAN_ID><![CDATA[1337]]></VLAN_ID>
+  <USED_LEASES>3</USED_LEASES>
+  <TEMPLATE/>
+  <AR_POOL>
+    <AR>
+      <ALLOCATED><![CDATA[ 0 68719479930 1 68719545020]]></ALLOCATED>
+      <AR_ID><![CDATA[0]]></AR_ID>
+      <IP><![CDATA[10.1.0.10]]></IP>
+      <MAC><![CDATA[00:22:44:66:88:aa]]></MAC>
+      <SIZE><![CDATA[507]]></SIZE>
+      <TYPE><![CDATA[IP4]]></TYPE>
+    </AR>
+    <AR>
+      <ALLOCATED><![CDATA[ 0 68719546783]]></ALLOCATED>
+      <AR_ID><![CDATA[1]]></AR_ID>
+      <IP><![CDATA[10.1.2.5]]></IP>
+      <MAC><![CDATA[00:22:44:66:aa:cc]]></MAC>
+      <SIZE><![CDATA[507]]></SIZE>
+      <TYPE><![CDATA[IP4]]></TYPE>
+    </AR>
+  </AR_POOL>
 </VNET>
