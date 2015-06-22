@@ -2,7 +2,9 @@
 OCA - OpenNebula Cloud Api
 ##############################################
 :Version: 4.10.0-a1
-:status: .. image:: https://travis-ci.org/python-oca/python-oca.svg
+:status:
+  .. image:: https://travis-ci.org/python-oca/python-oca.svg
+     :target: https://travis-ci.org/python-oca/python-oca
 
 About
 -----
