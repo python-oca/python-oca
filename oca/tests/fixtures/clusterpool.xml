@@ -1,0 +1,24 @@
+<CLUSTER_POOL>
+  <CLUSTER>
+    <ID>101</ID>
+    <NAME>oneCluster</NAME>
+    <HOSTS/>
+    <DATASTORES/>
+    <VNETS/>
+    <TEMPLATE>
+      <RESERVED_CPU><![CDATA[]]></RESERVED_CPU>
+      <RESERVED_MEM><![CDATA[]]></RESERVED_MEM>
+    </TEMPLATE>
+  </CLUSTER>
+  <CLUSTER>
+    <ID>102</ID>
+    <NAME>anotherCluster</NAME>
+    <HOSTS/>
+    <DATASTORES/>
+    <VNETS/>
+    <TEMPLATE>
+      <RESERVED_CPU><![CDATA[]]></RESERVED_CPU>
+      <RESERVED_MEM><![CDATA[]]></RESERVED_MEM>
+    </TEMPLATE>
+  </CLUSTER>
+</CLUSTER_POOL>

@@ -1,0 +1,20 @@
+<CLUSTER>
+  <ID>101</ID>
+  <NAME>oneCluster</NAME>
+  <HOSTS>
+    <ID>2</ID>
+    <ID>3</ID>
+  </HOSTS>
+  <DATASTORES>
+    <ID>4</ID>
+    <ID>5</ID>
+  </DATASTORES>
+  <VNETS>
+    <ID>6</ID>
+    <ID>7</ID>
+  </VNETS>
+  <TEMPLATE>
+    <RESERVED_CPU><![CDATA[]]></RESERVED_CPU>
+    <RESERVED_MEM><![CDATA[]]></RESERVED_MEM>
+  </TEMPLATE>
+</CLUSTER>

@@ -46,7 +46,7 @@ class Host(PoolElement):
     ELEMENT_NAME = 'HOST'
 
     @staticmethod
-    def allocate(client, hostname, im, vmm, tm):
+    def allocate(client, hostname, im, vmm, tm, cluster_id=-1):
         '''
         Adds a host to the host list
 
@@ -64,7 +64,7 @@ class Host(PoolElement):
         ``tm``
            Transfer manager
         '''
-        host_id = client.call(Host.METHODS['allocate'], hostname, im, vmm, tm)
+        host_id = client.call(Host.METHODS['allocate'], hostname, im, vmm, tm, cluster_id)
         return host_id
 
     def __init__(self, xml, client):
