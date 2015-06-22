@@ -1,32 +1,60 @@
 <VNET_POOL>
   <VNET>
     <ID>4</ID>
+    <UID>0</UID>
     <GID>0</GID>
     <UNAME>oneadmin</UNAME>
     <GNAME>oneadmin</GNAME>
-    <UID>0</UID>
-    <USERNAME>oneadmin</USERNAME>
     <NAME>Red LAN</NAME>
-    <TYPE>0</TYPE>
+    <PERMISSIONS>
+      <OWNER_U>1</OWNER_U>
+      <OWNER_M>1</OWNER_M>
+      <OWNER_A>0</OWNER_A>
+      <GROUP_U>0</GROUP_U>
+      <GROUP_M>0</GROUP_M>
+      <GROUP_A>0</GROUP_A>
+      <OTHER_U>1</OTHER_U>
+      <OTHER_M>0</OTHER_M>
+      <OTHER_A>0</OTHER_A>
+    </PERMISSIONS>
+    <CLUSTER_ID>-1</CLUSTER_ID>
+    <CLUSTER/>
     <BRIDGE>vbr0</BRIDGE>
-    <TOTAL_LEASES>0</TOTAL_LEASES>
-    <PUBLIC>0</PUBLIC>
-    <TEMPLATE></TEMPLATE>
-	<LEASES></LEASES>
+    <VLAN>1</VLAN>
+    <PARENT_NETWORK_ID/>
+    <PHYDEV><![CDATA[bond1]]></PHYDEV>
+    <VLAN_ID><![CDATA[1337]]></VLAN_ID>
+    <USED_LEASES>3</USED_LEASES>
+    <TEMPLATE/>
+    <AR_POOL/>
   </VNET>
   <VNET>
-    <ID>5</ID>
+    <ID>9</ID>
     <UID>0</UID>
     <GID>0</GID>
     <UNAME>oneadmin</UNAME>
     <GNAME>oneadmin</GNAME>
-    <USERNAME>oneadmin</USERNAME>
     <NAME>Public</NAME>
-    <TYPE>0</TYPE>
+    <PERMISSIONS>
+      <OWNER_U>1</OWNER_U>
+      <OWNER_M>1</OWNER_M>
+      <OWNER_A>0</OWNER_A>
+      <GROUP_U>0</GROUP_U>
+      <GROUP_M>0</GROUP_M>
+      <GROUP_A>0</GROUP_A>
+      <OTHER_U>1</OTHER_U>
+      <OTHER_M>0</OTHER_M>
+      <OTHER_A>0</OTHER_A>
+    </PERMISSIONS>
+    <CLUSTER_ID>-1</CLUSTER_ID>
+    <CLUSTER/>
     <BRIDGE>vbr0</BRIDGE>
-    <TOTAL_LEASES>1</TOTAL_LEASES>
-    <PUBLIC>1</PUBLIC>
-    <TEMPLATE></TEMPLATE>
-	<LEASES></LEASES>
+    <VLAN>1</VLAN>
+    <PARENT_NETWORK_ID/>
+    <PHYDEV><![CDATA[bond1]]></PHYDEV>
+    <VLAN_ID><![CDATA[42]]></VLAN_ID>
+    <USED_LEASES>0</USED_LEASES>
+    <TEMPLATE/>
+    <AR_POOL/>
   </VNET>
 </VNET_POOL>

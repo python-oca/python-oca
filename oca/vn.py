@@ -1,6 +1,29 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import XMLElement, Pool, PoolElement, Template
 
+
+class AddressRange(XMLElement):
+    XML_TYPES = {
+            'id'   : ["AR_ID", lambda xml: int(xml.text)],
+            'size' : int,
+            #'template' : ['TEMPLATE', Template],
+    }
+
+    def __init__(self, xml):
+        super(AddressRange, self).__init__(xml)
+        self._convert_types()
+        self.id = self['AR_ID'] if self['AR_ID'] else None
+
+class AddressRangeList(list):
+    def __init__(self, xml):
+        self.xml = xml
+        for element in self.xml:
+            self.append(self._factory(element))
+
+    def _factory(self, xml):
+        v = AddressRange(xml)
+        v._convert_types()
+        return v
 
 class VirtualNetwork(PoolElement):
     METHODS = {
@@ -9,8 +32,6 @@ class VirtualNetwork(PoolElement):
         'delete'   : 'vn.delete',
         'publish'  : 'vn.publish',
         'chown'    : 'vn.chown',
-        'addleases': 'vn.addleases',
-        'rmleases' : 'vn.rmleases'
     }
 
     XML_TYPES = {
@@ -20,11 +41,12 @@ class VirtualNetwork(PoolElement):
             'uname'    : str,
             'gname'    : str,
             'name'     : str,
-            'type'     : int,
+            #'type'     : int,
             'bridge'   : str,
-            'public'   : bool,
-            'total_leases' : int,
+            #'public'   : bool,
+            'used_leases' : int,
             'template' : ['TEMPLATE', Template],
+            'address_ranges': ['AR_POOL', AddressRangeList],
     }
 
     ELEMENT_NAME = 'VNET'
@@ -74,7 +96,6 @@ class VirtualNetwork(PoolElement):
     def __repr__(self):
         return '<oca.VirtualNetwork("%s")>' % self.name
 
-
 class VirtualNetworkPool(Pool):
     METHODS = {
             'info' : 'vnpool.info',
@@ -87,4 +108,3 @@ class VirtualNetworkPool(Pool):
         v = VirtualNetwork(xml, self.client)
         v._convert_types()
         return v
-
