@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>oca &mdash; oca 4.10.0-a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.10.0-a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="oca 4.10.0-a1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for oca</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: UTF-8 -*-</span>
+<span class="kn">import</span> <span class="nn">xmlrpclib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">httplib</span>
+
+<span class="kn">from</span> <span class="nn">host</span> <span class="kn">import</span> <span class="n">Host</span><span class="p">,</span> <span class="n">HostPool</span>
+<span class="kn">from</span> <span class="nn">vm</span> <span class="kn">import</span> <span class="n">VirtualMachine</span><span class="p">,</span> <span class="n">VirtualMachinePool</span>
+<span class="kn">from</span> <span class="nn">user</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">UserPool</span>
+<span class="kn">from</span> <span class="nn">image</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImagePool</span>
+<span class="kn">from</span> <span class="nn">vn</span> <span class="kn">import</span> <span class="n">VirtualNetwork</span><span class="p">,</span> <span class="n">VirtualNetworkPool</span>
+<span class="kn">from</span> <span class="nn">group</span> <span class="kn">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">GroupPool</span>
+<span class="kn">from</span> <span class="nn">template</span> <span class="kn">import</span> <span class="n">VmTemplate</span><span class="p">,</span> <span class="n">VmTemplatePool</span>
+<span class="kn">from</span> <span class="nn">exceptions</span> <span class="kn">import</span> <span class="n">OpenNebulaException</span>
+
+
+<span class="n">CONNECTED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">ALL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">CONNECTED_AND_GROUP</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">class</span> <span class="nc">TimeoutHTTPConnection</span><span class="p">(</span><span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TimeoutHTTP</span><span class="p">(</span><span class="n">httplib</span><span class="o">.</span><span class="n">HTTP</span><span class="p">):</span>
+    <span class="n">_connection_class</span> <span class="o">=</span> <span class="n">TimeoutHTTPConnection</span>
+
+    <span class="k">def</span> <span class="nf">set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+
+<span class="k">class</span> <span class="nc">ProxiedTransport</span><span class="p">(</span><span class="n">xmlrpclib</span><span class="o">.</span><span class="n">Transport</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">_GLOBAL_DEFAULT_TIMEOUT</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">Transport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+    <span class="k">def</span> <span class="nf">set_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy</span>
+    <span class="k">def</span> <span class="nf">make_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">realhost</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
+    <span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">request_body</span><span class="p">):</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">putrequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="s">&#39;http://</span><span class="si">%s%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">realhost</span><span class="p">,</span> <span class="n">handler</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">send_host</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">putheader</span><span class="p">(</span><span class="s">&#39;Host&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">realhost</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../api/client.html#oca.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The client class, represents the connection with the core and handles the</span>
+<span class="sd">    xml-rpc calls(see http://www.opennebula.org/documentation:rel3.2:api)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">DEFAULT_ONE_AUTH</span> <span class="o">=</span> <span class="s">&quot;~/.one/one_auth&quot;</span>
+    <span class="n">ONE_AUTH_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;^(.+?):(.+)$&#39;</span><span class="p">)</span>
+    <span class="n">DEFAULT_ONE_ADDRESS</span> <span class="o">=</span> <span class="s">&quot;http://localhost:2633/RPC2&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">secret</span><span class="p">:</span>
+            <span class="n">one_secret</span> <span class="o">=</span> <span class="n">secret</span>
+        <span class="k">elif</span> <span class="s">&quot;ONE_AUTH&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;ONE_AUTH&quot;</span><span class="p">]:</span>
+            <span class="n">one_auth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;ONE_AUTH&quot;</span><span class="p">])</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">one_auth</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">one_secret</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_ONE_AUTH</span><span class="p">)):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_ONE_AUTH</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">one_secret</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OpenNebulaException</span><span class="p">(</span><span class="s">&#39;ONE_AUTH file not present&#39;</span><span class="p">)</span>
+
+        <span class="n">one_secret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ONE_AUTH_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">one_secret</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">one_secret</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">one_secret</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">one_secret</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OpenNebulaException</span><span class="p">(</span><span class="s">&quot;Authorization file malformed&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">one_auth</span> <span class="o">=</span> <span class="s">&#39;{0}:{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">address</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">one_address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="k">elif</span> <span class="s">&quot;ONE_XMLRPC&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;ONE_XMLRPC&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">one_address</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;ONE_XMLRPC&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">one_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_ONE_ADDRESS</span>
+
+        <span class="k">if</span> <span class="n">proxy</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">ProxiedTransport</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">set_proxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">one_address</span><span class="p">,</span> <span class="n">transport</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">one_address</span><span class="p">)</span>
+        
+
+<div class="viewcode-block" id="Client.call"><a class="viewcode-back" href="../api/client.html#oca.Client.call">[docs]</a>    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Calls rpc function.</span>
+
+<span class="sd">        Arguments</span>
+
+<span class="sd">        ``function``</span>
+<span class="sd">           OpenNebula xmlrpc funtcion name (without preceding &#39;one.&#39;)</span>
+
+<span class="sd">        ``args``</span>
+<span class="sd">           function arguments</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">one</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">one_auth</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">is_success</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">return_code</span> <span class="o">=</span> <span class="n">ret</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+                <span class="n">is_success</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c">#connection error</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_success</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OpenNebulaException</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+</div></div>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="n">Client</span><span class="p">,</span> <span class="n">OpenNebulaException</span><span class="p">,</span> <span class="n">Host</span><span class="p">,</span> <span class="n">HostPool</span><span class="p">,</span> <span class="n">VirtualMachine</span><span class="p">,</span>
+        <span class="n">VirtualMachinePool</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">UserPool</span><span class="p">,</span>
+        <span class="n">Image</span><span class="p">,</span> <span class="n">ImagePool</span><span class="p">,</span> <span class="n">VirtualNetwork</span><span class="p">,</span> <span class="n">VirtualNetworkPool</span><span class="p">,</span>
+        <span class="n">Group</span><span class="p">,</span> <span class="n">GroupPool</span><span class="p">,</span> <span class="n">VmTemplate</span><span class="p">,</span> <span class="n">VmTemplatePool</span><span class="p">,</span> <span class="n">ALL</span><span class="p">,</span> <span class="n">CONNECTED</span><span class="p">]</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2011, Łukasz Oleś.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

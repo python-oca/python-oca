@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>oca.virtualnetwork &mdash; oca 4.10.0-a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.10.0-a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="oca 4.10.0-a1 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="next" title="oca.user" href="user.html" />
+    <link rel="prev" title="oca.image" href="image.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="user.html" title="oca.user"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="image.html" title="oca.image"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="oca-virtualnetwork">
+<span id="virtualnetwork-module"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">oca.virtualnetwork</span></tt><a class="headerlink" href="#oca-virtualnetwork" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="oca.VirtualNetwork">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">VirtualNetwork</tt><big>(</big><em>xml</em>, <em>client</em><big>)</big><a class="headerlink" href="#oca.VirtualNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.PoolElement</span></tt></p>
+<dl class="attribute">
+<dt id="oca.VirtualNetwork.ELEMENT_NAME">
+<tt class="descname">ELEMENT_NAME</tt><em class="property"> = 'VNET'</em><a class="headerlink" href="#oca.VirtualNetwork.ELEMENT_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.VirtualNetwork.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'vn.info', 'chown': 'vn.chown', 'allocate': 'vn.allocate', 'publish': 'vn.publish', 'delete': 'vn.delete'}</em><a class="headerlink" href="#oca.VirtualNetwork.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.VirtualNetwork.XML_TYPES">
+<tt class="descname">XML_TYPES</tt><em class="property"> = {'bridge': &lt;type 'str'&gt;, 'uname': &lt;type 'str'&gt;, 'gid': &lt;type 'int'&gt;, 'used_leases': &lt;type 'int'&gt;, 'uid': &lt;type 'int'&gt;, 'template': ['TEMPLATE', &lt;class 'oca.pool.Template'&gt;], 'gname': &lt;type 'str'&gt;, 'address_ranges': ['AR_POOL', &lt;class 'oca.vn.AddressRangeList'&gt;], 'id': &lt;type 'int'&gt;, 'name': &lt;type 'str'&gt;}</em><a class="headerlink" href="#oca.VirtualNetwork.XML_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="oca.VirtualNetwork.allocate">
+<em class="property">static </em><tt class="descname">allocate</tt><big>(</big><em>client</em>, <em>template</em><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>allocates a new virtual network in OpenNebula</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">template</span></tt></dt>
+<dd>a string containing the template of the virtual network</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VirtualNetwork.chown">
+<tt class="descname">chown</tt><big>(</big><em>uid</em>, <em>gid</em><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.chown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the owner/group</p>
+<p>Arguments</p>
+<p><tt class="docutils literal"><span class="pre">uid</span></tt>
+New owner id. Set to -1 to leave current value
+<tt class="docutils literal"><span class="pre">gid</span></tt>
+New group id. Set to -1 to leave current value</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VirtualNetwork.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes current object from the pool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VirtualNetwork.info">
+<tt class="descname">info</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="oca.VirtualNetwork.new_with_id">
+<em class="property">classmethod </em><tt class="descname">new_with_id</tt><big>(</big><em>client</em>, <em>element_id</em><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.new_with_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrives object which id equals <tt class="docutils literal"><span class="pre">`id`</span></tt>.</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">`client`</span></tt></dt>
+<dd>oca.Client object.</dd>
+<dt><tt class="docutils literal"><span class="pre">`element_id</span></tt></dt>
+<dd>object id.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VirtualNetwork.publish">
+<tt class="descname">publish</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.publish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publishes a virtual network.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VirtualNetwork.unpublish">
+<tt class="descname">unpublish</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VirtualNetwork.unpublish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpublishes a virtual network.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="oca.VirtualNetworkPool">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">VirtualNetworkPool</tt><big>(</big><em>client</em><big>)</big><a class="headerlink" href="#oca.VirtualNetworkPool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.Pool</span></tt></p>
+<dl class="attribute">
+<dt id="oca.VirtualNetworkPool.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'vnpool.info'}</em><a class="headerlink" href="#oca.VirtualNetworkPool.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="image.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">oca.image</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="user.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">oca.user</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/vn.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="user.html" title="oca.user"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="image.html" title="oca.image"
+             >previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" >API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2011, Łukasz Oleś.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

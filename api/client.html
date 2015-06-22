@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>oca.Client &mdash; oca 4.10.0-a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.10.0-a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="oca 4.10.0-a1 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="next" title="oca.host" href="host.html" />
+    <link rel="prev" title="API Documentation" href="../api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="host.html" title="oca.host"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="oca-client">
+<span id="oca-module"></span><h1><a class="reference internal" href="#oca.Client" title="oca.Client"><tt class="xref py py-mod docutils literal"><span class="pre">oca.Client</span></tt></a><a class="headerlink" href="#oca-client" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="oca.Client">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">Client</tt><big>(</big><em>secret=None</em>, <em>address=None</em>, <em>proxy=None</em><big>)</big><a class="reference internal" href="../_modules/oca.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oca.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>The client class, represents the connection with the core and handles the
+xml-rpc calls(see <a class="reference external" href="http://www.opennebula.org/documentation:rel3.2:api">http://www.opennebula.org/documentation:rel3.2:api</a>)</p>
+<dl class="attribute">
+<dt id="oca.Client.DEFAULT_ONE_ADDRESS">
+<tt class="descname">DEFAULT_ONE_ADDRESS</tt><em class="property"> = 'http://localhost:2633/RPC2'</em><a class="headerlink" href="#oca.Client.DEFAULT_ONE_ADDRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Client.DEFAULT_ONE_AUTH">
+<tt class="descname">DEFAULT_ONE_AUTH</tt><em class="property"> = '~/.one/one_auth'</em><a class="headerlink" href="#oca.Client.DEFAULT_ONE_AUTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Client.ONE_AUTH_RE">
+<tt class="descname">ONE_AUTH_RE</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f8cdb1557c8&gt;</em><a class="headerlink" href="#oca.Client.ONE_AUTH_RE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="oca.Client.call">
+<tt class="descname">call</tt><big>(</big><em>function</em>, <em>*args</em><big>)</big><a class="reference internal" href="../_modules/oca.html#Client.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oca.Client.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls rpc function.</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">function</span></tt></dt>
+<dd>OpenNebula xmlrpc funtcion name (without preceding &#8216;one.&#8217;)</dd>
+<dt><tt class="docutils literal"><span class="pre">args</span></tt></dt>
+<dd>function arguments</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="previous chapter">API Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="host.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">oca.host</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/client.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="host.html" title="oca.host"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             >previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" >API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2011, Łukasz Oleś.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

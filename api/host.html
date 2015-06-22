@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>oca.host &mdash; oca 4.10.0-a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.10.0-a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="oca 4.10.0-a1 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="next" title="oca.image" href="image.html" />
+    <link rel="prev" title="oca.Client" href="client.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="image.html" title="oca.image"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="oca.Client"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="oca-host">
+<span id="host-module"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">oca.host</span></tt><a class="headerlink" href="#oca-host" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="oca.Host">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">Host</tt><big>(</big><em>xml</em>, <em>client</em><big>)</big><a class="headerlink" href="#oca.Host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.PoolElement</span></tt></p>
+<dl class="attribute">
+<dt id="oca.Host.DISABLED">
+<tt class="descname">DISABLED</tt><em class="property"> = 4</em><a class="headerlink" href="#oca.Host.DISABLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.ELEMENT_NAME">
+<tt class="descname">ELEMENT_NAME</tt><em class="property"> = 'HOST'</em><a class="headerlink" href="#oca.Host.ELEMENT_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.ERROR">
+<tt class="descname">ERROR</tt><em class="property"> = 3</em><a class="headerlink" href="#oca.Host.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.HOST_STATES">
+<tt class="descname">HOST_STATES</tt><em class="property"> = ['INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED']</em><a class="headerlink" href="#oca.Host.HOST_STATES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.INIT">
+<tt class="descname">INIT</tt><em class="property"> = 0</em><a class="headerlink" href="#oca.Host.INIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'host.info', 'update': 'host.update', 'enable': 'host.enable', 'allocate': 'host.allocate', 'delete': 'host.delete'}</em><a class="headerlink" href="#oca.Host.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.MONITORED">
+<tt class="descname">MONITORED</tt><em class="property"> = 2</em><a class="headerlink" href="#oca.Host.MONITORED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.MONITORING">
+<tt class="descname">MONITORING</tt><em class="property"> = 1</em><a class="headerlink" href="#oca.Host.MONITORING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.SHORT_HOST_STATES">
+<tt class="descname">SHORT_HOST_STATES</tt><em class="property"> = {'DISABLED': 'off', 'MONITORED': 'on', 'INIT': 'on', 'MONITORING': 'on', 'ERROR': 'err'}</em><a class="headerlink" href="#oca.Host.SHORT_HOST_STATES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.XML_TYPES">
+<tt class="descname">XML_TYPES</tt><em class="property"> = {'host_share': ['HOST_SHARE', &lt;class 'oca.host.HostShare'&gt;], 'state': &lt;type 'int'&gt;, 'vm_ids': ['VMS', &lt;function &lt;lambda&gt; at 0x7f8cdb129b18&gt;], 'name': &lt;type 'str'&gt;, 'template': ['TEMPLATE', &lt;class 'oca.pool.Template'&gt;], 'last_mon_time': &lt;type 'int'&gt;, 'id': &lt;type 'int'&gt;, 'vm_mad': &lt;type 'str'&gt;, 'im_mad': &lt;type 'str'&gt;}</em><a class="headerlink" href="#oca.Host.XML_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="oca.Host.allocate">
+<em class="property">static </em><tt class="descname">allocate</tt><big>(</big><em>client</em>, <em>hostname</em>, <em>im</em>, <em>vmm</em>, <em>tm</em><big>)</big><a class="headerlink" href="#oca.Host.allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a host to the host list</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">hostname</span></tt></dt>
+<dd>Hostname machine to add</dd>
+<dt><tt class="docutils literal"><span class="pre">im</span></tt></dt>
+<dd>Information manager&#8217;</dd>
+<dt><tt class="docutils literal"><span class="pre">vmm</span></tt></dt>
+<dd>Virtual machine manager.</dd>
+<dt><tt class="docutils literal"><span class="pre">tm</span></tt></dt>
+<dd>Transfer manager</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.Host.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.Host.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes current object from the pool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.Host.disable">
+<tt class="descname">disable</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.Host.disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable this host.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.Host.enable">
+<tt class="descname">enable</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.Host.enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable this host</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.Host.info">
+<tt class="descname">info</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#oca.Host.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="oca.Host.new_with_id">
+<em class="property">classmethod </em><tt class="descname">new_with_id</tt><big>(</big><em>client</em>, <em>element_id</em><big>)</big><a class="headerlink" href="#oca.Host.new_with_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrives object which id equals <tt class="docutils literal"><span class="pre">`id`</span></tt>.</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">`client`</span></tt></dt>
+<dd>oca.Client object.</dd>
+<dt><tt class="docutils literal"><span class="pre">`element_id</span></tt></dt>
+<dd>object id.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.short_state">
+<tt class="descname">short_state</tt><a class="headerlink" href="#oca.Host.short_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short string representation of host state. One of &#8216;on&#8217;, &#8216;off&#8217;, &#8216;err&#8217;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="oca.Host.str_state">
+<tt class="descname">str_state</tt><a class="headerlink" href="#oca.Host.str_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation of host state.
+One of &#8216;INIT&#8217;, &#8216;MONITORING&#8217;, &#8216;MONITORED&#8217;, &#8216;ERROR&#8217;, &#8216;DISABLED&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.Host.update">
+<tt class="descname">update</tt><big>(</big><em>template</em>, <em>merge=False</em><big>)</big><a class="headerlink" href="#oca.Host.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the template of this host. If merge is false (default),
+the existing template is replaced.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="oca.HostPool">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">HostPool</tt><big>(</big><em>client</em><big>)</big><a class="headerlink" href="#oca.HostPool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.Pool</span></tt></p>
+<dl class="attribute">
+<dt id="oca.HostPool.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'hostpool.info'}</em><a class="headerlink" href="#oca.HostPool.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="client.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">oca.Client</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="image.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">oca.image</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/host.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="image.html" title="oca.image"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="oca.Client"
+             >previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" >API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2011, Łukasz Oleś.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

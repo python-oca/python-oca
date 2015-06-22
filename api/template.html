@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>oca.template &mdash; oca 4.10.0-a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.10.0-a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="oca 4.10.0-a1 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="next" title="oca.virtualmachine" href="vm.html" />
+    <link rel="prev" title="oca.group" href="group.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="vm.html" title="oca.virtualmachine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="group.html" title="oca.group"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="oca-template">
+<span id="template-module"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">oca.template</span></tt><a class="headerlink" href="#oca-template" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="oca.VmTemplate">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">VmTemplate</tt><big>(</big><em>xml</em>, <em>client</em><big>)</big><a class="headerlink" href="#oca.VmTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.PoolElement</span></tt></p>
+<dl class="attribute">
+<dt id="oca.VmTemplate.ELEMENT_NAME">
+<tt class="descname">ELEMENT_NAME</tt><em class="property"> = 'VMTEMPLATE'</em><a class="headerlink" href="#oca.VmTemplate.ELEMENT_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.VmTemplate.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'template.info', 'instantiate': 'template.instantiate', 'update': 'template.update', 'publish': 'template.publish', 'chown': 'template.chown', 'allocate': 'template.allocate', 'delete': 'template.delete'}</em><a class="headerlink" href="#oca.VmTemplate.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="oca.VmTemplate.XML_TYPES">
+<tt class="descname">XML_TYPES</tt><em class="property"> = {'uname': &lt;type 'str'&gt;, 'gid': &lt;type 'int'&gt;, 'uid': &lt;type 'int'&gt;, 'template': ['TEMPLATE', &lt;class 'oca.pool.Template'&gt;], 'gname': &lt;type 'str'&gt;, 'id': &lt;type 'int'&gt;, 'regtime': &lt;type 'int'&gt;, 'name': &lt;type 'str'&gt;}</em><a class="headerlink" href="#oca.VmTemplate.XML_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="oca.VmTemplate.allocate">
+<em class="property">static </em><tt class="descname">allocate</tt><big>(</big><em>client</em>, <em>template</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocates a new template in OpenNebula</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">client</span></tt></dt>
+<dd>oca.Client object</dd>
+<dt><tt class="docutils literal"><span class="pre">group</span></tt></dt>
+<dd>a string containing the group name</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.chown">
+<tt class="descname">chown</tt><big>(</big><em>uid=-1</em>, <em>gid=-1</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.chown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the ownership of a template.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">uid</span></tt></dt>
+<dd>The User ID of the new owner. If set to -1, the owner is not changed.</dd>
+<dt><tt class="docutils literal"><span class="pre">gid</span></tt></dt>
+<dd>The Group ID of the new group. If set to -1, the group is not changed.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VmTemplate.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes current object from the pool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.info">
+<tt class="descname">info</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.instantiate">
+<tt class="descname">instantiate</tt><big>(</big><em>name=''</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.instantiate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a VM instance from a VmTemplate</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">name</span></tt></dt>
+<dd>name of the VM instance</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="oca.VmTemplate.new_with_id">
+<em class="property">classmethod </em><tt class="descname">new_with_id</tt><big>(</big><em>client</em>, <em>element_id</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.new_with_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrives object which id equals <tt class="docutils literal"><span class="pre">`id`</span></tt>.</p>
+<p>Arguments</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">`client`</span></tt></dt>
+<dd>oca.Client object.</dd>
+<dt><tt class="docutils literal"><span class="pre">`element_id</span></tt></dt>
+<dd>object id.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.publish">
+<tt class="descname">publish</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VmTemplate.publish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publishes a template.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.unpublish">
+<tt class="descname">unpublish</tt><big>(</big><big>)</big><a class="headerlink" href="#oca.VmTemplate.unpublish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpublishes a template.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="oca.VmTemplate.update">
+<tt class="descname">update</tt><big>(</big><em>template</em><big>)</big><a class="headerlink" href="#oca.VmTemplate.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces the template contents.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">template</span></tt></dt>
+<dd>The new template contents.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="oca.VmTemplatePool">
+<em class="property">class </em><tt class="descclassname">oca.</tt><tt class="descname">VmTemplatePool</tt><big>(</big><em>client</em><big>)</big><a class="headerlink" href="#oca.VmTemplatePool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">oca.pool.Pool</span></tt></p>
+<dl class="attribute">
+<dt id="oca.VmTemplatePool.METHODS">
+<tt class="descname">METHODS</tt><em class="property"> = {'info': 'templatepool.info'}</em><a class="headerlink" href="#oca.VmTemplatePool.METHODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="group.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">oca.group</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="vm.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">oca.virtualmachine</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/template.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="vm.html" title="oca.virtualmachine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="group.html" title="oca.group"
+             >previous</a> |</li>
+        <li><a href="../index.html">oca 4.10.0-a1 documentation</a> &raquo;</li>
+          <li><a href="../api.html" >API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2011, Łukasz Oleś.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
