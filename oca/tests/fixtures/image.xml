@@ -1,16 +1,38 @@
 <IMAGE>
-    <ID>1</ID>
-    <UID>0</UID>
-    <GID>0</GID>
-    <UNAME>oneadmin</UNAME>
-    <GNAME>oneadmin</GNAME>
-    <NAME>MATLAB install CD</NAME>
-    <TYPE>1</TYPE>
-    <PUBLIC>0</PUBLIC>
-    <PERSISTENT>0</PERSISTENT>
-    <REGTIME>1287503867</REGTIME>
-    <SOURCE>/home/cmartin/trabajo/one.git/one/install/var//images/21df7c80e4357f20dc737e3f60dd7048ddc6a510</SOURCE>
-    <STATE>3</STATE>
-    <RUNNING_VMS>0</RUNNING_VMS>
-    <TEMPLATE><DESCRIPTION><![CDATA[Contains the MATLAB installation files. Mount it to install MATLAB on new OS images.]]></DESCRIPTION><DEV_PREFIX><![CDATA[hd]]></DEV_PREFIX><NAME><![CDATA[MATLAB install CD]]></NAME><PATH><![CDATA[/home/non_existent/images/matlab.iso]]></PATH><TYPE><![CDATA[CDROM]]></TYPE></TEMPLATE>
+  <ID>1</ID>
+  <UID>0</UID>
+  <GID>0</GID>
+  <UNAME>oneadmin</UNAME>
+  <GNAME>oneadmin</GNAME>
+  <NAME>MATLAB install CD</NAME>
+  <PERMISSIONS>
+    <OWNER_U>1</OWNER_U>
+    <OWNER_M>1</OWNER_M>
+    <OWNER_A>0</OWNER_A>
+    <GROUP_U>0</GROUP_U>
+    <GROUP_M>0</GROUP_M>
+    <GROUP_A>0</GROUP_A>
+    <OTHER_U>0</OTHER_U>
+    <OTHER_M>0</OTHER_M>
+    <OTHER_A>0</OTHER_A>
+  </PERMISSIONS>
+  <TYPE>2</TYPE>
+  <DISK_TYPE>0</DISK_TYPE>
+  <PERSISTENT>0</PERSISTENT>
+  <REGTIME>1435086617</REGTIME>
+  <SOURCE><![CDATA[/var/lib/one//datastores/1/4f3591cfe3a4e0a00789087a3f92c433]]></SOURCE>
+  <PATH><![CDATA[]]></PATH>
+  <FSTYPE><![CDATA[ext2]]></FSTYPE>
+  <SIZE>400</SIZE>
+  <STATE>1</STATE>
+  <RUNNING_VMS>0</RUNNING_VMS>
+  <CLONING_OPS>0</CLONING_OPS>
+  <CLONING_ID>-1</CLONING_ID>
+  <DATASTORE_ID>1</DATASTORE_ID>
+  <DATASTORE>default</DATASTORE>
+  <VMS/>
+  <CLONES/>
+  <TEMPLATE>
+    <DEV_PREFIX><![CDATA[hd]]></DEV_PREFIX>
+  </TEMPLATE>
 </IMAGE>
