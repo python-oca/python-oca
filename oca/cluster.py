@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 class Cluster(PoolElement):
     METHODS = {
@@ -12,7 +12,7 @@ class Cluster(PoolElement):
 
     XML_TYPES = {
         'id'            : int,
-        'name'          : str,
+        'name'          : extractString,
         'host_ids'      : ['HOSTS', lambda hosts: map(lambda host_id: int(host_id.text), hosts)],
         'datastore_ids' : ['DATASTORES', lambda datastores: map(lambda datastore_id: int(datastore_id.text), datastores)],
         'vnet_ids'      : ['VNETS', lambda vnets: map(lambda vnet_id: int(vnet_id.text), vnets)],

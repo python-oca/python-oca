@@ -12,6 +12,11 @@ class WrongNameError(OpenNebulaException):
 class WrongIdError(OpenNebulaException):
     pass
 
+def extractString(xml_or_string):
+    if isinstance(xml_or_string, str):
+        return xml_or_string
+    else:
+        return xml_or_string.text or ''
 
 class Template(object):
     def __init__(self, xml_element, multiple=[]):
@@ -60,7 +65,7 @@ class XMLElement(object):
             else:
                 return value
         else:
-            raise IndexError()
+            raise IndexError("Key {0} not found!".format(key))
 
     def __getattr__(self, name):
         try:

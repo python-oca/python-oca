@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 class Datastore(PoolElement):
     METHODS = {
@@ -12,20 +12,20 @@ class Datastore(PoolElement):
 
     XML_TYPES = {
         'id'            : int,
-        'name'          : str,
+        'name'          : extractString,
         'uid'           : int,
         'gid'           : int,
-        'uname'         : str,
-        'gname'         : str,
+        'uname'         : extractString,
+        'gname'         : extractString,
         #'permissions'   : Permissions,
-        'ds_mad'        : str,
-        'tm_mad'        : str,
-        'base_path'     : str,
+        'ds_mad'        : extractString,
+        'tm_mad'        : extractString,
+        'base_path'     : extractString,
         'type'          : int,
         'disk_type'     : int,
         #'state'         : ???,
         'cluster_id'    : int,
-        'cluster'       : lambda element: element if isinstance(element, str) else '',
+        'cluster'       : extractString,
         'total_mb'      : int,
         'free_mb'       : int,
         'used_mb'       : int,
