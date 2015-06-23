@@ -1,7 +1,7 @@
 API Documentation
 =================
 
-See http://www.opennebula.org/documentation:rel3.2:api
+See http://docs.opennebula.org/4.10/integration/system_interfaces/api.html
 
 .. toctree::
    :maxdepth: 2
