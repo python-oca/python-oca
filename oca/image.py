@@ -186,7 +186,7 @@ class ImagePool(Pool):
     }
 
     def __init__(self, client):
-        super(ImagePool, self).__init__('IMAGE_POOL', 'POOL', client)
+        super(ImagePool, self).__init__('IMAGE_POOL', 'IMAGE', client)
 
     def _factory(self, xml):
         i = Image(xml, self.client)

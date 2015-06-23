@@ -108,7 +108,7 @@ class Pool(list, XMLElement):
         data = self.client.call(self.METHODS['info'], filter,
                                         range_start, range_end, *args)
         self._initialize_xml(data, self.pool_name)
-        for element in self.xml:
+        for element in self.xml.findall(self.element_name):
             self.append(self._factory(element))
 
     def _factory(self):

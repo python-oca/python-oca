@@ -54,7 +54,7 @@ class GroupPool(Pool):
     }
 
     def __init__(self, client):
-        super(GroupPool, self).__init__('GROUP_POOL', 'POOL', client)
+        super(GroupPool, self).__init__('GROUP_POOL', 'GROUP', client)
 
     def _factory(self, xml):
         i = Group(xml, self.client)
