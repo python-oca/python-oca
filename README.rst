@@ -13,7 +13,7 @@ Bindings for XMLRPC OpenNebula Cloud API
 
 Documentation
 -------------
-see http://python-oca.github.com/python-oca/index.html and http://docs.opennebula.org/4.10/integration/system_interfaces/api.html
+see http://python-oca.github.io/python-oca/index.html and http://docs.opennebula.org/4.10/integration/system_interfaces/api.html
 
 All `allocate` functions are implemented as static methods.
 
