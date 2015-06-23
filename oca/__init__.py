@@ -15,6 +15,7 @@ from group import Group, GroupPool
 from template import VmTemplate, VmTemplatePool
 from exceptions import OpenNebulaException
 from cluster import Cluster, ClusterPool
+from datastore import Datastore, DatastorePool
 
 
 CONNECTED = -3
@@ -125,5 +126,5 @@ __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
         VirtualMachinePool, User, UserPool,
         Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
         Group, GroupPool, VmTemplate, VmTemplatePool, ALL, CONNECTED,
-        Cluster, ClusterPool]
+        Cluster, ClusterPool, Datastore, DatastorePool]
 
