@@ -120,6 +120,12 @@ class Client(object):
             raise OpenNebulaException(data)
         return data
 
+    def version(self):
+        '''
+        Get the version of the connected OpenNebula server.
+        '''
+        return self.call('system.version')
+
 __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
         VirtualMachinePool, User, UserPool,
         Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
