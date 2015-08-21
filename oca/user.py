@@ -1,23 +1,31 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement
+from pool import Pool, PoolElement, Template, extractString
 
 
 class User(PoolElement):
     METHODS = {
-        'info'     : 'user.info',
-        'allocate' : 'user.allocate',
-        'delete'   : 'user.delete',
-        'passwd'   : 'user.passwd',
-        'chgrp'    : 'user.chgrp'
+        'info':      'user.info',
+        'allocate':  'user.allocate',
+        'delete':    'user.delete',
+        'passwd':    'user.passwd',
+        'chgrp':     'user.chgrp'
     }
 
     XML_TYPES = {
-            'id'       : int,
-            'gid'      : int,
-            'name'     : str,
-            'gname'    : str,
-            'password' : str,
-            'enabled'  : bool,
+            'id':          int,
+            'gid':         int,
+            'group_ids':   ['GROUPS', lambda group_ids: map(lambda group_id: int(group_id.text), group_ids)],
+            'gname':       extractString,
+            'name':        extractString,
+            'password':    extractString,
+            'auth_driver': extractString,
+            'enabled':     bool,
+            'template':    ['TEMPLATE', Template],
+            #'datastore_quota': handled separately # see http://dev.opennebula.org/issues/3849
+            #'network_quota': handled separately   # see http://dev.opennebula.org/issues/3849
+            #'vm_quota': handled separately        # see http://dev.opennebula.org/issues/3849
+            #'image_quota'                         # see http://dev.opennebula.org/issues/3849
+            #'default_user_quotas'                 # see http://dev.opennebula.org/issues/3849
     }
 
     ELEMENT_NAME = 'USER'
@@ -64,11 +72,11 @@ class User(PoolElement):
 
 class UserPool(Pool):
     METHODS = {
-            'info' : 'userpool.info',
+            'info':  'userpool.info',
     }
 
     def __init__(self, client):
-        super(UserPool, self).__init__('USER_POOL', 'POOL', client)
+        super(UserPool, self).__init__('USER_POOL', 'USER', client)
 
     def _factory(self, xml):
         u = User(xml, self.client)

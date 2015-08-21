@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 
 class HostShare(Template):
@@ -17,36 +17,46 @@ class Host(PoolElement):
     }
 
     INIT = 0
-    MONITORING = 1
+    MONITORING_MONITORED = 1 # Currently monitoring, previously MONITORED
     MONITORED = 2
     ERROR = 3
     DISABLED = 4
-    HOST_STATES = ['INIT', 'MONITORING', 'MONITORED', 'ERROR', 'DISABLED']
+    MONITORING_ERROR = 5     # Currently monitoring, previously ERROR
+    MONITORING_INIT = 6      # Currently monitoring, previously initialized
+    MONITORING_DISABLED = 7  # Currently monitoring, previously DISABLED
+    HOST_STATES = ['INIT', 'MONITORING_MONITORED', 'MONITORED', 'ERROR', 'DISABLED',
+                   'MONITORING_ERROR', 'MONITORING_INIT', 'MONITORING_DISABLED']
 
     SHORT_HOST_STATES = {
-        'INIT'          : 'on',
-        'MONITORING'    : 'on',
-        'MONITORED'     : 'on',
-        'ERROR'         : 'err',
-        'DISABLED'      : 'off'
+        'INIT':                 'on',
+        'MONITORING_MONITORED': 'on',
+        'MONITORED':            'on',
+        'ERROR':                'err',
+        'DISABLED':             'off',
+        'MONITORING_ERROR':     'on',
+        'MONITORING_INIT':      'on',
+        'MONITORING_DISABLED':  'on',
     }
 
     XML_TYPES = {
-        'id'            : int,
-        'name'          : str,
-        'state'         : int,
-        'im_mad'        : str,
-        'vm_mad'        : str,
-        'last_mon_time' : int,
-        'vm_ids'        : ['VMS', lambda vms: map(lambda vmid: int(vmid.text), vms)],
-        'template'      : ['TEMPLATE', Template],
-        'host_share'    : ['HOST_SHARE', HostShare],
+        'id':             int,
+        'name':           extractString,
+        'state':          int,
+        'im_mad':         extractString,
+        'vm_mad':         extractString,
+        'vn_mad':         extractString,
+        'last_mon_time':  int,
+        'cluster':        extractString,
+        'cluster_id':     int,
+        'vm_ids':         ['VMS', lambda vms: map(lambda vmid: int(vmid.text), vms)],
+        'template':       ['TEMPLATE', Template],
+        'host_share':     ['HOST_SHARE', HostShare],
     }
 
     ELEMENT_NAME = 'HOST'
 
     @staticmethod
-    def allocate(client, hostname, im, vmm, tm):
+    def allocate(client, hostname, im, vmm, tm, cluster_id=-1):
         '''
         Adds a host to the host list
 
@@ -64,7 +74,7 @@ class Host(PoolElement):
         ``tm``
            Transfer manager
         '''
-        host_id = client.call(Host.METHODS['allocate'], hostname, im, vmm, tm)
+        host_id = client.call(Host.METHODS['allocate'], hostname, im, vmm, tm, cluster_id)
         return host_id
 
     def __init__(self, xml, client):

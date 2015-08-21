@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 
 class Image(PoolElement):
@@ -18,16 +18,26 @@ class Image(PoolElement):
             'id'          : int,
             'uid'         : int,
             'gid'         : int,
-            'uname'       : str,
-            'gname'       : str,
-            'name'        : str,
+            'uname'       : extractString,
+            'gname'       : extractString,
+            'name'        : extractString,
+            #'permissions' : ???,
             'type'        : int,
-            'public'      : int,
+            'disk_type'   : int,
             'persistent'  : int,
             'regtime'     : int,
-            'source'      : str,
+            'source'      : extractString,
+            'path'        : extractString,
+            'fstype'      : extractString,
+            'size'        : int,
             'state'       : int,
             'running_vms' : int,
+            'cloning_ops' : int,
+            'cloning_id'  : int,
+            'datastore_id': int,
+            'datastore'   : extractString,
+            'vm_ids'      : ["VMS", lambda vms: map(lambda vm_id: int(vm_id.text), vms)],
+            'clone_ids'   : ["CLONES", lambda clones: map(lambda clone_id: int(clone_id.text), clones)],
             'template'    : ['TEMPLATE', Template],
     }
 
@@ -176,7 +186,7 @@ class ImagePool(Pool):
     }
 
     def __init__(self, client):
-        super(ImagePool, self).__init__('IMAGE_POOL', 'POOL', client)
+        super(ImagePool, self).__init__('IMAGE_POOL', 'IMAGE', client)
 
     def _factory(self, xml):
         i = Image(xml, self.client)

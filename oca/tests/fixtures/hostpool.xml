@@ -5,9 +5,11 @@
     <STATE>2</STATE>
     <IM_MAD>im_dummy</IM_MAD>
     <VM_MAD>vmm_dummy</VM_MAD>
+    <VN_MAD>vn_dummy</VN_MAD>
     <TM_MAD>tm_dummy</TM_MAD>
     <LAST_MON_TIME>1277912461</LAST_MON_TIME>
     <CLUSTER>default</CLUSTER>
+    <CLUSTER_ID>1</CLUSTER_ID>
     <HOST_SHARE>
       <HID>0</HID>
       <DISK_USAGE>0</DISK_USAGE>
@@ -33,9 +35,11 @@
     <STATE>2</STATE>
     <IM_MAD>im_dummy</IM_MAD>
     <VM_MAD>vmm_dummy</VM_MAD>
+    <VN_MAD>vn_dummy</VN_MAD>
     <TM_MAD>tm_dummy</TM_MAD>
     <LAST_MON_TIME>1277912461</LAST_MON_TIME>
     <CLUSTER>default</CLUSTER>
+    <CLUSTER_ID>1</CLUSTER_ID>
     <HOST_SHARE>
       <HID>1</HID>
       <DISK_USAGE>0</DISK_USAGE>

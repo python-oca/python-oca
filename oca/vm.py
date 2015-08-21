@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 
 class History(Template):
@@ -9,15 +9,15 @@ class History(Template):
 
 class VirtualMachine(PoolElement):
     METHODS = {
-        'info'     : 'vm.info',
-        'allocate' : 'vm.allocate',
-        'action'   : 'vm.action',
-        'migrate'  : 'vm.migrate',
-        'deploy'   : 'vm.deploy',
-        'savedisk' : 'vm.savedisk',
-        'delete'   : 'vm.delete',
-        'chown'    : 'vm.chown',
-        'update'   : 'vm.update',
+        'info':      'vm.info',
+        'allocate':  'vm.allocate',
+        'action':    'vm.action',
+        'migrate':   'vm.migrate',
+        'deploy':    'vm.deploy',
+        'savedisk':  'vm.savedisk',
+        'delete':    'vm.delete',
+        'chown':     'vm.chown',
+        'update':    'vm.update',
     }
 
     INIT = 0
@@ -32,14 +32,14 @@ class VirtualMachine(PoolElement):
                 'SUSPENDED', 'DONE', 'FAILED']
 
     SHORT_VM_STATES = {
-        'INIT'      : 'init',
-        'PENDING'   : 'pend',
-        'HOLD'      : 'hold',
-        'ACTIVE'    : 'actv',
-        'STOPPED'   : 'stop',
-        'SUSPENDED' : 'susp',
-        'DONE'      : 'done',
-        'FAILED'    : 'fail'
+        'INIT':       'init',
+        'PENDING':    'pend',
+        'HOLD':       'hold',
+        'ACTIVE':     'actv',
+        'STOPPED':    'stop',
+        'SUSPENDED':  'susp',
+        'DONE':       'done',
+        'FAILED':     'fail'
     }
 
     LCM_STATE = ['LCM_INIT', 'PROLOG', 'BOOT', 'RUNNING', 'MIGRATE',
@@ -48,56 +48,57 @@ class VirtualMachine(PoolElement):
                  'SHUTDOWN', 'CANCEL', 'FAILURE', 'DELETE', 'UNKNOWN']
 
     SHORT_LCM_STATES = {
-        'LCM_INIT'      : 'init',
-        'PROLOG'        : 'prol',
-        'BOOT'          : 'boot',
-        'RUNNING'       : 'runn',
-        'MIGRATE'       : 'migr',
-        'SAVE_STOP'     : 'save',
-        'SAVE_SUSPEND'  : 'save',
-        'SAVE_MIGRATE'  : 'save',
+        'LCM_INIT':       'init',
+        'PROLOG':         'prol',
+        'BOOT':           'boot',
+        'RUNNING':        'runn',
+        'MIGRATE':        'migr',
+        'SAVE_STOP':      'save',
+        'SAVE_SUSPEND':   'save',
+        'SAVE_MIGRATE':   'save',
         'PROLOG_MIGRATE': 'migr',
-        'PROLOG_RESUME' : 'prol',
-        'EPILOG_STOP'   : 'epil',
-        'EPILOG'        : 'epil',
-        'SHUTDOWN'      : 'shut',
-        'CANCEL'        : 'shut',
-        'FAILURE'       : 'fail',
-        'DELETE'        : 'dele',
-        'UNKNOWN'       : 'unkn',
+        'PROLOG_RESUME':  'prol',
+        'EPILOG_STOP':    'epil',
+        'EPILOG':         'epil',
+        'SHUTDOWN':       'shut',
+        'CANCEL':         'shut',
+        'FAILURE':        'fail',
+        'DELETE':         'dele',
+        'UNKNOWN':        'unkn',
     }
 
     MIGRATE_REASON = ['NONE', 'ERROR', 'STOP_RESUME', 'USER', 'CANCEL']
 
     SHORT_MIGRATE_REASON = {
-        'NONE'          : 'none',
-        'ERROR'         : 'erro',
-        'STOP_RESUME'   : 'stop',
-        'USER'          : 'user',
-        'CANCEL'        : 'canc'
+        'NONE':           'none',
+        'ERROR':          'erro',
+        'STOP_RESUME':    'stop',
+        'USER':           'user',
+        'CANCEL':         'canc'
     }
 
     XML_TYPES = {
-        'id'           : int,
-        'uid'          : int,
-        'gid'          : int,
-        'uname'        : str,
-        'gname'        : str,
-        'name'         : str,
-        'deploy_id'    : str,
-        'last_poll'    : int,
-        'state'        : int,
-        'lcm_state'    : int,
-        'stime'        : int,
-        'etime'        : int,
-        'deploy_id'    : str,
-        'memory'       : int,
-        'cpu'          : int,
-        'net_tx'       : int,
-        'net_rx'       : int,
-        'template'     : ['TEMPLATE', Template, ['NIC', 'DISK']],
+        'id':            int,
+        'uid':           int,
+        'gid':           int,
+        'uname':         extractString,
+        'gname':         extractString,
+        'name':          extractString,
+        #'permissions': ???,
+        'last_poll':     int,
+        'state':         int,
+        'lcm_state':     int,
+        'resched':       int,
+        'stime':         int,
+        'etime':         int,
+        'deploy_id':     extractString,
+        'memory':        int,
+        'cpu':           int,
+        'net_tx':        int,
+        'net_rx':        int,
+        'template':      ['TEMPLATE', Template, ['NIC', 'DISK']],
         'user_template': ['USER_TEMPLATE', Template],
-        'history_records' : ['HISTORY_RECORDS', lambda x: [History(i)
+        'history_records':  ['HISTORY_RECORDS', lambda x: [History(i)
                                         for i in x] if x is not None else []],
     }
 

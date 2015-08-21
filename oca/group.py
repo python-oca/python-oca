@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from pool import Pool, PoolElement, Template, extractString
 
 
 class Group(PoolElement):
@@ -11,7 +11,7 @@ class Group(PoolElement):
 
     XML_TYPES = {
             'id'          : int,
-            'name'        : str,
+            'name'        : extractString,
             'template'    : ['TEMPLATE', Template],
             'users'       : ['USERS', lambda users: [int(i.text) for i in users]],
             #'resource_providers': handled separately
@@ -54,7 +54,7 @@ class GroupPool(Pool):
     }
 
     def __init__(self, client):
-        super(GroupPool, self).__init__('GROUP_POOL', 'POOL', client)
+        super(GroupPool, self).__init__('GROUP_POOL', 'GROUP', client)
 
     def _factory(self, xml):
         i = Group(xml, self.client)

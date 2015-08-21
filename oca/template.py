@@ -95,7 +95,7 @@ class VmTemplatePool(Pool):
     }
 
     def __init__(self, client):
-        super(VmTemplatePool, self).__init__('VMTEMPLATE_POOL', 'POOL', client)
+        super(VmTemplatePool, self).__init__('VMTEMPLATE_POOL', 'VMTEMPLATE', client)
 
     #def info(self, 
 
