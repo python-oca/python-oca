@@ -227,6 +227,12 @@ class VirtualMachine(PoolElement):
         '''
         self._action('resubmit')
 
+    def delete(self):
+        '''
+        Delete the VM.
+        '''
+        self._action('delete')
+
     def _action(self, action):
         self.client.call(self.METHODS['action'], action, self.id)
 

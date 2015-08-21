@@ -102,7 +102,7 @@ class TestVirtualMachine:
         oca.client = oca.Client('test:test')
         vm = oca.VirtualMachine(self.xml, self.client)
         for action in ['shutdown', 'hold', 'release', 'stop', 'cancel',
-                'suspend', 'resume', 'restart', 'finalize']:
+                'suspend', 'resume', 'restart', 'finalize', 'delete']:
             self.client.call = Mock(return_value='')
             getattr(vm, action)()
             self.client.call.assert_called_once_with('vm.action', action, '6')
@@ -150,3 +150,6 @@ class TestVirtualMachine:
         vm._convert_types()
         greeting = vm.user_template.greeting
         assert greeting == "Hello World"
+
+    def test_update(self):
+        pass
