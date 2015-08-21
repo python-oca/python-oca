@@ -23,6 +23,9 @@ class IntTestTemplate(unittest.TestCase):
         print "teardown"
         vmp = oca.VirtualMachinePool(self.c)
         vmp.info()
+        for vm in vmp:
+            if vm.name.startswith('inttest_vm_'):
+                vm.delete()
 
     def test_allocate(self):
         templ = oca.VmTemplate.allocate(self.c, '<VMTEMPLATE><NAME>inttest01</NAME><TEMPLATE/></VMTEMPLATE>')
@@ -54,5 +57,9 @@ class IntTestTemplate(unittest.TestCase):
         tp = oca.VmTemplatePool(self.c)
         tp.info()
         templ = tp.get_by_name('inttest_instantiate_me01')
-        templ.instantiate()
+        templ.instantiate('inttest_vm_instantiate_me01')
+        vmpool = oca.VirtualMachinePool(self.c)
+        vmpool.info()
+        vm = vmpool.get_by_name('inttest_vm_instantiate_me01')
+        self.assertEqual(vm.name, 'inttest_vm_instantiate_me01')
 
