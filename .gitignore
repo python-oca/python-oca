@@ -3,3 +3,5 @@
 *.coverage
 oca.egg*
 .tox
+.idea
+*.iml
