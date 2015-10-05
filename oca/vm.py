@@ -92,10 +92,6 @@ class VirtualMachine(PoolElement):
         'stime':         int,
         'etime':         int,
         'deploy_id':     extractString,
-        'memory':        int,
-        'cpu':           int,
-        'net_tx':        int,
-        'net_rx':        int,
         'template':      ['TEMPLATE', Template, ['NIC', 'DISK']],
         'user_template': ['USER_TEMPLATE', Template],
         'history_records':  ['HISTORY_RECORDS', lambda x: [History(i)

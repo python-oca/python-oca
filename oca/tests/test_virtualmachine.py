@@ -28,10 +28,6 @@ class TestVirtualMachine:
         assert vm['stime'] == '1277375180'
         assert vm['etime'] == '0'
         assert vm['deploy_id'] == 'dummy'
-        assert vm['memory'] == '512'
-        assert vm['cpu'] == '1'
-        assert vm['net_tx'] == '12345'
-        assert vm['net_rx'] == '0'
 
     def test_acces_items_not_using_brackets(self):
         vm = oca.VirtualMachine(self.xml, self.client)
@@ -43,10 +39,6 @@ class TestVirtualMachine:
         assert vm.stime == '1277375180'
         assert vm.etime == '0'
         assert vm.deploy_id == 'dummy'
-        assert vm.memory == '512'
-        assert vm.cpu == '1'
-        assert vm.net_tx == '12345'
-        assert vm.net_rx == '0'
 
     @raises(IndexError)
     def test_raise_exception_Index_Error_when_using_brackets(self):
@@ -64,10 +56,6 @@ class TestVirtualMachine:
         assert vm.stime == 1277375180
         assert vm.etime == 0
         assert vm.deploy_id == 'dummy'
-        assert vm.memory == 512
-        assert vm.cpu == 1
-        assert vm.net_tx == 12345
-        assert vm.net_rx == 0
         assert isinstance(vm.template, oca.pool.Template)
 
     def test_allocate(self):
