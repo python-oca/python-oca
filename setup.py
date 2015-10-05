@@ -3,10 +3,10 @@ __version__ = '4.10.0-a1'
 
 import os
 
-#from distutils.core import setup
+# from distutils.core import setup
 from setuptools import setup
 
-#borrowed from Pylons project
+# borrowed from Pylons project
 here = os.path.abspath(os.path.dirname(__file__))
 try:
     README = open(os.path.join(here, 'README.rst')).read()
@@ -14,21 +14,17 @@ try:
 except IOError:
     README = CHANGES = ''
 
-setup(name = 'oca',
-    version=__version__,
-    description='Python Bindings for XMLRPC OpenNebula Cloud API',
-    long_description=README + '\n\n' + CHANGES,
-    test_suite = 'nose.collector',
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: Apache Software License',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
-        ],
-    keywords='opennebula cloud xmlrpc',
-    author=u'Łukasz Oleś, Matthias Schmitz, Michael Schmidt',
-    url='https://github.com/python-oca/python-oca',
-    license='Apache License 2.0',
-    packages=['oca'],
-)
-
+setup(name='oca',
+      version=__version__,
+      description='Python Bindings for XMLRPC OpenNebula Cloud API',
+      long_description=README + '\n\n' + CHANGES,
+      test_suite='nose.collector',
+      classifiers=['Development Status :: 3 - Alpha',
+                   'License :: OSI Approved :: Apache Software License',
+                   'License :: OSI Approved :: Apache Software License',
+                   'Operating System :: OS Independent'],
+      keywords='opennebula cloud xmlrpc',
+      author=u'Łukasz Oleś, Matthias Schmitz, Michael Schmidt',
+      url='https://github.com/python-oca/python-oca',
+      license='Apache License 2.0',
+      packages=['oca'])
