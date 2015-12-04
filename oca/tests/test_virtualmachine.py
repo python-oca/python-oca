@@ -89,10 +89,12 @@ class TestVirtualMachine:
     def test_actions(self):
         oca.client = oca.Client('test:test')
         vm = oca.VirtualMachine(self.xml, self.client)
-        for action in ['shutdown', 'hold', 'release', 'stop', 'cancel',
+        for action in ['shutdown', 'shutdown_hard', 'poweroff', 'poweroff_hard', 'hold', 'release', 'stop', 'cancel',
                 'suspend', 'resume', 'restart', 'finalize', 'delete']:
             self.client.call = Mock(return_value='')
             getattr(vm, action)()
+            if action in ('shutdown_hard', 'poweroff_hard', 'undeploy_hard'):
+                action = action.replace("_", "-")
             self.client.call.assert_called_once_with('vm.action', action, '6')
 
     def test_repr(self):
