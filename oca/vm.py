@@ -170,6 +170,24 @@ class VirtualMachine(PoolElement):
         '''
         self._action('shutdown')
 
+    def shutdown_hard(self):
+        '''
+        Shutdown hard an already deployed VM
+        '''
+        self._action('shutdown-hard')
+
+    def poweroff(self):
+        '''
+        Power off an running vm
+        '''
+        self._action('poweroff')
+
+    def poweroff_hard(self):
+        '''
+        Power off hard an running vm
+        '''
+        self._action('poweroff-hard')
+
     def cancel(self):
         '''
         Cancels a running VM
