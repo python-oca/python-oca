@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-__version__ = '4.10.0-a1'
+__version__ = '4.10.0'
 
 import os
 

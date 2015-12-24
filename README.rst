@@ -1,8 +1,9 @@
 ##############################################
 OCA - OpenNebula Cloud Api
 ##############################################
-:Version: 4.10.0-a1
-:status:
+
+:Version: 4.10.0
+:TravisCI Status:
   .. image:: https://travis-ci.org/python-oca/python-oca.svg
      :target: https://travis-ci.org/python-oca/python-oca
 
@@ -13,7 +14,7 @@ Bindings for XMLRPC OpenNebula Cloud API
 
 Documentation
 -------------
-see http://python-oca.github.io/python-oca/index.html and http://docs.opennebula.org/4.10/integration/system_interfaces/api.html
+See http://python-oca.github.io/python-oca/index.html and http://docs.opennebula.org/4.10/integration/system_interfaces/api.html
 
 All `allocate` functions are implemented as static methods.
 
@@ -39,5 +40,3 @@ Authors
 -------
 
 See AUTHORS file
-
-
