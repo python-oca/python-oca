@@ -32,6 +32,8 @@ class VirtualNetwork(PoolElement):
         'delete'   : 'vn.delete',
         'publish'  : 'vn.publish',
         'chown'    : 'vn.chown',
+        'hold'     : 'vn.hold',
+        'release'  : 'vn.release',
     }
 
     XML_TYPES = {
@@ -92,6 +94,28 @@ class VirtualNetwork(PoolElement):
         New group id. Set to -1 to leave current value
         '''
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
+
+    def release(self, ip):
+        '''
+        Releases given IP
+
+        Arguments
+
+        ``ip``
+        IP to realse
+        '''
+        self.client.call(self.METHODS['release'], self.id, 'LEASES=[IP={}]'.format(ip))
+
+    def hold(self, ip):
+        '''
+        Holds given IP
+
+        Arguments
+
+        ``ip``
+        IP to hold
+        '''
+        self.client.call(self.METHODS['hold'], self.id, 'LEASES=[IP={}]'.format(ip))
 
     def __repr__(self):
         return '<oca.VirtualNetwork("%s")>' % self.name
