@@ -11,6 +11,7 @@ class VmTemplate(PoolElement):
         'publish'  : 'template.publish',
         'chown'    : 'template.chown',
         'instantiate' : 'template.instantiate',
+        'clone'    : 'template.clone',
     }
 
     XML_TYPES = {
@@ -44,14 +45,16 @@ class VmTemplate(PoolElement):
         super(VmTemplate, self).__init__(xml, client)
         self.id = self['ID'] if self['ID'] else None
 
-    def update(self, template):
+    def update(self, template, update_type=0):
         '''
         Replaces the template contents.
 
         ``template``
             The new template contents.
+        ``update_type``
+            Update type: 0: replace the whole template. 1: Merge new template with the existing one.
         '''
-        self.client.call(VmTemplate.METHODS['update'], self.id, template)
+        self.client.call(VmTemplate.METHODS['update'], self.id, template, update_type)
 
     def publish(self):
         '''
@@ -84,6 +87,14 @@ class VmTemplate(PoolElement):
             name of the VM instance
         '''
         self.client.call(VmTemplate.METHODS['instantiate'], self.id, name)
+
+    def clone(self, name=''):
+        '''
+        Creates a clone of template
+        ``name``
+            name of a target template
+        '''
+        self.client.call(VmTemplate.METHODS['clone'], self.id, name)
 
     def __repr__(self):
         return '<oca.VmTemplate("%s")>' % self.name
