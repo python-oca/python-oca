@@ -12,6 +12,7 @@ class Image(PoolElement):
         'publish'  : 'image.publish',
         'chown'    : 'image.chown',
         'persistent'  : 'image.persistent',
+        'clone'    : 'image.clone',
     }
 
     XML_TYPES = {
@@ -143,6 +144,15 @@ class Image(PoolElement):
             New group id. Set to -1 to leave current value
         '''
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
+
+    def clone(self, name=''):
+        '''
+        Makes a clone of a given image
+        ``name```
+            Name of the target image
+        '''
+        self.client.call(self.METHODS['clone'], self.id, name)
+
 
     @property
     def str_state(self):
