@@ -88,14 +88,6 @@ class VmTemplate(PoolElement):
         '''
         self.client.call(VmTemplate.METHODS['instantiate'], self.id, name)
 
-    def clone(self, name=''):
-        '''
-        Creates a clone of template
-        ``name``
-            name of a target template
-        '''
-        self.client.call(VmTemplate.METHODS['clone'], self.id, name)
-
     def __repr__(self):
         return '<oca.VmTemplate("%s")>' % self.name
 

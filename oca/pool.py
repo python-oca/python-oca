@@ -160,3 +160,11 @@ class PoolElement(XMLElement):
         '''
         self.client.call(self.METHODS['delete'], self.id)
 
+    def clone(self, name=''):
+        '''
+        Creates a clone of an elemet
+        ``name``
+            name of a target element
+        '''
+        self.client.call(self.METHODS['clone'], self.id, name)
+
