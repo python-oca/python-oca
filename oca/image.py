@@ -145,15 +145,6 @@ class Image(PoolElement):
         '''
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
 
-    def clone(self, name=''):
-        '''
-        Makes a clone of a given image
-        ``name```
-            Name of the target image
-        '''
-        self.client.call(self.METHODS['clone'], self.id, name)
-
-
     @property
     def str_state(self):
         '''
