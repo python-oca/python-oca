@@ -24,12 +24,12 @@ Examples
 Show all running virtual machines::
 
    client = oca.Client('user:password', 'http://12.12.12.12:2633/RPC2')
-   client.version()
-   vm_pool = oca.VirtualMachinePool(c)
+   vm_pool = oca.VirtualMachinePool(client)
    vm_pool.info()
+   
    for vm in vm_pool:
-       print "%s (memory: %s MB)" % ( vm.name, vm.template.memory)
-
+       ip_list = ', '.join(v.ip for v in vm.template.nics)
+       print("{} {} {} (memory: {} MB)".format(vm.name, ip_list, vm.str_state, vm.template.memory))
 
 License
 -------
