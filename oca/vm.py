@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString
 
 
 class History(Template):

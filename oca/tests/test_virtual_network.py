@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 
@@ -14,7 +15,7 @@ NETWORK_SIZE    = C
 NETWORK_ADDRESS = 192.168.0.0'''
 
 
-class TestVirtualNetwork:
+class TestVirtualNetwork(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),

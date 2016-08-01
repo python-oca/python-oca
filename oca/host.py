@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString
 
 
 class HostShare(Template):
@@ -48,7 +48,7 @@ class Host(PoolElement):
         'last_mon_time':  int,
         'cluster':        extractString,
         'cluster_id':     int,
-        'vm_ids':         ['VMS', lambda vms: map(lambda vmid: int(vmid.text), vms)],
+        'vm_ids':         ['VMS', lambda vms: [int(vmid.text) for vmid in vms]],
         'template':       ['TEMPLATE', Template],
         'host_share':     ['HOST_SHARE', HostShare],
     }

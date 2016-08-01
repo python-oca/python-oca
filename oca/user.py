@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString
 
 
 class User(PoolElement):
@@ -14,7 +14,7 @@ class User(PoolElement):
     XML_TYPES = {
             'id':          int,
             'gid':         int,
-            'group_ids':   ['GROUPS', lambda group_ids: map(lambda group_id: int(group_id.text), group_ids)],
+            'group_ids':   ['GROUPS', lambda group_ids: [int(group_id.text) for group_id in group_ids]],
             'gname':       extractString,
             'name':        extractString,
             'password':    extractString,

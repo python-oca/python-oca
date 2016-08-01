@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString
 
 class Datastore(PoolElement):
     METHODS = {
@@ -29,7 +29,7 @@ class Datastore(PoolElement):
         'total_mb'      : int,
         'free_mb'       : int,
         'used_mb'       : int,
-        'image_ids'     : ['IMAGES', lambda images: map(lambda image_id: int(image_id.text), images)],
+        'image_ids'     : ['IMAGES', lambda images: [int(image_id.text) for image_id in images]],
         'template'      : ['TEMPLATE', Template],
     }
 

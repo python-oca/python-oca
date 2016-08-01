@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import socket
+import unittest
 
 from mock import Mock
 from nose.tools import raises
@@ -8,7 +9,7 @@ from nose.tools import raises
 import oca
 
 
-class TestClient:
+class TestClient(unittest.TestCase):
     def setUp(self):
         try:
             del os.environ["ONE_AUTH"]

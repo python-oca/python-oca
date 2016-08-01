@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 
 import oca
 
 
-class TestImagePool:
+class TestImagePool(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
@@ -18,5 +19,5 @@ class TestImagePool:
         self.client.call = Mock(return_value=self.xml)
         pool = oca.ImagePool(self.client)
         pool.info()
-        assert len(list(pool)) == 3
+        assert len(pool) == 3
 

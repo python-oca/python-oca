@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 from nose.tools import raises
@@ -8,7 +9,7 @@ import oca
 import oca.pool
 
 
-class TestVirtualMachine:
+class TestVirtualMachine(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
