@@ -1,11 +1,34 @@
 # -*- coding: UTF-8 -*-
 from pool import XMLElement, Pool, PoolElement, Template
 
+class Lease(XMLElement):
+    XML_TYPES = {
+            'ip' : str,
+            'mac' : str,
+    }
+
+    def __init__(self, xml):
+        super(Lease, self).__init__(xml)
+        self._convert_types()
+
+class LeasesList(list):
+    def __init__(self, xml):
+        if xml is None:
+            return
+        self.xml = xml
+        for element in self.xml:
+            self.append(self._factory(element))
+
+    def _factory(self, xml):
+        v = Lease(xml)
+        v._convert_types()
+        return v
 
 class AddressRange(XMLElement):
     XML_TYPES = {
             'id'   : ["AR_ID", lambda xml: int(xml.text)],
             'size' : int,
+            'leases': ['LEASES', LeasesList],
             #'template' : ['TEMPLATE', Template],
     }
 
@@ -32,6 +55,8 @@ class VirtualNetwork(PoolElement):
         'delete'   : 'vn.delete',
         'publish'  : 'vn.publish',
         'chown'    : 'vn.chown',
+        'hold'     : 'vn.hold',
+        'release'  : 'vn.release',
     }
 
     XML_TYPES = {
@@ -93,6 +118,28 @@ class VirtualNetwork(PoolElement):
         '''
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
 
+    def release(self, ip):
+        '''
+        Releases given IP
+
+        Arguments
+
+        ``ip``
+        IP to realse
+        '''
+        self.client.call(self.METHODS['release'], self.id, 'LEASES=[IP={}]'.format(ip))
+
+    def hold(self, ip):
+        '''
+        Holds given IP
+
+        Arguments
+
+        ``ip``
+        IP to hold
+        '''
+        self.client.call(self.METHODS['hold'], self.id, 'LEASES=[IP={}]'.format(ip))
+
     def __repr__(self):
         return '<oca.VirtualNetwork("%s")>' % self.name
 
@@ -101,10 +148,13 @@ class VirtualNetworkPool(Pool):
             'info' : 'vnpool.info',
     }
 
-    def __init__(self, client):
+    def __init__(self, client, preload_info=False):
+        self.preload_info = preload_info
         super(VirtualNetworkPool, self).__init__('VNET_POOL', 'VNET', client)
 
     def _factory(self, xml):
         v = VirtualNetwork(xml, self.client)
         v._convert_types()
+        if self.preload_info:
+            v.info()
         return v
