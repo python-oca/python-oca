@@ -145,15 +145,15 @@ class Image(PoolElement):
         '''
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
 
-    def clone(self, name='', ID=-1):
+    def clone(self, name='', datastore_id=-1):
         '''
         Creates a clone of an image
         ``name``
             name of a target element
-        ``ID``
+        ``datastore_id``
             The ID of the target datastore. Optional, can be set to -1 to use the current one.
         '''
-        self.client.call(self.METHODS['clone'], self.id, name, ID)
+        self.client.call(self.METHODS['clone'], self.id, name, datastore_id)
 
     @property
     def str_state(self):
