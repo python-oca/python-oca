@@ -27,7 +27,7 @@ class TestVmTemplate:
         template = oca.VmTemplate(self.xml, self.client)
         template.update('name=b')
         self.client.call.assert_called_once_with('template.update',
-                                                            '1', 'name=b')
+                                                            '1', 'name=b', 0)
 
     def test_publish(self):
         self.client.call = Mock()
