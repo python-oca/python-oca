@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 
 import oca
 
 
-class TestHost:
+class TestHost(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
@@ -50,5 +51,5 @@ class TestHost:
     def test_host_vm_ids(self):
         h = oca.Host(self.xml, self.client)
         h._convert_types()
-        vm_ids = h.vm_ids
+        vm_ids = list(h.vm_ids)
         assert vm_ids == [82,84,85,95,96]

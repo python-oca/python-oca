@@ -3,10 +3,11 @@ import os
 
 from mock import Mock
 
+import unittest
 import oca
 
 
-class TestCluster:
+class TestCluster(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString
 
 
 class Image(PoolElement):
@@ -37,8 +37,8 @@ class Image(PoolElement):
             'cloning_id'  : int,
             'datastore_id': int,
             'datastore'   : extractString,
-            'vm_ids'      : ["VMS", lambda vms: map(lambda vm_id: int(vm_id.text), vms)],
-            'clone_ids'   : ["CLONES", lambda clones: map(lambda clone_id: int(clone_id.text), clones)],
+            'vm_ids'      : ["VMS", lambda vms: [int(vm_id.text) for vm_id in vms]],
+            'clone_ids'   : ["CLONES", lambda clones: [int(clone_id.text) for clone_id in clones]],
             'template'    : ['TEMPLATE', Template],
     }
 

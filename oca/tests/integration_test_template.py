@@ -8,7 +8,7 @@ import os
 import oca
 from oca.exceptions import OpenNebulaException
 
-@unittest.skipUnless(os.environ.has_key('OCA_INT_TESTS'),
+@unittest.skipUnless(os.environ.get('OCA_INT_TESTS', False),
                      "Skipping integration tests")
 class IntTestTemplate(unittest.TestCase):
     def setUp(self):
@@ -20,7 +20,7 @@ class IntTestTemplate(unittest.TestCase):
         self.c = oca.Client(os.environ['OCA_INT_TESTS_ONE_AUTH'], os.environ['OCA_INT_TESTS_ONE_XMLRPC'])
 
     def tearDown(self):
-        print "teardown"
+        print("teardown")
         vmp = oca.VirtualMachinePool(self.c)
         vmp.info()
         for vm in vmp:

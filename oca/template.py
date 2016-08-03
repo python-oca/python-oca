@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import Pool, PoolElement, Template
+from .pool import Pool, PoolElement, Template
 
 
 class VmTemplate(PoolElement):

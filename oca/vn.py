@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from pool import XMLElement, Pool, PoolElement, Template
+from .pool import XMLElement, Pool, PoolElement, Template
 
 class Lease(XMLElement):
     XML_TYPES = {

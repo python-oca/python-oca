@@ -1,8 +1,7 @@
 # -*- coding: UTF-8 -*-
 import xml.etree.ElementTree as ET
-import new
 
-from exceptions import OpenNebulaException
+from .exceptions import OpenNebulaException
 
 
 class WrongNameError(OpenNebulaException):
@@ -37,7 +36,7 @@ class Template(object):
         attr = tag.lower() + 's'
         attr_list = getattr(self, attr, [])
 
-        class_obj = new.classobj(tag.capitalize(), (Template,), {})
+        class_obj = type(tag.capitalize(), (Template,), {})
 
         attr_list.append(class_obj(element))
         setattr(self, attr, attr_list)

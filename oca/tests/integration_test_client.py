@@ -8,7 +8,7 @@ import os
 import oca
 
 
-@unittest.skipUnless(os.environ.has_key('OCA_INT_TESTS'),
+@unittest.skipUnless(os.environ.get('OCA_INT_TESTS', False),
                      "Skipping integration tests")
 class IntTestClient(unittest.TestCase):
     def setUp(self):

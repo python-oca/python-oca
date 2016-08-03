@@ -1,47 +1,48 @@
 # -*- coding: UTF-8 -*-
-import xmlrpclib
 import os
 import hashlib
 import re
 import socket
-import httplib
 
-from host import Host, HostPool
-from vm import VirtualMachine, VirtualMachinePool
-from user import User, UserPool
-from image import Image, ImagePool
-from vn import VirtualNetwork, VirtualNetworkPool
-from group import Group, GroupPool
-from template import VmTemplate, VmTemplatePool
-from exceptions import OpenNebulaException
-from cluster import Cluster, ClusterPool
-from datastore import Datastore, DatastorePool
+import http.client
+import xmlrpc.client
+
+from .host import Host, HostPool
+from .vm import VirtualMachine, VirtualMachinePool
+from .user import User, UserPool
+from .image import Image, ImagePool
+from .vn import VirtualNetwork, VirtualNetworkPool
+from .group import Group, GroupPool
+from .template import VmTemplate, VmTemplatePool
+from .exceptions import OpenNebulaException
+from .cluster import Cluster, ClusterPool
+from .datastore import Datastore, DatastorePool
 
 
 CONNECTED = -3
 ALL = -2
 CONNECTED_AND_GROUP = -1
 
-class TimeoutHTTPConnection(httplib.HTTPConnection):
+class TimeoutHTTPConnection(http.client.HTTPConnection):
     def connect(self):
-        httplib.HTTPConnection.connect(self)
+        http.client.HTTPConnection.connect(self)
         self.sock.settimeout(self.timeout)
 
-class TimeoutHTTP(httplib.HTTP):
+class TimeoutHTTP(http.client.HTTPConnection):
     _connection_class = TimeoutHTTPConnection
 
     def set_timeout(self, timeout):
         self._conn.timeout = timeout
 
-class ProxiedTransport(xmlrpclib.Transport):
+class ProxiedTransport(xmlrpc.client.Transport):
     def __init__(self, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, *args, **kwargs):
-        xmlrpclib.Transport.__init__(self, *args, **kwargs)
+        xmlrpc.client.Transport.__init__(self, *args, **kwargs)
         self.timeout = timeout
     def set_proxy(self, proxy):
         self.proxy = proxy
     def make_connection(self, host):
         self.realhost = host
-        h = httplib.HTTPConnection(self.proxy)
+        h = http.client.HTTPConnection(self.proxy)
         return h
     def send_request(self, connection, handler, request_body):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
@@ -89,9 +90,9 @@ class Client(object):
         if proxy:
             p = ProxiedTransport(timeout=100)
             p.set_proxy(proxy)
-            self.server = xmlrpclib.ServerProxy(self.one_address, transport=p)
+            self.server = xmlrpc.client.ServerProxy(self.one_address, transport=p)
         else:
-            self.server = xmlrpclib.ServerProxy(self.one_address)
+            self.server = xmlrpc.client.ServerProxy(self.one_address)
         
 
     def call(self, function, *args):
@@ -115,7 +116,7 @@ class Client(object):
             except ValueError:
                 data = ''
                 is_success = False
-        except socket.error, e:
+        except socket.error as e:
             #connection error
             raise e
         if not is_success:

@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 
 import oca
 
 
-class TestUser:
+class TestUser(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
