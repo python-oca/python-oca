@@ -1,6 +1,57 @@
 # -*- coding: UTF-8 -*-
-from .pool import Pool, PoolElement, Template, extractString
+from .pool import Pool, PoolElement, Template, extractString, XMLElement
 
+
+class Quota(XMLElement):
+    def __init__(self, xml):
+        super(Quota, self).__init__(xml)
+        self._convert_types()
+
+
+class VMQuota(Quota):
+    XML_TYPES = {
+        'cpu' : int,
+        'cpu_used' : int,
+        'memory' : int,
+        'memory_used' : int,
+        'system_disk_size' : int,
+        'system_disk_size_used' : int,
+        'vms' : int,
+        'vms_used' : int,
+    }
+
+
+class DatastoreQuota(Quota):
+    XML_TYPES = {
+        'images': int,
+        'images_used': int,
+        'size': int,
+        'size_used': int,
+    }
+
+
+class NetworkQuota(Quota):
+    XML_TYPES = {
+        'leases': int,
+        'leases_used': int,
+    }
+
+class VMQuotaList(Quota):
+    XML_TYPES = {
+        'vm' : VMQuota,
+    }
+
+
+class DatastoreQuotaList(Quota):
+    XML_TYPES = {
+        'datastore' : DatastoreQuota,
+    }
+
+
+class NetworkQuotaList(Quota):
+    XML_TYPES = {
+        'network' : NetworkQuota,
+    }
 
 class User(PoolElement):
     METHODS = {
@@ -12,20 +63,18 @@ class User(PoolElement):
     }
 
     XML_TYPES = {
-            'id':          int,
-            'gid':         int,
-            'group_ids':   ['GROUPS', lambda group_ids: [int(group_id.text) for group_id in group_ids]],
-            'gname':       extractString,
-            'name':        extractString,
-            'password':    extractString,
-            'auth_driver': extractString,
-            'enabled':     bool,
-            'template':    ['TEMPLATE', Template],
-            #'datastore_quota': handled separately # see http://dev.opennebula.org/issues/3849
-            #'network_quota': handled separately   # see http://dev.opennebula.org/issues/3849
-            #'vm_quota': handled separately        # see http://dev.opennebula.org/issues/3849
-            #'image_quota'                         # see http://dev.opennebula.org/issues/3849
-            #'default_user_quotas'                 # see http://dev.opennebula.org/issues/3849
+        'id':          int,
+        'gid':         int,
+        'group_ids':   ['GROUPS', lambda group_ids: [int(group_id.text) for group_id in group_ids]],
+        'gname':       extractString,
+        'name':        extractString,
+        'password':    extractString,
+        'auth_driver': extractString,
+        'enabled':     bool,
+        'template':    ['TEMPLATE', Template],
+        #'network_quota': handled separately   # see http://dev.opennebula.org/issues/3849
+        #'image_quota'                         # see http://dev.opennebula.org/issues/3849
+        #'default_user_quotas'                 # see http://dev.opennebula.org/issues/3849
     }
 
     ELEMENT_NAME = 'USER'
@@ -65,6 +114,21 @@ class User(PoolElement):
             New group id. Set to -1 to leave the current one
         '''
         self.client.call(User.METHODS['chgrp'], self.id, gid)
+
+    @property
+    def vm_quota(self):
+        self.info()
+        return VMQuotaList(self.xml.find('VM_QUOTA')).vm
+
+    @property
+    def datastore_quota(self):
+        self.info()
+        return DatastoreQuotaList(self.xml.find('DATASTORE_QUOTA')).datastore
+
+    @property
+    def network_quota(self):
+        self.info()
+        return NetworkQuotaList(self.xml.find('NETWORK_QUOTA')).network
 
     def __repr__(self):
         return '<oca.User("%s")>' % self.name
