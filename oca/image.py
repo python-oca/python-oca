@@ -66,7 +66,7 @@ class Image(PoolElement):
     ELEMENT_NAME = 'IMAGE'
 
     @staticmethod
-    def allocate(client, template):
+    def allocate(client, template,datastore):
         '''
         Allocates a new image in OpenNebula
 
@@ -77,8 +77,10 @@ class Image(PoolElement):
 
         ``template``
            a string containing the template of the image
+        ``datastore``
+          the datastore id where the image is to be allocated
         '''
-        image_id = client.call(Image.METHODS['allocate'], template)
+        image_id = client.call(Image.METHODS['allocate'], template,datastore)
         return image_id
 
     def __init__(self, xml, client):
