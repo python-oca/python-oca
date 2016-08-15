@@ -23,7 +23,7 @@ class TestImage(unittest.TestCase):
 
     def test_allocate(self):
         self.client.call = Mock(return_value=2)
-        assert oca.Image.allocate(self.client, IMAGE_TEMPLATEi, DEFAULT_IMG_DATASTORE) == 2
+        assert oca.Image.allocate(self.client, IMAGE_TEMPLATE, DEFAULT_IMG_DATASTORE) == 2
 
     def test_enable(self):
         self.client.call = Mock(return_value='')
