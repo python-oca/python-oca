@@ -51,7 +51,8 @@ class XMLElement(object):
         self.xml = xml
 
     def _initialize_xml(self, xml, root_element):
-        self.xml = ET.fromstring(xml)
+        hidden_character=u"\u200b"
+        self.xml = ET.fromstring(xml.replace(hidden_character,""))
         if self.xml.tag != root_element.upper():
             self.xml = None
         self._convert_types()
