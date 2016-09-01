@@ -14,8 +14,15 @@ class WrongIdError(OpenNebulaException):
 def extractString(xml_or_string):
     if isinstance(xml_or_string, str):
         return xml_or_string
-    else:
-        return xml_or_string.text or ''
+
+    # Py2 compatibility
+    try:
+        if isinstance(xml_or_string, unicode):
+            return xml_or_string
+    except NameError:
+        pass
+
+    return xml_or_string.text or ''
 
 class Template(object):
     def __init__(self, xml_element, multiple=[]):
@@ -51,7 +58,7 @@ class XMLElement(object):
         self.xml = xml
 
     def _initialize_xml(self, xml, root_element):
-        self.xml = ET.fromstring(xml)
+        self.xml = ET.fromstring(xml.encode('utf-8'))
         if self.xml.tag != root_element.upper():
             self.xml = None
         self._convert_types()
