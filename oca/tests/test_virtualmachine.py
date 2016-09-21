@@ -91,7 +91,7 @@ class TestVirtualMachine(unittest.TestCase):
         oca.client = oca.Client('test:test')
         vm = oca.VirtualMachine(self.xml, self.client)
         for action in ['shutdown', 'shutdown_hard', 'poweroff', 'poweroff_hard', 'hold', 'release', 'stop', 'cancel',
-                'suspend', 'resume', 'restart', 'finalize', 'delete']:
+                'suspend', 'resume', 'reboot', 'finalize', 'delete']:
             self.client.call = Mock(return_value='')
             getattr(vm, action)()
             if action in ('shutdown_hard', 'poweroff_hard', 'undeploy_hard'):

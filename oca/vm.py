@@ -230,11 +230,11 @@ class VirtualMachine(PoolElement):
         '''
         self._action('finalize')
 
-    def restart(self):
+    def reboot(self, hard=False):
         '''
-        Resubmits the VM after failure
+        Reboot the VM. Optionally perform a hard reboot
         '''
-        self._action('restart')
+        self._action('reboot-hard' if hard else 'reboot')
 
     def resubmit(self):
         '''
