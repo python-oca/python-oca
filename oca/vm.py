@@ -109,7 +109,7 @@ class VirtualMachine(PoolElement):
             'PROLOG_MIGRATE_POWEROFF': 'prolog_migrate_power',
             'PROLOG_MIGRATE_POWEROFF_FAILURE': 'prolog_migrate_power_fail',
             'PROLOG_MIGRATE_SUSPEND': 'prolog_migrate_sus',
-            'PROLOG_MIGRATE_SUSPEND_FAILURE': 'prolog_migrate_suspend',
+            'PROLOG_MIGRATE_SUSPEND_FAILURE': 'prolog_migrate_sus_fail',
             'BOOT_UNDEPLOY_FAILURE': 'boot_und_fail',
             'BOOT_STOPPED_FAILURE': 'boot_stop_fail',
             'PROLOG_RESUME_FAILURE': 'prolog_resume_fail',
