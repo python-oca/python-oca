@@ -35,8 +35,8 @@ class VmTemplate(PoolElement):
         ``client``
            oca.Client object
 
-        ``group``
-           a string containing the group name
+        ``template``
+           a string containing the template contents
         '''
         template_id = client.call(VmTemplate.METHODS['allocate'], template)
         return template_id
