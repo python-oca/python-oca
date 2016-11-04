@@ -306,6 +306,18 @@ class VirtualMachine(PoolElement):
         '''
         self._action('delete')
 
+    def resched(self):
+        '''
+        Set the rescheduling flag of the VM.
+        '''
+        self._action('resched')
+
+    def unresched(self):
+        '''
+        Remove the rescheduling flag of the VM.
+        '''
+        self._action('unresched')
+
     def _action(self, action):
         self.client.call(self.METHODS['action'], action, self.id)
 
