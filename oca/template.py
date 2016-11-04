@@ -79,14 +79,18 @@ class VmTemplate(PoolElement):
         '''
         self.client.call(VmTemplate.METHODS['chown'], self.id, uid, gid)
 
-    def instantiate(self, name=''):
+    def instantiate(self, name='', pending=False, extra_template=''):
         '''
         Creates a VM instance from a VmTemplate
 
         ``name``
             name of the VM instance
+        ``pending``
+            False to create the VM on pending (default), True to create it on hold.
+        ``extra_template``
+            A string containing an extra template to be merged with the one being instantiated
         '''
-        self.client.call(VmTemplate.METHODS['instantiate'], self.id, name)
+        self.client.call(VmTemplate.METHODS['instantiate'], self.id, name, pending, extra_template)
 
     def __repr__(self):
         return '<oca.VmTemplate("%s")>' % self.name
