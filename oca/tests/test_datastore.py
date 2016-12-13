@@ -36,8 +36,7 @@ class TestDatastore(unittest.TestCase):
         assert cluster.base_path == '/var/lib/one//datastores/100'
         assert cluster.type == 0
         assert cluster.disk_type == 0
-        assert cluster.cluster_id == -1
-        assert cluster.cluster == ""
+        assert cluster.cluster_ids == [0]
         assert cluster.total_mb == 9952
         assert cluster.free_mb == 8999
         assert cluster.used_mb == 425

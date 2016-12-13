@@ -23,8 +23,9 @@
     <TYPE>1</TYPE>
     <DISK_TYPE>0</DISK_TYPE>
     <STATE>0</STATE>
-    <CLUSTER_ID>-1</CLUSTER_ID>
-    <CLUSTER>test</CLUSTER>
+    <CLUSTERS>
+      <ID>0</ID>
+    </CLUSTERS>
     <TOTAL_MB>0</TOTAL_MB>
     <FREE_MB>0</FREE_MB>
     <USED_MB>0</USED_MB>
@@ -60,8 +61,9 @@
     <TYPE>0</TYPE>
     <DISK_TYPE>0</DISK_TYPE>
     <STATE>0</STATE>
-    <CLUSTER_ID>-1</CLUSTER_ID>
-    <CLUSTER/>
+    <CLUSTERS>
+      <ID>0</ID>
+    </CLUSTERS>
     <TOTAL_MB>9952</TOTAL_MB>
     <FREE_MB>8999</FREE_MB>
     <USED_MB>425</USED_MB>
