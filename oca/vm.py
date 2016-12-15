@@ -9,15 +9,17 @@ class History(Template):
 
 class VirtualMachine(PoolElement):
     METHODS = {
-        'info':      'vm.info',
-        'allocate':  'vm.allocate',
-        'action':    'vm.action',
-        'migrate':   'vm.migrate',
-        'deploy':    'vm.deploy',
-        'savedisk':  'vm.savedisk',
-        'delete':    'vm.delete',
-        'chown':     'vm.chown',
-        'update':    'vm.update',
+        'info':       'vm.info',
+        'allocate':   'vm.allocate',
+        'action':     'vm.action',
+        'migrate':    'vm.migrate',
+        'deploy':     'vm.deploy',
+        'savedisk':   'vm.savedisk',
+        'delete':     'vm.recover',
+        'recover':    'vm.recover',
+        'chown':      'vm.chown',
+        'update':     'vm.update',
+        'updateconf': 'vm.updateconf',
     }
 
     INIT = 0
@@ -113,7 +115,7 @@ class VirtualMachine(PoolElement):
             'BOOT_UNDEPLOY_FAILURE': 'boot_und_fail',
             'BOOT_STOPPED_FAILURE': 'boot_stop_fail',
             'PROLOG_RESUME_FAILURE': 'prolog_resume_fail',
-    'PROLOG_UNDEPLOY_FAILURE': 'prolog_unde_fail',
+            'PROLOG_UNDEPLOY_FAILURE': 'prolog_unde_fail',
             'DISK_SNAPSHOT_POWEROFF': 'disk_snap_poweroff',
             'DISK_SNAPSHOT_REVERT_POWEROFF': 'disk_snap_rever_poweroff',
             'DISK_SNAPSHOT_DELETE_POWEROFF': 'disk_snap_delete_poweroff',
@@ -222,17 +224,17 @@ class VirtualMachine(PoolElement):
         '''
         self.client.call(self.METHODS['savedisk'], self.id, disk_id, dest_disk)
 
-    def shutdown(self):
+    def terminate(self):
         '''
         Shutdowns an already deployed VM
         '''
-        self._action('shutdown')
+        self._action('terminate')
 
-    def shutdown_hard(self):
+    def terminate_hard(self):
         '''
         Shutdown hard an already deployed VM
         '''
-        self._action('shutdown-hard')
+        self._action('terminate-hard')
 
     def poweroff(self):
         '''
@@ -300,11 +302,29 @@ class VirtualMachine(PoolElement):
         '''
         self._action('resubmit')
 
-    def delete(self):
+    def delete(self, recreate=False):
         '''
-        Delete the VM.
+        Delete the VM. Optionally recreate the deleted VM
         '''
-        self._action('delete')
+        self.client.call(self.METHODS['delete'], self.id, 4 if recreate else 3)
+
+    def recover(self, operation):
+        '''
+        Recovers a stuck VM that is waiting for a driver operation
+
+        Arguments
+
+        ``operation``
+
+           Recover operation to perform:
+
+            * 0	 FAILURE
+            * 1	 SUCCESS
+            * 2	 RETRY
+            * 3	 DELETE
+            * 4	 DELETE-RECREATE
+        '''
+        self.client.call(self.METHODS['recover'], self.id, operation)
 
     def resched(self):
         '''
@@ -317,6 +337,27 @@ class VirtualMachine(PoolElement):
         Remove the rescheduling flag of the VM.
         '''
         self._action('unresched')
+
+    def undeploy(self):
+        '''
+        Undeploy a VM
+        '''
+        self._action('undeploy')
+
+    def undeploy_hard(self):
+        '''
+        Undeploy hard a VM
+        '''
+        self._action('undeploy-hard')
+
+    def updateconf(self, template):
+        '''
+        Updates (appends) a set of supported configuration attributes in the VM template
+
+        ``template``
+            The new template contents.
+        '''
+        self.client.call(self.METHODS['updateconf'], self.id, template)
 
     def _action(self, action):
         self.client.call(self.METHODS['action'], action, self.id)
