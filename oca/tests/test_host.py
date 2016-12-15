@@ -23,13 +23,19 @@ class TestHost(unittest.TestCase):
         self.client.call = Mock(return_value='')
         h = oca.Host(self.xml, self.client)
         h.enable()
-        self.client.call.assert_called_once_with('host.enable', '7', True)
+        self.client.call.assert_called_once_with('host.status', '7', 0)
 
     def test_disable(self):
         self.client.call = Mock(return_value='')
         h = oca.Host(self.xml, self.client)
         h.disable()
-        self.client.call.assert_called_once_with('host.enable', '7', False)
+        self.client.call.assert_called_once_with('host.status', '7', 1)
+
+    def test_offline(self):
+        self.client.call = Mock(return_value='')
+        h = oca.Host(self.xml, self.client)
+        h.offline()
+        self.client.call.assert_called_once_with('host.status', '7', 3)
 
     def test_states(self):
         for i in range(len(oca.Host.HOST_STATES)):
