@@ -28,8 +28,10 @@ class VirtualMachine(PoolElement):
     SUSPENDED = 5
     DONE = 6
     FAILED = 7
+    POWEROFF = 8
+    UNDEPLOYED = 9
     VM_STATE = ['INIT', 'PENDING', 'HOLD', 'ACTIVE', 'STOPPED',
-                'SUSPENDED', 'DONE', 'FAILED']
+                'SUSPENDED', 'DONE', 'FAILED', 'POWEROFF', 'UNDEPLOYED']
 
     SHORT_VM_STATES = {
         'INIT':       'init',
@@ -39,7 +41,9 @@ class VirtualMachine(PoolElement):
         'STOPPED':    'stop',
         'SUSPENDED':  'susp',
         'DONE':       'done',
-        'FAILED':     'fail'
+        'FAILED':     'fail',
+        'POWEROFF':   'poff',
+        'UNDEPLOYED': 'udep'
     }
 
 
@@ -329,7 +333,7 @@ class VirtualMachine(PoolElement):
         '''
         String representation of virtual machine state.
         One of: INIT, PENDING, HOLD, ACTIVE, STOPPED, SUSPENDED,
-        DONE, FAILED
+        DONE, FAILED, POWEROFF, UNDEPLOYED
         '''
         return self.VM_STATE[int(self.state)]
 
@@ -337,7 +341,7 @@ class VirtualMachine(PoolElement):
     def short_state(self):
         '''
         Short string representation of virtual machine state.
-        One of: init, pend, hold, actv, stop, susp, done, fail
+        One of: init, pend, hold, actv, stop, susp, done, fail, poff, udep
         '''
         return self.SHORT_VM_STATES[self.str_state]
 
@@ -411,6 +415,8 @@ class VirtualMachinePool(Pool):
             * 5	 SUSPENDED
             * 6	 DONE
             * 7	 FAILED
+            * 8	 POWEROFF
+            * 9	 UNDEPLYED
 
         '''
         super(VirtualMachinePool, self).info(filter, range_start,
