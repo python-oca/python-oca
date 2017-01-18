@@ -24,13 +24,12 @@ class Datastore(PoolElement):
         'type'          : int,
         'disk_type'     : int,
         #'state'         : ???,
-        'cluster_id'    : int,
-        'cluster'       : extractString,
         'total_mb'      : int,
         'free_mb'       : int,
         'used_mb'       : int,
         'image_ids'     : ['IMAGES', lambda images: [int(image_id.text) for image_id in images]],
         'template'      : ['TEMPLATE', Template],
+        'cluster_ids'   : ['CLUSTERS', lambda clusters: [int(i.text) for i in clusters]],
     }
 
     ELEMENT_NAME = 'DATASTORE'

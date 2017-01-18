@@ -90,14 +90,41 @@ class TestVirtualMachine(unittest.TestCase):
     def test_actions(self):
         oca.client = oca.Client('test:test')
         vm = oca.VirtualMachine(self.xml, self.client)
-        for action in ['shutdown', 'shutdown_hard', 'poweroff', 'poweroff_hard',
+        for action in ['terminate', 'terminate_hard', 'poweroff', 'poweroff_hard',
                        'hold', 'release', 'stop', 'cancel', 'suspend', 'resume',
-                       'reboot', 'finalize', 'delete', 'resched', 'unresched']:
+                       'reboot', 'finalize', 'resched', 'unresched',
+                       'undeploy', 'undeploy_hard']:
             self.client.call = Mock(return_value='')
             getattr(vm, action)()
-            if action in ('shutdown_hard', 'poweroff_hard', 'undeploy_hard'):
+            if action in ('terminate_hard', 'poweroff_hard', 'undeploy_hard', 'reboot_hard'):
                 action = action.replace("_", "-")
             self.client.call.assert_called_once_with('vm.action', action, '6')
+
+    def test_delete(self):
+        self.client.call = Mock(return_value='')
+        vm = oca.VirtualMachine(self.xml, self.client)
+        vm.delete()
+        self.client.call.assert_called_once_with('vm.recover', '6', 3)
+
+    def test_delete_with_recreate(self):
+        self.client.call = Mock(return_value='')
+        vm = oca.VirtualMachine(self.xml, self.client)
+        vm.delete(recreate=True)
+        self.client.call.assert_called_once_with('vm.recover', '6', 4)
+
+    def test_updateconf(self):
+        self.client.call = Mock(return_value='')
+        vm = oca.VirtualMachine(self.xml, self.client)
+        _conf = """CONTEXT = [ETH0_IP = 10.0.0.1\nNETWORK = YES]"""
+        vm.updateconf(_conf)
+        self.client.call.assert_called_once_with('vm.updateconf', '6', _conf)
+
+    def test_recover(self):
+        vm = oca.VirtualMachine(self.xml, self.client)
+        for operation in [0, 1, 2, 3, 4]:
+            self.client.call = Mock(return_value='')
+            vm.recover(operation)
+            self.client.call.assert_called_once_with('vm.recover', '6', operation)
 
     def test_repr(self):
         vm = oca.VirtualMachine(self.xml, self.client)

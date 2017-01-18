@@ -12,7 +12,7 @@ class Host(PoolElement):
         'info'     : 'host.info',
         'allocate' : 'host.allocate',
         'delete'   : 'host.delete',
-        'enable'   : 'host.enable',
+        'status'   : 'host.status',
         'update'   : 'host.update'
     }
 
@@ -44,7 +44,6 @@ class Host(PoolElement):
         'state':          int,
         'im_mad':         extractString,
         'vm_mad':         extractString,
-        'vn_mad':         extractString,
         'last_mon_time':  int,
         'cluster':        extractString,
         'cluster_id':     int,
@@ -85,13 +84,19 @@ class Host(PoolElement):
         '''
         Enable this host
         '''
-        self.client.call(self.METHODS['enable'], self.id, True)
+        self.client.call(self.METHODS['status'], self.id, 0)
 
     def disable(self):
         '''
         Disable this host.
         '''
-        self.client.call(self.METHODS['enable'], self.id, False)
+        self.client.call(self.METHODS['status'], self.id, 1)
+
+    def offline(self):
+        '''
+        Mark this host as offline
+        '''
+        self.client.call(self.METHODS['status'], self.id, 3)
 
     def update(self, template, merge=False):
         '''

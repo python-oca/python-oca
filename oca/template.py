@@ -79,7 +79,25 @@ class VmTemplate(PoolElement):
         '''
         self.client.call(VmTemplate.METHODS['chown'], self.id, uid, gid)
 
-    def instantiate(self, name='', pending=False, extra_template=''):
+    def clone(self, name='', clone_disk_images=False):
+        '''
+        Creates a clone of an elemet
+        ``name``
+            name of a target element
+        ``clone_disk_images``
+            true to clone the template plus any image defined in DISK. The new IMAGE_ID is set into each DISK.
+        '''
+        self.client.call(self.METHODS['clone'], self.id, name, clone_disk_images)
+
+    def delete(self, delete_disk_images=False):
+        '''
+        Deletes current object from the pool
+        ``delete_disk_images``
+            true to delete the template plus any image defined in DISK
+        '''
+        self.client.call(self.METHODS['delete'], self.id, delete_disk_images)
+
+    def instantiate(self, name='', pending=False, extra_template='', with_disk_images=False):
         '''
         Creates a VM instance from a VmTemplate
 
@@ -89,8 +107,11 @@ class VmTemplate(PoolElement):
             False to create the VM on pending (default), True to create it on hold.
         ``extra_template``
             A string containing an extra template to be merged with the one being instantiated
+        ``with_disk_images``
+            true to create a private persistent copy of the template plus any image defined in DISK,
+            and instantiate that copy.
         '''
-        self.client.call(VmTemplate.METHODS['instantiate'], self.id, name, pending, extra_template)
+        self.client.call(VmTemplate.METHODS['instantiate'], self.id, name, pending, extra_template, with_disk_images)
 
     def __repr__(self):
         return '<oca.VmTemplate("%s")>' % self.name
