@@ -106,7 +106,7 @@ class TestVirtualMachine(unittest.TestCase):
     def test_states(self):
         for i in range(len(oca.VirtualMachine.VM_STATE)):
             vm = oca.VirtualMachine('<VM><ID>2</ID><STATE>%s</STATE></VM>' % i,
-                                self.client)
+                                    self.client)
             assert vm.str_state == oca.VirtualMachine.VM_STATE[i]
             state = oca.VirtualMachine.SHORT_VM_STATES[oca.VirtualMachine.VM_STATE[i]]
             assert vm.short_state == state

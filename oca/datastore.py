@@ -1,50 +1,51 @@
 # -*- coding: UTF-8 -*-
 from .pool import Pool, PoolElement, Template, extractString
 
+
 class Datastore(PoolElement):
     METHODS = {
-        #'info'     : 'datastore.info',
-        'allocate' : 'datastore.allocate',
-        'delete'   : 'datastore.delete',
-        #'enable'   : 'datastore.enable',
-        #'update'   : 'datastore.update'
+        # 'info'     : 'datastore.info',
+        'allocate': 'datastore.allocate',
+        'delete': 'datastore.delete',
+        # 'enable'   : 'datastore.enable',
+        # 'update'   : 'datastore.update'
     }
 
     XML_TYPES = {
-        'id'            : int,
-        'name'          : extractString,
-        'uid'           : int,
-        'gid'           : int,
-        'uname'         : extractString,
-        'gname'         : extractString,
-        #'permissions'   : Permissions,
-        'ds_mad'        : extractString,
-        'tm_mad'        : extractString,
-        'base_path'     : extractString,
-        'type'          : int,
-        'disk_type'     : int,
-        #'state'         : ???,
-        'cluster_id'    : int,
-        'cluster'       : extractString,
-        'total_mb'      : int,
-        'free_mb'       : int,
-        'used_mb'       : int,
-        'image_ids'     : ['IMAGES', lambda images: [int(image_id.text) for image_id in images]],
-        'template'      : ['TEMPLATE', Template],
+        'id': int,
+        'name': extractString,
+        'uid': int,
+        'gid': int,
+        'uname': extractString,
+        'gname': extractString,
+        # 'permissions'   : Permissions,
+        'ds_mad': extractString,
+        'tm_mad': extractString,
+        'base_path': extractString,
+        'type': int,
+        'disk_type': int,
+        # 'state'         : ???,
+        'cluster_id': int,
+        'cluster': extractString,
+        'total_mb': int,
+        'free_mb': int,
+        'used_mb': int,
+        'image_ids': ['IMAGES', lambda images: [int(image_id.text) for image_id in images]],
+        'template': ['TEMPLATE', Template],
     }
 
     ELEMENT_NAME = 'DATASTORE'
 
     @staticmethod
     def allocate(client, datastore_template):
-        '''
+        """
         Adds a datastore to the datastore list
 
         Arguments
 
         ``datastore_template``
            Template for the datastore to add
-        '''
+        """
         datastore_id = client.call(Datastore.METHODS['allocate'], datastore_template)
         return datastore_id
 
@@ -58,7 +59,7 @@ class Datastore(PoolElement):
 
 class DatastorePool(Pool):
     METHODS = {
-            'info' : 'datastorepool.info',
+        'info': 'datastorepool.info',
     }
 
     def __init__(self, client):

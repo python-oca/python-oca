@@ -28,56 +28,56 @@ class TestVmTemplate(unittest.TestCase):
         template = oca.VmTemplate(self.xml, self.client)
         template.update('name=b')
         self.client.call.assert_called_once_with('template.update',
-                                                            '1', 'name=b', 0)
+                                                 '1', 'name=b', 0)
 
     def test_publish(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.publish()
         self.client.call.assert_called_once_with('template.publish',
-                                                            '1', True)
+                                                 '1', True)
 
     def test_unpublish(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.unpublish()
         self.client.call.assert_called_once_with('template.publish',
-                                                            '1', False)
+                                                 '1', False)
 
     def test_chown(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.chown(2, 3)
         self.client.call.assert_called_once_with('template.chown',
-                                                            '1', 2, 3)
+                                                 '1', 2, 3)
 
     def test_instantiate_with_default_name(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.instantiate()
         self.client.call.assert_called_once_with('template.instantiate',
-                                                            '1', '', False, '')
+                                                 '1', '', False, '')
 
     def test_instantiate_with_custom_name(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.instantiate('asd')
         self.client.call.assert_called_once_with('template.instantiate',
-                                                            '1', 'asd', False, '')
+                                                 '1', 'asd', False, '')
 
     def test_instantiate_with_default_name_and_context(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.instantiate('', False, 'VCPU=4')
         self.client.call.assert_called_once_with('template.instantiate',
-                                                            '1', '', False, 'VCPU=4')
+                                                 '1', '', False, 'VCPU=4')
 
     def test_instantiate_with_custom_name_and_context(self):
         self.client.call = Mock()
         template = oca.VmTemplate(self.xml, self.client)
         template.instantiate('asd', False, 'VCPU=4')
         self.client.call.assert_called_once_with('template.instantiate',
-                                                            '1', 'asd', False, 'VCPU=4')
+                                                 '1', 'asd', False, 'VCPU=4')
 
     def test_repr(self):
         self.client.call = Mock()

@@ -11,12 +11,12 @@ class TestHost(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
-                                         'tests/fixtures/host.xml')).read()
+                                     'tests/fixtures/host.xml')).read()
 
     def test_allocate(self):
         self.client.call = Mock(return_value=7)
         host_id = oca.Host.allocate(self.client, 'host', 'im_xen',
-                               'vmm_xen', 'tm_nfs')
+                                    'vmm_xen', 'tm_nfs')
         assert host_id == 7
 
     def test_enable(self):
@@ -34,7 +34,7 @@ class TestHost(unittest.TestCase):
     def test_states(self):
         for i in range(len(oca.Host.HOST_STATES)):
             h = oca.Host('<HOST><ID>2</ID><STATE>{0}</STATE></HOST>'.format(i),
-                     self.client)
+                         self.client)
             assert h.str_state == oca.Host.HOST_STATES[i]
             assert h.short_state == oca.Host.SHORT_HOST_STATES[oca.Host.HOST_STATES[i]]
 
@@ -52,4 +52,4 @@ class TestHost(unittest.TestCase):
         h = oca.Host(self.xml, self.client)
         h._convert_types()
         vm_ids = list(h.vm_ids)
-        assert vm_ids == [82,84,85,95,96]
+        assert vm_ids == [82, 84, 85, 95, 96]

@@ -4,29 +4,29 @@ from .pool import Pool, PoolElement, Template, extractString
 
 class Group(PoolElement):
     METHODS = {
-        'info'     : 'group.info',
-        'allocate' : 'group.allocate',
-        'delete'   : 'group.delete',
+        'info': 'group.info',
+        'allocate': 'group.allocate',
+        'delete': 'group.delete',
     }
 
     XML_TYPES = {
-            'id'          : int,
-            'name'        : extractString,
-            'template'    : ['TEMPLATE', Template],
-            'users'       : ['USERS', lambda users: [int(i.text) for i in users]],
-            #'resource_providers': handled separately
-            #'datastore_quota': handled separately
-            #'network_quota': handled separately
-            #'vm_quota': handled separately
-            #'image_quota'
-            #'default_group_quotas'
+        'id': int,
+        'name': extractString,
+        'template': ['TEMPLATE', Template],
+        'users': ['USERS', lambda users: [int(i.text) for i in users]],
+        # 'resource_providers': handled separately
+        # 'datastore_quota': handled separately
+        # 'network_quota': handled separately
+        # 'vm_quota': handled separately
+        # 'image_quota'
+        # 'default_group_quotas'
     }
 
     ELEMENT_NAME = 'GROUP'
 
     @staticmethod
     def allocate(client, group_name):
-        '''
+        """
         Allocates a new group in OpenNebula
 
         Arguments
@@ -36,7 +36,7 @@ class Group(PoolElement):
 
         ``group``
            a string containing the group name
-        '''
+        """
         group_id = client.call(Group.METHODS['allocate'], group_name)
         return group_id
 
@@ -50,7 +50,7 @@ class Group(PoolElement):
 
 class GroupPool(Pool):
     METHODS = {
-            'info' : 'grouppool.info',
+        'info': 'grouppool.info',
     }
 
     def __init__(self, client):
@@ -60,4 +60,3 @@ class GroupPool(Pool):
         i = Group(xml, self.client)
         i._convert_types()
         return i
-

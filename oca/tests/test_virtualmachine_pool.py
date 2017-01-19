@@ -29,13 +29,13 @@ class TestVirtualMachinePool(unittest.TestCase):
         self.client.call = Mock(return_value=self.xml)
         pool = oca.VirtualMachinePool(self.client)
         pool.info()
-        assert  pool.get_by_id(8).id == 8
+        assert pool.get_by_id(8).id == 8
 
     def test_get_by_name(self):
         self.client.call = Mock(return_value=self.xml)
         pool = oca.VirtualMachinePool(self.client)
         pool.info()
-        assert  pool.get_by_name('vm-in').name == 'vm-in'
+        assert pool.get_by_name('vm-in').name == 'vm-in'
 
     @raises(oca.pool.WrongIdError)
     def test_wrong_get_by_id(self):

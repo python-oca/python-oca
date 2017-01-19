@@ -22,7 +22,7 @@ class TestClient(unittest.TestCase):
 
     def test_one_auth(self):
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
-                                             'tests/fixtures/one_auth')
+                                              'tests/fixtures/one_auth')
         try:
             c = oca.Client()
             secret = 'test:test'
@@ -32,7 +32,7 @@ class TestClient(unittest.TestCase):
 
     def test_default_user_path(self):
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
-                                             'tests/fixtures/one_auth')
+                                              'tests/fixtures/one_auth')
         c = oca.Client()
         assert c.one_auth == 'test:test'
 
@@ -44,16 +44,16 @@ class TestClient(unittest.TestCase):
     @raises(oca.OpenNebulaException)
     def test_invalid_secret(self):
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
-                                             'tests/fixtures/one_auth')
+                                              'tests/fixtures/one_auth')
         c = oca.Client('testtest')
 
     def test_addres(self):
-        c = oca.Client('test:test',  "http://8.8.8.8:2633/RPC2")
+        c = oca.Client('test:test', "http://8.8.8.8:2633/RPC2")
         assert c.one_address == "http://8.8.8.8:2633/RPC2"
 
     def test_one_xml_rpc(self):
         os.environ["ONE_AUTH"] = os.path.join(os.path.dirname(oca.__file__),
-                                             'tests/fixtures/one_auth')
+                                              'tests/fixtures/one_auth')
         os.environ["ONE_XMLRPC"] = "http://8.8.8.8:2633/RPC2"
         try:
             c = oca.Client()
@@ -84,7 +84,6 @@ class TestClient(unittest.TestCase):
         c.server.one.test_method = lambda x: [False, '2', 1]
         c.call('test_method')
 
-
     @raises(oca.OpenNebulaException)
     def test_invalid_call(self):
         c = oca.Client('test:test')
@@ -98,4 +97,3 @@ class TestClient(unittest.TestCase):
         c.server.one = Mock()
         c.server.one.test_method = Mock(side_effect=socket.error(1))
         c.call('test_method')
-

@@ -18,4 +18,3 @@ class TestUserPool(unittest.TestCase):
         pool = oca.UserPool(self.client)
         pool.info()
         assert len(pool) == 2
-

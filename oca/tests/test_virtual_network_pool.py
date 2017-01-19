@@ -18,4 +18,3 @@ class TestVirtualNetworkPool(unittest.TestCase):
         pool = oca.VirtualNetworkPool(self.client)
         pool.info()
         assert len(list(pool)) == 2
-

@@ -3,4 +3,3 @@
 
 class OpenNebulaException(Exception):
     pass
-

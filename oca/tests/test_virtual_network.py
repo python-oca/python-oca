@@ -6,13 +6,12 @@ from mock import Mock
 
 import oca
 
-
-VN_TEMPLATE = '''NAME = "Red LAN"
+VN_TEMPLATE = """NAME = "Red LAN"
 TYPE = RANGED
 PUBLIC = NO
 BRIDGE = vbr0
 NETWORK_SIZE    = C
-NETWORK_ADDRESS = 192.168.0.0'''
+NETWORK_ADDRESS = 192.168.0.0"""
 
 
 class TestVirtualNetwork(unittest.TestCase):
@@ -54,11 +53,11 @@ class TestVirtualNetwork(unittest.TestCase):
     def test_address_ranges(self):
         h = oca.VirtualNetwork(self.xml, self.client)
         h._convert_types()
-        assert(2==len(h.address_ranges))
-        assert(1==h.address_ranges[1].id)
-        assert(0==h.address_ranges[0].id)
-        assert(" 0 68719479930 1 68719545020"==h.address_ranges[0].allocated)
-        assert("10.1.0.10"==h.address_ranges[0].ip)
-        assert("00:22:44:66:88:aa"==h.address_ranges[0].mac)
-        assert(507==h.address_ranges[0].size)
-        assert("IP4"==h.address_ranges[0].type)
+        assert (2 == len(h.address_ranges))
+        assert (1 == h.address_ranges[1].id)
+        assert (0 == h.address_ranges[0].id)
+        assert (" 0 68719479930 1 68719545020" == h.address_ranges[0].allocated)
+        assert ("10.1.0.10" == h.address_ranges[0].ip)
+        assert ("00:22:44:66:88:aa" == h.address_ranges[0].mac)
+        assert (507 == h.address_ranges[0].size)
+        assert ("IP4" == h.address_ranges[0].type)

@@ -10,14 +10,14 @@ class Quota(XMLElement):
 
 class VMQuota(Quota):
     XML_TYPES = {
-        'cpu' : int,
-        'cpu_used' : int,
-        'memory' : int,
-        'memory_used' : int,
-        'system_disk_size' : int,
-        'system_disk_size_used' : int,
-        'vms' : int,
-        'vms_used' : int,
+        'cpu': int,
+        'cpu_used': int,
+        'memory': int,
+        'memory_used': int,
+        'system_disk_size': int,
+        'system_disk_size_used': int,
+        'vms': int,
+        'vms_used': int,
     }
 
 
@@ -36,52 +36,54 @@ class NetworkQuota(Quota):
         'leases_used': int,
     }
 
+
 class VMQuotaList(Quota):
     XML_TYPES = {
-        'vm' : VMQuota,
+        'vm': VMQuota,
     }
 
 
 class DatastoreQuotaList(Quota):
     XML_TYPES = {
-        'datastore' : DatastoreQuota,
+        'datastore': DatastoreQuota,
     }
 
 
 class NetworkQuotaList(Quota):
     XML_TYPES = {
-        'network' : NetworkQuota,
+        'network': NetworkQuota,
     }
+
 
 class User(PoolElement):
     METHODS = {
-        'info':      'user.info',
-        'allocate':  'user.allocate',
-        'delete':    'user.delete',
-        'passwd':    'user.passwd',
-        'chgrp':     'user.chgrp'
+        'info': 'user.info',
+        'allocate': 'user.allocate',
+        'delete': 'user.delete',
+        'passwd': 'user.passwd',
+        'chgrp': 'user.chgrp'
     }
 
     XML_TYPES = {
-        'id':          int,
-        'gid':         int,
-        'group_ids':   ['GROUPS', lambda group_ids: [int(group_id.text) for group_id in group_ids]],
-        'gname':       extractString,
-        'name':        extractString,
-        'password':    extractString,
+        'id': int,
+        'gid': int,
+        'group_ids': ['GROUPS', lambda group_ids: [int(group_id.text) for group_id in group_ids]],
+        'gname': extractString,
+        'name': extractString,
+        'password': extractString,
         'auth_driver': extractString,
-        'enabled':     bool,
-        'template':    ['TEMPLATE', Template],
-        #'network_quota': handled separately   # see http://dev.opennebula.org/issues/3849
-        #'image_quota'                         # see http://dev.opennebula.org/issues/3849
-        #'default_user_quotas'                 # see http://dev.opennebula.org/issues/3849
+        'enabled': bool,
+        'template': ['TEMPLATE', Template],
+        # 'network_quota': handled separately   # see http://dev.opennebula.org/issues/3849
+        # 'image_quota'                         # see http://dev.opennebula.org/issues/3849
+        # 'default_user_quotas'                 # see http://dev.opennebula.org/issues/3849
     }
 
     ELEMENT_NAME = 'USER'
 
     @staticmethod
     def allocate(client, user, password):
-        '''
+        """
         allocates a new user in OpenNebula
 
         ``user``
@@ -89,7 +91,7 @@ class User(PoolElement):
 
         ``password``
            password for the new user
-        '''
+        """
         user_id = client.call(User.METHODS['allocate'], user, password)
         return user_id
 
@@ -98,21 +100,21 @@ class User(PoolElement):
         self.id = self['ID'] if self['ID'] else None
 
     def change_passwd(self, new_password):
-        '''
+        """
         Changes the password for the given user.
 
         ``new_password``
            The new password
-        '''
+        """
         self.client.call(User.METHODS['passwd'], self.id, new_password)
 
     def chgrp(self, gid):
-        '''
+        """
         Changes the main group
 
         ``gid``
             New group id. Set to -1 to leave the current one
-        '''
+        """
         self.client.call(User.METHODS['chgrp'], self.id, gid)
 
     @property
@@ -136,7 +138,7 @@ class User(PoolElement):
 
 class UserPool(Pool):
     METHODS = {
-            'info':  'userpool.info',
+        'info': 'userpool.info',
     }
 
     def __init__(self, client):
@@ -146,4 +148,3 @@ class UserPool(Pool):
         u = User(xml, self.client)
         u._convert_types()
         return u
-
