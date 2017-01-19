@@ -34,5 +34,4 @@ class TestGroup(unittest.TestCase):
         assert group.id == 1
         assert group.name == "users"
         assert group.template.hello == "world"
-        assert group.users == [1,2]
-
+        assert group.users == [1, 2]

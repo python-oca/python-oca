@@ -1,32 +1,31 @@
 # -*- coding: UTF-8 -*-
+import http.client
 import os
-import hashlib
 import re
 import socket
-
-import http.client
 import xmlrpc.client
 
-from .host import Host, HostPool
-from .vm import VirtualMachine, VirtualMachinePool
-from .user import User, UserPool
-from .image import Image, ImagePool
-from .vn import VirtualNetwork, VirtualNetworkPool
-from .group import Group, GroupPool
-from .template import VmTemplate, VmTemplatePool
-from .exceptions import OpenNebulaException
 from .cluster import Cluster, ClusterPool
 from .datastore import Datastore, DatastorePool
-
+from .exceptions import OpenNebulaException
+from .group import Group, GroupPool
+from .host import Host, HostPool
+from .image import Image, ImagePool
+from .template import VmTemplate, VmTemplatePool
+from .user import User, UserPool
+from .vm import VirtualMachine, VirtualMachinePool
+from .vn import VirtualNetwork, VirtualNetworkPool
 
 CONNECTED = -3
 ALL = -2
 CONNECTED_AND_GROUP = -1
 
+
 class TimeoutHTTPConnection(http.client.HTTPConnection):
     def connect(self):
         http.client.HTTPConnection.connect(self)
         self.sock.settimeout(self.timeout)
+
 
 class TimeoutHTTP(http.client.HTTPConnection):
     _connection_class = TimeoutHTTPConnection
@@ -34,26 +33,32 @@ class TimeoutHTTP(http.client.HTTPConnection):
     def set_timeout(self, timeout):
         self._conn.timeout = timeout
 
+
 class ProxiedTransport(xmlrpc.client.Transport):
     def __init__(self, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, *args, **kwargs):
         xmlrpc.client.Transport.__init__(self, *args, **kwargs)
         self.timeout = timeout
+
     def set_proxy(self, proxy):
         self.proxy = proxy
+
     def make_connection(self, host):
         self.realhost = host
         h = http.client.HTTPConnection(self.proxy)
         return h
+
     def send_request(self, connection, handler, request_body):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
+
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
 
+
 class Client(object):
-    '''
+    """
     The client class, represents the connection with the core and handles the
     xml-rpc calls(see http://www.opennebula.org/documentation:rel3.2:api)
-    '''
+    """
     DEFAULT_ONE_AUTH = "~/.one/one_auth"
     ONE_AUTH_RE = re.compile('^(.+?):(.+)$')
     DEFAULT_ONE_ADDRESS = "http://localhost:2633/RPC2"
@@ -93,10 +98,9 @@ class Client(object):
             self.server = xmlrpc.client.ServerProxy(self.one_address, transport=p)
         else:
             self.server = xmlrpc.client.ServerProxy(self.one_address)
-        
 
     def call(self, function, *args):
-        '''
+        """
         Calls rpc function.
 
         Arguments
@@ -107,7 +111,7 @@ class Client(object):
         ``args``
            function arguments
 
-        '''
+        """
         try:
             func = getattr(self.server.one, function)
             ret = func(self.one_auth, *args)
@@ -117,21 +121,21 @@ class Client(object):
                 data = ''
                 is_success = False
         except socket.error as e:
-            #connection error
+            # connection error
             raise e
         if not is_success:
             raise OpenNebulaException(data)
         return data
 
     def version(self):
-        '''
+        """
         Get the version of the connected OpenNebula server.
-        '''
+        """
         return self.call('system.version')
 
-__all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
-        VirtualMachinePool, User, UserPool,
-        Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
-        Group, GroupPool, VmTemplate, VmTemplatePool, ALL, CONNECTED,
-        Cluster, ClusterPool, Datastore, DatastorePool]
 
+__all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
+           VirtualMachinePool, User, UserPool,
+           Image, ImagePool, VirtualNetwork, VirtualNetworkPool,
+           Group, GroupPool, VmTemplate, VmTemplatePool, ALL, CONNECTED,
+           Cluster, ClusterPool, Datastore, DatastorePool]

@@ -41,5 +41,5 @@ class TestDatastore(unittest.TestCase):
         assert cluster.total_mb == 9952
         assert cluster.free_mb == 8999
         assert cluster.used_mb == 425
-        assert cluster.image_ids == [2,3]
+        assert cluster.image_ids == [2, 3]
         assert cluster.template.disk_type == 'FILE'

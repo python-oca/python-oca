@@ -3,8 +3,9 @@
 #
 # Author: Matthias Schmitz <matthias@sigxcpu.org>
 
-import unittest
 import os
+import unittest
+
 import oca
 
 

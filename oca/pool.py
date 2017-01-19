@@ -11,6 +11,7 @@ class WrongNameError(OpenNebulaException):
 class WrongIdError(OpenNebulaException):
     pass
 
+
 def extractString(xml_or_string):
     if isinstance(xml_or_string, str):
         return xml_or_string
@@ -23,6 +24,7 @@ def extractString(xml_or_string):
         pass
 
     return xml_or_string.text or ''
+
 
 class Template(object):
     def __init__(self, xml_element, multiple=[]):
@@ -98,7 +100,7 @@ class Pool(list, XMLElement):
         self.client = client
 
     def info(self, filter=-3, range_start=-1, range_end=-1, *args):
-        '''
+        """
         Retrives/Refreshes resource pool information
 
         ``filter``
@@ -109,10 +111,10 @@ class Pool(list, XMLElement):
 
         ``range_end``
             Range end ID. -1 for all
-        '''
+        """
         self[:] = []
         data = self.client.call(self.METHODS['info'], filter,
-                                        range_start, range_end, *args)
+                                range_start, range_end, *args)
         self._initialize_xml(data, self.pool_name)
         for element in self.xml.findall(self.element_name):
             self.append(self._factory(element))
@@ -140,7 +142,7 @@ class PoolElement(XMLElement):
 
     @classmethod
     def new_with_id(cls, client, element_id):
-        '''
+        """
         Retrives object which id equals ```id```.
 
         Arguments
@@ -149,7 +151,7 @@ class PoolElement(XMLElement):
            oca.Client object.
         ```element_id``
            object id.
-        '''
+        """
         element = cls.ELEMENT_NAME
         xml = '<{0}><ID>{1}</ID></{0}>'.format(element, element_id)
         obj = cls(xml, client)
@@ -161,16 +163,15 @@ class PoolElement(XMLElement):
         self._initialize_xml(data, self.ELEMENT_NAME)
 
     def delete(self):
-        '''
+        """
         Deletes current object from the pool
-        '''
+        """
         self.client.call(self.METHODS['delete'], self.id)
 
     def clone(self, name=''):
-        '''
+        """
         Creates a clone of an elemet
         ``name``
             name of a target element
-        '''
+        """
         self.client.call(self.METHODS['clone'], self.id, name)
-

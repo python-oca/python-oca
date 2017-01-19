@@ -38,4 +38,3 @@ class TestUser(unittest.TestCase):
         vm = oca.User(self.xml, self.client)
         vm.chgrp(3)
         self.client.call.assert_called_once_with('user.chgrp', '3', 3)
-

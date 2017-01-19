@@ -20,4 +20,3 @@ class TestImagePool(unittest.TestCase):
         pool = oca.ImagePool(self.client)
         pool.info()
         assert len(pool) == 3
-

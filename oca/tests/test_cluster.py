@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 import os
+import unittest
 
 from mock import Mock
 
-import unittest
 import oca
 
 
@@ -27,7 +27,7 @@ class TestCluster(unittest.TestCase):
         cluster._convert_types()
         assert cluster.id == 101
         assert cluster.name == "oneCluster"
-        assert cluster.host_ids == [2,3]
-        assert cluster.datastore_ids == [4,5]
-        assert cluster.vnet_ids == [6,7]
+        assert cluster.host_ids == [2, 3]
+        assert cluster.datastore_ids == [4, 5]
+        assert cluster.vnet_ids == [6, 7]
         assert cluster.template.reserved_cpu is None

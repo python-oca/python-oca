@@ -18,4 +18,3 @@ class TestDatastorePool(unittest.TestCase):
         pool = oca.DatastorePool(self.client)
         pool.info()
         assert len(list(pool)) == 2
-
