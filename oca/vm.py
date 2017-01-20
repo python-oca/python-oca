@@ -389,10 +389,10 @@ class VirtualMachinePool(Pool):
 
     def info(self, filter=-3, range_start=-1, range_end=-1, vm_state=-1):
         """
-        Retrives/Refreshes virtual machine pool information
+        Retrieves/Refreshes virtual machine pool information
 
         ``filter``
-            Filter flag. By defaults retrives only connected user reources.
+            Filter flag. By defaults retrieves only connected user resources.
 
         ``range_start``
             Range start ID. -1 for all
@@ -405,7 +405,7 @@ class VirtualMachinePool(Pool):
             VM state to filter by.
 
             * \-2	 Any state, including DONE
-            * \-1	 Any state, except DONE (Defualt)
+            * \-1	 Any state, except DONE (Default)
             * 0	 INIT
             * 1	 PENDING
             * 2	 HOLD

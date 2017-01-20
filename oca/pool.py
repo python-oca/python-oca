@@ -101,10 +101,10 @@ class Pool(list, XMLElement):
 
     def info(self, filter=-3, range_start=-1, range_end=-1, *args):
         """
-        Retrives/Refreshes resource pool information
+        Retrieves/Refreshes resource pool information
 
         ``filter``
-            Filter flag. By defaults retrives only connected user reources.
+            Filter flag. By defaults retrieves only connected user resources.
 
         ``range_start``
             Range start ID. -1 for all
@@ -143,7 +143,7 @@ class PoolElement(XMLElement):
     @classmethod
     def new_with_id(cls, client, element_id):
         """
-        Retrives object which id equals ```id```.
+        Retrieves object which id equals ```id```.
 
         Arguments
 
@@ -170,7 +170,7 @@ class PoolElement(XMLElement):
 
     def clone(self, name=''):
         """
-        Creates a clone of an elemet
+        Creates a clone of an element
         ``name``
             name of a target element
         """
