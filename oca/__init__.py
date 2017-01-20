@@ -20,6 +20,27 @@ CONNECTED = -3
 ALL = -2
 CONNECTED_AND_GROUP = -1
 
+func_mapping = {
+    'host_pool': HostPool,
+    'virtual_machine_pool': VirtualMachinePool,
+    'user_pool': UserPool,
+    'image_pool': ImagePool,
+    'virtual_network_pool': VirtualNetworkPool,
+    'group_pool': GroupPool,
+    'vm_template_pool': VmTemplatePool,
+    'cluster_pool': ClusterPool,
+    'datastore_pool': DatastorePool,
+    'allocate_host': Host,
+    'allocate_virtual_machine': VirtualMachine,
+    'allocate_user': User,
+    'allocate_image': Image,
+    'allocate_virtual_network': VirtualNetwork,
+    'allocate_group': Group,
+    'allocate_vm_template': VmTemplate,
+    'allocate_cluster': Cluster,
+    'allocate_datastore': Datastore,
+}
+
 
 class TimeoutHTTPConnection(http.client.HTTPConnection):
     def connect(self):
@@ -98,6 +119,9 @@ class Client(object):
             self.server = xmlrpc.client.ServerProxy(self.one_address, transport=p)
         else:
             self.server = xmlrpc.client.ServerProxy(self.one_address)
+
+    def __getattr__(self, item):
+        return lambda *args, **kwargs: func_mapping[item](client=self, *args, **kwargs)
 
     def call(self, function, *args):
         """
