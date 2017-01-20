@@ -133,6 +133,60 @@ class Client(object):
         """
         return self.call('system.version')
 
+    def host_pool(self):
+        return HostPool(self)
+
+    def virtual_machine_pool(self):
+        return VirtualMachinePool(self)
+
+    def user_pool(self):
+        return UserPool(self)
+
+    def image_pool(self):
+        return ImagePool(self)
+
+    def virtual_network_pool(self):
+        return VirtualMachinePool(self)
+
+    def group_pool(self):
+        return GroupPool(self)
+
+    def vm_template_pool(self):
+        return VmTemplatePool(self)
+
+    def cluster_pool(self):
+        return ClusterPool(self)
+
+    def datastore_pool(self):
+        return DatastorePool(self)
+
+    def allocate_host(self, *args, **kwargs):
+        return Host.allocate(self, *args, **kwargs)
+
+    def allocate_virtual_machine(self, *args, **kwargs):
+        return VirtualMachine.allocate(self, *args, **kwargs)
+
+    def allocate_user(self, *args, **kwargs):
+        return User.allocate(self, *args, **kwargs)
+
+    def allocate_image(self, *args, **kwargs):
+        return Image.allocate(self, *args, **kwargs)
+
+    def allocate_virtual_network(self, *args, **kwargs):
+        return VirtualNetwork.allocate(self, *args, **kwargs)
+
+    def allocate_group(self, *args, **kwargs):
+        return Group.allocate(self, *args, **kwargs)
+
+    def allocate_vm_template(self, *args, **kwargs):
+        return VmTemplate.allocate(self, *args, **kwargs)
+
+    def allocate_cluster(self, *args, **kwargs):
+        return Cluster.allocate(self, *args, **kwargs)
+
+    def allocate_datastore(self, *args, **kwargs):
+        return Datastore.allocate(self, *args, **kwargs)
+
 
 __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
            VirtualMachinePool, User, UserPool,
