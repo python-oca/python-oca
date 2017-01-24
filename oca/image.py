@@ -46,13 +46,18 @@ class Image(PoolElement):
     READY = 1
     USED = 2
     DISABLED = 3
-    IMAGE_STATES = ['INIT', 'READY', 'USED', 'DISABLED']
+    IMAGE_STATES = ['INIT', 'READY', 'USED', 'DISABLED', 'LOCKED', 'ERROR', 'CLONE', 'DELETE', 'USED_PERS']
 
     SHORT_IMAGE_STATES = {
         "INIT": "init",
         "READY": "rdy",
         "USED": "used",
-        "DISABLED": "disa"
+        "DISABLED": "disa",
+        "LOCKED": "lock",
+        "ERROR": "err",
+        "CLONE": "clon",
+        "DELETE": "dele",
+        "USED_PERS": "used"
     }
 
     IMAGE_TYPES = ['OS', 'CDROM', 'DATABLOCK']
@@ -161,7 +166,7 @@ class Image(PoolElement):
     def str_state(self):
         """
         String representation of image state.
-        One of 'INIT', 'READY', 'USED', 'DISABLED'
+        One of 'INIT', 'READY', 'USED', 'DISABLED', 'LOCKED', 'ERROR', 'CLONE', 'DELETE', 'USED_PERS'
         """
         return self.IMAGE_STATES[int(self.state)]
 
@@ -169,7 +174,7 @@ class Image(PoolElement):
     def short_state(self):
         """
         Short string representation of image state.
-        One of 'init', 'rdy', 'used', 'disa'
+        One of 'init', 'rdy', 'used', 'disa', 'lock', 'err', 'clon', 'dele', 'used'
         """
         return self.SHORT_IMAGE_STATES[self.str_state]
 
