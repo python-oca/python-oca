@@ -100,3 +100,10 @@ class TestImage(unittest.TestCase):
         h.chown(10, 10)
         self.client.call.assert_called_once_with('image.chown',
                                                  '1', 10, 10)
+
+    def test_chmod(self):
+        self.client.call = Mock(return_value='')
+        h = oca.Image(self.xml, self.client)
+        h.chmod(1, 0, 0, -1, -1, -1, -1, -1, -1)
+        self.client.call.assert_called_once_with('image.chmod',
+                                                 '1', 1, 0, 0, -1, -1, -1, -1, -1, -1)

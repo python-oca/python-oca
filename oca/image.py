@@ -10,6 +10,7 @@ class Image(PoolElement):
         'update': 'image.update',
         'enable': 'image.enable',
         'publish': 'image.publish',
+        'chmod': 'image.chmod',
         'chown': 'image.chown',
         'persistent': 'image.persistent',
         'clone': 'image.clone',
@@ -151,6 +152,34 @@ class Image(PoolElement):
             New group id. Set to -1 to leave current value
         """
         self.client.call(self.METHODS['chown'], self.id, uid, gid)
+
+    def chmod(self, owner_u, owner_m, owner_a, group_u, group_m, group_a, other_u, other_m, other_a):
+        """
+        Changes the permission bits
+
+        Arguments
+
+        ``owner_u``
+            User USE bit. Set to -1 to leave current value
+        ``owner_m``
+            User MANAGE bit. Set to -1 to leave current value
+        ``owner_a``
+            User ADMIN bit. Set to -1 to leave current value
+        ``group_u``
+            Group USE bit. Set to -1 to leave current value
+        ``group_m``
+            Group MANAGE bit. Set to -1 to leave current value
+        ``group_a``
+            Group ADMIN bit. Set to -1 to leave current value
+        ``other_u``
+            Other USE bit. Set to -1 to leave current value
+        ``other_m``
+            Other MANAGE bit. Set to -1 to leave current value
+        ``other_a``
+            Other ADMIN bit. Set to -1 to leave current value
+        """
+        self.client.call(self.METHODS['chmod'], self.id, owner_u, owner_m, owner_a, group_u, group_m, group_a, other_u,
+                         other_m, other_a)
 
     def clone(self, name='', datastore_id=-1):
         """
