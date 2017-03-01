@@ -52,30 +52,30 @@ class TestVmTemplate(unittest.TestCase):
                                                  '1', 2, 3)
 
     def test_instantiate_with_default_name(self):
-        self.client.call = Mock()
+        self.client.call = Mock(return_value=4)
         template = oca.VmTemplate(self.xml, self.client)
-        template.instantiate()
+        assert template.instantiate() == 4
         self.client.call.assert_called_once_with('template.instantiate',
                                                  '1', '', False, '')
 
     def test_instantiate_with_custom_name(self):
-        self.client.call = Mock()
+        self.client.call = Mock(return_value=5)
         template = oca.VmTemplate(self.xml, self.client)
-        template.instantiate('asd')
+        assert template.instantiate('asd') == 5
         self.client.call.assert_called_once_with('template.instantiate',
                                                  '1', 'asd', False, '')
 
     def test_instantiate_with_default_name_and_context(self):
-        self.client.call = Mock()
+        self.client.call = Mock(return_value=6)
         template = oca.VmTemplate(self.xml, self.client)
-        template.instantiate('', False, 'VCPU=4')
+        assert template.instantiate('', False, 'VCPU=4') == 6
         self.client.call.assert_called_once_with('template.instantiate',
                                                  '1', '', False, 'VCPU=4')
 
     def test_instantiate_with_custom_name_and_context(self):
-        self.client.call = Mock()
+        self.client.call = Mock(return_value=7)
         template = oca.VmTemplate(self.xml, self.client)
-        template.instantiate('asd', False, 'VCPU=4')
+        assert template.instantiate('asd', False, 'VCPU=4') == 7
         self.client.call.assert_called_once_with('template.instantiate',
                                                  '1', 'asd', False, 'VCPU=4')
 

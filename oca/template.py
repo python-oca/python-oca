@@ -90,7 +90,7 @@ class VmTemplate(PoolElement):
         ``extra_template``
             A string containing an extra template to be merged with the one being instantiated
         """
-        self.client.call(VmTemplate.METHODS['instantiate'], self.id, name, pending, extra_template)
+        return self.client.call(VmTemplate.METHODS['instantiate'], self.id, name, pending, extra_template)
 
     def __repr__(self):
         return '<oca.VmTemplate("%s")>' % self.name
