@@ -78,6 +78,13 @@ class Host(PoolElement):
         return host_id
 
     def __init__(self, xml, client):
+        # remove 'vn_mad' attribute in OpenNebula >= 5
+        xml_types = Host.XML_TYPES
+        if client.one_version is None:
+            client.version()
+        if client.one_version >= '5' and 'vn_mad' in xml_types:
+            del xml_types['vn_mad']
+
         super(Host, self).__init__(xml, client)
         self.id = self['ID'] if self['ID'] else None
 
