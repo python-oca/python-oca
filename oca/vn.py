@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from .pool import XMLElement, Pool, PoolElement, Template
+from .pool import XMLElement, Pool, PoolElement, Template, extractString
 
 
 class Lease(XMLElement):
@@ -95,6 +95,13 @@ class VirtualNetwork(PoolElement):
         return vn_id
 
     def __init__(self, xml, client):
+        # add 'vn_mad' attribute in OpenNebula >= 5
+        xml_types = VirtualNetwork.XML_TYPES
+        if client.one_version is None:
+            client.version()
+        if client.one_version >= '5' and 'vn_mad' not in xml_types:
+            xml_types['vn_mad'] = extractString
+
         super(VirtualNetwork, self).__init__(xml, client)
         self.id = self['ID'] if self['ID'] else None
 

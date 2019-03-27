@@ -64,6 +64,8 @@ class Client(object):
     DEFAULT_ONE_ADDRESS = "http://localhost:2633/RPC2"
 
     def __init__(self, secret=None, address=None, proxy=None):
+        self.one_version = None
+
         if secret:
             one_secret = secret
         elif "ONE_AUTH" in os.environ and os.environ["ONE_AUTH"]:
@@ -131,7 +133,8 @@ class Client(object):
         """
         Get the version of the connected OpenNebula server.
         """
-        return self.call('system.version')
+        self.one_version = self.call('system.version')
+        return self.one_version
 
 
 __all__ = [Client, OpenNebulaException, Host, HostPool, VirtualMachine,
