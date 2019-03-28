@@ -3,6 +3,8 @@ import os
 import unittest
 
 from mock import Mock
+from xml.etree import ElementTree as ET
+from parameterized import parameterized_class
 
 import oca
 
@@ -14,26 +16,50 @@ NETWORK_SIZE    = C
 NETWORK_ADDRESS = 192.168.0.0"""
 
 
+@parameterized_class([
+    {'one_version': '4.10.0'},
+    {'one_version': '5.0.0'},
+])
 class TestVirtualNetwork(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
+        self.client.call = Mock(return_value=self.one_version)
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
                                      'tests/fixtures/vnet.xml')).read()
+
+        if self.one_version == '5.0.0':
+            xml_v5 = ET.fromstring(self.xml)
+            vn_mad = ET.Element('VN_MAD')
+            vn_mad.text = 'vn_dummy'
+            xml_v5.append(vn_mad)
+            self.xml = ET.tostring(xml_v5).decode('utf-8')
+
+    def tearDown(self):
+        version = self.client.one_version
+        if version is not None and version.startswith('5.'):
+            xml_types = oca.VirtualNetwork.XML_TYPES
+            del xml_types['vn_mad']
+
+    def test_instantiate(self):
+        h = oca.VirtualNetwork(self.xml, self.client)
+        self.client.call.assert_called_once_with('system.version')
+        expected = None if self.one_version == '4.10.0' else 'vn_dummy'
+        assert (getattr(h, 'vn_mad', None) == expected)
 
     def test_allocate(self):
         self.client.call = Mock(return_value=2)
         assert oca.VirtualNetwork.allocate(self.client, VN_TEMPLATE) == 2
 
     def test_publish(self):
-        self.client.call = Mock(return_value='')
         h = oca.VirtualNetwork(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         h._convert_types()
         h.publish()
         self.client.call.assert_called_once_with('vn.publish', 3, True)
 
     def test_unpublish(self):
-        self.client.call = Mock(return_value='')
         h = oca.VirtualNetwork(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         h._convert_types()
         h.unpublish()
         self.client.call.assert_called_once_with('vn.publish', 3, False)
@@ -44,8 +70,8 @@ class TestVirtualNetwork(unittest.TestCase):
         assert h.__repr__() == '<oca.VirtualNetwork("Red LAN")>'
 
     def test_chown(self):
-        self.client.call = Mock(return_value='')
         h = oca.VirtualNetwork(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         h._convert_types()
         h.chown(2, 2)
         self.client.call.assert_called_once_with('vn.chown', 3, 2, 2)

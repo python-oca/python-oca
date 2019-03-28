@@ -65,6 +65,14 @@ class TestClient(unittest.TestCase):
         c = oca.Client('test:test')
         assert c.one_address == oca.Client.DEFAULT_ONE_ADDRESS
 
+    def test_version(self):
+        c = oca.Client('test:test')
+        assert c.one_version is None
+        c.call = Mock(return_value='1.0.0')
+        assert c.version() == '1.0.0'
+        c.call.assert_called_once_with('system.version')
+        assert c.one_version == '1.0.0'
+
     def test_return_two_values_call(self):
         c = oca.Client('test:test')
         c.server.one = Mock()
