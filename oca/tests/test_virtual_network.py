@@ -18,16 +18,19 @@ NETWORK_ADDRESS = 192.168.0.0"""
 
 @parameterized_class([
     {'one_version': '4.10.0'},
-    {'one_version': '5.0.0'},
+    {'one_version': '5.4.0'},
+    {'one_version': '6.0.0'},
 ])
 class TestVirtualNetwork(unittest.TestCase):
+    # one_version = '4.10.0'
+
     def setUp(self):
         self.client = oca.Client('test:test')
         self.client.call = Mock(return_value=self.one_version)
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
                                      'tests/fixtures/vnet.xml')).read()
 
-        if self.one_version == '5.0.0':
+        if self.one_version >= '5':
             xml_v5 = ET.fromstring(self.xml)
             vn_mad = ET.Element('VN_MAD')
             vn_mad.text = 'vn_dummy'
@@ -36,7 +39,7 @@ class TestVirtualNetwork(unittest.TestCase):
 
     def tearDown(self):
         version = self.client.one_version
-        if version is not None and version.startswith('5.'):
+        if version is not None and version >= '5':
             xml_types = oca.VirtualNetwork.XML_TYPES
             del xml_types['vn_mad']
 

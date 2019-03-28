@@ -11,7 +11,8 @@ import oca
 
 @parameterized_class([
     {'one_version': '4.10.0'},
-    {'one_version': '5.0.0'},
+    {'one_version': '5.4.0'},
+    {'one_version': '6.0.0'},
 ])
 class TestHost(unittest.TestCase):
     def setUp(self):
@@ -20,14 +21,14 @@ class TestHost(unittest.TestCase):
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
                                      'tests/fixtures/host.xml')).read()
 
-        if self.one_version == '5.0.0':
+        if self.one_version >= '5':
             xml_v5 = ET.fromstring(self.xml)
             [xml_v5.remove(vn_mad) for vn_mad in xml_v5.findall('VN_MAD')]
             self.xml = ET.tostring(xml_v5).decode('utf-8')
 
     def tearDown(self):
         version = self.client.one_version
-        if version is not None and version.startswith('5.'):
+        if version is not None and version >= '5':
             xml_types = oca.Host.XML_TYPES
             xml_types['vn_mad'] = oca.pool.extractString
 
