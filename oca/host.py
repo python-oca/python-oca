@@ -24,8 +24,10 @@ class Host(PoolElement):
     MONITORING_ERROR = 5  # Currently monitoring, previously ERROR
     MONITORING_INIT = 6  # Currently monitoring, previously initialized
     MONITORING_DISABLED = 7  # Currently monitoring, previously DISABLED
+    OFFLINE = 8  # OpenNebula 5 allows hosts to be set offline
     HOST_STATES = ['INIT', 'MONITORING_MONITORED', 'MONITORED', 'ERROR', 'DISABLED',
-                   'MONITORING_ERROR', 'MONITORING_INIT', 'MONITORING_DISABLED']
+                   'MONITORING_ERROR', 'MONITORING_INIT', 'MONITORING_DISABLED',
+                   'OFFLINE']
 
     SHORT_HOST_STATES = {
         'INIT': 'on',
@@ -36,6 +38,7 @@ class Host(PoolElement):
         'MONITORING_ERROR': 'on',
         'MONITORING_INIT': 'on',
         'MONITORING_DISABLED': 'on',
+        'OFFLINE': 'off',
     }
 
     XML_TYPES = {
