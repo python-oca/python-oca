@@ -177,6 +177,8 @@ class VirtualMachine(PoolElement):
     def __init__(self, xml, client):
         super(VirtualMachine, self).__init__(xml, client)
         self.id = self['ID'] if self['ID'] else None
+        if client.one_version is None:
+            client.version()
 
     def deploy(self, host_id):
         """
@@ -229,13 +231,19 @@ class VirtualMachine(PoolElement):
         """
         Shutdowns an already deployed VM
         """
-        self._action('shutdown')
+        if client.one_version >= '5':
+            self._action('terminate')
+        else:
+            self._action('shutdown')
 
     def shutdown_hard(self):
         """
         Shutdown hard an already deployed VM
         """
-        self._action('shutdown-hard')
+        if client.one_version >= '5':
+            self._action('terminate-hard')
+        else:
+            self._action('shutdown-hard')
 
     def poweroff(self):
         """
