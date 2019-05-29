@@ -4,14 +4,21 @@ import unittest
 
 from mock import Mock
 from nose.tools import raises
+from parameterized import parameterized_class
 
 import oca
 import oca.pool
 
-
+@parameterized_class([
+    {'one_version': '4.10.0'},
+    {'one_version': '5.4.0'},
+    {'one_version': '6.0.0'},
+])
 class TestVirtualMachine(unittest.TestCase):
     def setUp(self):
         self.client = oca.Client('test:test')
+        self.client.call = Mock(return_value=self.one_version)
+        self.client.call.reset_mock()
         self.xml = open(os.path.join(os.path.dirname(oca.__file__),
                                      'tests/fixtures/vm.xml')).read()
 
@@ -64,38 +71,43 @@ class TestVirtualMachine(unittest.TestCase):
         assert oca.VirtualMachine.allocate(self.client, '<VM></VM>') == 3
 
     def test_deploy(self):
-        self.client.call = Mock(return_value='')
         vm = oca.VirtualMachine(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         vm.deploy(3)
         self.client.call.assert_called_once_with('vm.deploy', '6', 3)
 
     def test_migrate(self):
-        self.client.call = Mock(return_value='')
         vm = oca.VirtualMachine(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         vm.migrate(3)
         self.client.call.assert_called_once_with('vm.migrate', '6', 3, False)
 
     def test_live_migrate(self):
-        self.client.call = Mock(return_value='')
         vm = oca.VirtualMachine(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         vm.live_migrate(3)
         self.client.call.assert_called_once_with('vm.migrate', '6', 3, True)
 
     def test_save_disk(self):
-        self.client.call = Mock(return_value='')
         vm = oca.VirtualMachine(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         vm.save_disk(1, 2)
         self.client.call.assert_called_once_with('vm.savedisk', '6', 1, 2)
 
     def test_actions(self):
-        oca.client = oca.Client('test:test')
         vm = oca.VirtualMachine(self.xml, self.client)
         for action in ['shutdown', 'shutdown_hard', 'poweroff', 'poweroff_hard',
                        'hold', 'release', 'stop', 'cancel', 'suspend', 'resume',
-                       'reboot', 'finalize', 'delete', 'resched', 'unresched']:
+                       'reboot', 'finalize', 'delete', 'resched', 'unresched',
+                       'terminate', 'terminate_hard']:
             self.client.call = Mock(return_value='')
             getattr(vm, action)()
-            if action in ('shutdown_hard', 'poweroff_hard', 'undeploy_hard'):
+            if self.one_version >= '5':
+                if action in ('shutdown', 'shutdown_hard'):
+                    action = action.replace("shutdown", "terminate")
+            elif action in ('terminate', 'terminate_hard'):
+                    action = action.replace("terminate", "shutdown")
+            if action in ('shutdown_hard', 'terminate_hard', 'poweroff_hard', 'undeploy_hard'):
                 action = action.replace("_", "-")
             self.client.call.assert_called_once_with('vm.action', action, '6')
 
@@ -120,8 +132,8 @@ class TestVirtualMachine(unittest.TestCase):
             assert vm.short_lcm_state == lcm
 
     def test_resubmit(self):
-        self.client.call = Mock(return_value='')
         vm = oca.VirtualMachine(self.xml, self.client)
+        self.client.call = Mock(return_value='')
         vm.resubmit()
         self.client.call.assert_called_once_with('vm.action', 'resubmit', '6')
 
