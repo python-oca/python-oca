@@ -117,16 +117,21 @@ class Client(object):
         try:
             func = getattr(self.server.one, function)
             ret = func(self.one_auth, *args)
-            try:
-                is_success, data, return_code = ret
-            except ValueError:
-                data = ''
-                is_success = False
         except socket.error as e:
-            # connection error
+            #connection error
             raise e
+        if len(ret) == 3:
+            is_success, data, return_code = ret
+        elif len(ret) == 4:
+            is_success, data, return_code, _ = ret
+        else:
+            raise OpenNebulaException(
+                "Unexpected return value from `%s`: %r"
+                % (function, ret))
         if not is_success:
-            raise OpenNebulaException(data)
+            raise OpenNebulaException(
+                "OpenNebula RPC call `%s` failed with return code %d: %s"
+                % (function, return_code, data))
         return data
 
     def version(self):
